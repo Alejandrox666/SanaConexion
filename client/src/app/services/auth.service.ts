@@ -26,8 +26,8 @@ export class AuthService {
     return localStorage.getItem('userId');
   }
 
-  loginToServer(correo: string, contrasena: string): Observable<any> {
-    return this.http.post<any>('http://localhost:3002/api/login', { correo, contrasena });
+  loginToServer(email: string, password: string): Observable<any> {
+    return this.http.post<any>('http://localhost:3002/api/login', { email, password });
   }
 
   isAuthenticated(): boolean {

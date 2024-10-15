@@ -4,8 +4,8 @@ import pool from "../database";
 class LoginController{
 
     public async login(req:Request, resp:Response){
-        const { correo, contrasena } = req.body;
-        const usuario = await pool.query('SELECT * FROM usuarios WHERE correo = ? AND contrasena = ?', [correo, contrasena]);
+        const { email, password } = req.body;
+        const usuario = await pool.query('SELECT * FROM usuarios WHERE email = ? AND password = ?', [email, password]);
         
         if(usuario.length > 0) {
             // Si el usuario existe y las credenciales son correctas

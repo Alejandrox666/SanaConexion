@@ -37,7 +37,7 @@ export class LoginComponent {
           if (usuario.tipoUsuario === "Cliente") {
             this.router.navigate(['/home']);
           } else if (usuario.tipoUsuario === "Especialista") {
-            this.router.navigate(['/home-admin']);
+            this.router.navigate(['/home']);
           }
         } else {
           // Manejo de error en caso de que el éxito sea falso
