@@ -1,0 +1,50 @@
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-12 text-center">
+                <h1 class="text-center">Perfil de usuario</h1>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main content -->
+<section class="container">
+    <div class="container h-100">
+        <div class="row justify-content-md-center h-100">
+            <div class="col-md-8 text-center">
+                <div *ngIf="user" class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title text-center">Información</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <strong><i class="fas fa-user mr-1"></i> Nombre:</strong>
+                        <p class="text-muted">{{ user.nombre || 'No disponible' }}</p>
+                        <hr />
+                        <strong><i class="fas fa-birthday-cake mr-1"></i> Edad:</strong>
+                        <p class="text-muted">{{ user.edad || 'No disponible' }}</p>
+                        <hr />
+                        <strong><i class="fas fa-book mr-1"></i> Rol:</strong>
+                        <p class="text-muted">{{ user.tipoUsuario}}</p>
+                        <hr />
+                        <strong><i class="fas fa-envelope mr-1"></i> Correo:</strong>
+                        <p class="text-muted">{{ user.correo || 'No disponible' }}</p>
+                        <hr />
+                        <strong><i class="fas fa-key mr-1"></i> Contraseña:</strong>
+                        <p class="text-muted">*********</p>
+                        <hr />
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <div *ngIf="!user" class="text-center">
+                    <p>No se pudo cargar la información del usuario.</p>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>

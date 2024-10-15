@@ -1,0 +1,104 @@
+.header-custom {
+    background-color: #04ac84;
+    padding: 10px 0;
+  }
+  
+  .custom-brand {
+    font-size: 1.5rem;
+    color: #ecf0f1;
+  }
+  
+  .custom-brand:hover {
+    color: #bdc3c7;
+  }
+  
+  .navbar-toggler {
+    border-color: #ecf0f1;
+  }
+  
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ecf0f1' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  }
+  
+  .custom-link {
+    color: #ecf0f1;
+    font-weight: bold;
+  }
+  
+  .custom-link:hover {
+    color: #bdc3c7;
+  }
+  
+  .custom-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 25px;
+    padding: 5px 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .navbar {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 1rem;
+  }
+  
+  .footer {
+    background-color: #f8f9fa;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+  
+  .view-toggle {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+  }
+  
+  .fa {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin: 0 1rem;
+  }
+  
+  .fa:hover {
+    color: #007bff;
+  }
+  
+  .dropdown-toggle {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .dropdown-menu {
+    min-width: 150px;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  }
+  
+  .dropdown-item {
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }

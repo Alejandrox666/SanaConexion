@@ -4,6 +4,7 @@ import express, { Application } from 'express';
 import morgan from 'morgan';
 
 import indexRoutes from './routes/indexRoutes';
+import loginRoutes from './routes/loginRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 
 class Server {
@@ -28,6 +29,7 @@ class Server {
     routes(): void {
         this.app.use(indexRoutes);
         this.app.use('/api/users', usuariosRoutes);
+        this.app.use('/api/login', loginRoutes)
     }
 
     start() {

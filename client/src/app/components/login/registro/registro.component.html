@@ -1,0 +1,16 @@
+<div class="modal-background">
+    <div class="modal-content">
+        <button class="close-button" (click)="cerrarModal()">X</button>
+        
+        <h2 class="modal-title">Registrarse como:</h2>
+
+        <div class="botones-container">
+            <a routerLink="/formCli">
+                <button class="registro-button" (click)="cerrarModal()">Cliente</button>
+            </a>
+            <a routerLink="/formEsp">
+                <button class="registro-button" (click)="cerrarModal()">Especialista</button>
+            </a>
+        </div>
+    </div>
+</div>
