@@ -6,6 +6,8 @@ import morgan from 'morgan';
 import indexRoutes from './routes/indexRoutes';
 import loginRoutes from './routes/loginRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
+import usuarioEspRoutes from './routes/usuarioEspRoutes';
+
 
 class Server {
     public app : Application
@@ -30,6 +32,8 @@ class Server {
         this.app.use(indexRoutes);
         this.app.use('/api/users', usuariosRoutes);
         this.app.use('/api/login', loginRoutes)
+        this.app.use('/api/usuarioEsp',usuarioEspRoutes)
+
     }
 
     start() {
