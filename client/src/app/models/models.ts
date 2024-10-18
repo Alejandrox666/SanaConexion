@@ -1,10 +1,9 @@
 export interface Usuarios {
-    id: number,
-    nombre: string,
-    edad: number,
-    telefono: number,
-    correo: string,
-    contrasena: string,
-    fechaRegistro: Date,
+    IdUsuario: number,
+    NombreCompleto: string,
+    Telefono: number,
+    Email: string,
+    Password: string,
+    FechaRegistro: Date | string,
     tipoUsuario: string
 };

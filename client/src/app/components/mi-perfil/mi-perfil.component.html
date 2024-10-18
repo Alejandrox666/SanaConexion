@@ -20,16 +20,14 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <strong><i class="fas fa-user mr-1"></i> Nombre:</strong>
-                        <p class="text-muted">{{ user.nombre || 'No disponible' }}</p>
+                        <p class="text-muted">{{ user.NombreCompleto || 'No disponible' }}</p>
                         <hr />
-                        <strong><i class="fas fa-birthday-cake mr-1"></i> Edad:</strong>
-                        <p class="text-muted">{{ user.edad || 'No disponible' }}</p>
-                        <hr />
+                        
                         <strong><i class="fas fa-book mr-1"></i> Rol:</strong>
                         <p class="text-muted">{{ user.tipoUsuario}}</p>
                         <hr />
                         <strong><i class="fas fa-envelope mr-1"></i> Correo:</strong>
-                        <p class="text-muted">{{ user.correo || 'No disponible' }}</p>
+                        <p class="text-muted">{{ user.Email || 'No disponible' }}</p>
                         <hr />
                         <strong><i class="fas fa-key mr-1"></i> Contraseña:</strong>
                         <p class="text-muted">*********</p>

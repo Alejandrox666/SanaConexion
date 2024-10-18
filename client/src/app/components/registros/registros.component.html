@@ -1,0 +1,46 @@
+<form (ngSubmit)="registrarCliente()">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow-lg border-0 rounded-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3 class="fw-bold">Registro de Usuario</h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Formulario de registro -->
+                        <form (ngSubmit)="registrarCliente()">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-bold">Nombre</label>
+                                <input type="text" class="form-control form-control-lg" id="nombre" [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100" placeholder="Ingresa tu nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellidos" class="form-label fw-bold">Apellidos</label>
+                                <input type="text" class="form-control form-control-lg" id="apellidos" name="apellidos" maxlength="100" placeholder="Ingresa tus apellidos" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label fw-bold">Teléfono</label>
+                                <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-bold">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-lg" id="email" [(ngModel)]="registro.Email" name="email" maxlength="100" placeholder="Ingresa tu correo electrónico" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-bold">Contraseña</label>
+                                <input type="password" class="form-control form-control-lg" id="password" [(ngModel)]="registro.Password" name="password" placeholder="Ingresa tu contraseña" required>
+                            </div>
+                          
+                            <div class="d-grid gap-2 mt-3">
+                                <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+                                <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center bg-light">
+                        <small class="text-muted">¿Ya tienes una cuenta? <a href="#" class="text-primary fw-bold">Inicia sesión aquí</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

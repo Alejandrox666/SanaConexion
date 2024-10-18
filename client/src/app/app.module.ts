@@ -14,6 +14,7 @@ import { HomeAdminComponent } from './components/home-admin/home-admin.component
 import { FormEspComponent } from './components/form-esp/form-esp.component';
 import { FormEspCuentaComponent } from './components/form-esp/form-esp-cuenta/form-esp-cuenta.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { RegistrosComponent } from './components/registros/registros.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
     HomeAdminComponent,
     FormEspComponent,
     FormEspCuentaComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
+    RegistrosComponent
   ],
   imports: [
     BrowserModule,

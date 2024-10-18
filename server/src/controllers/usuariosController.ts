@@ -22,7 +22,7 @@ class UsuariosController{
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await pool.query('INSERT INTO usuarios set ?', [req.body]);
+        const result = await pool.query('INSERT INTO Usuarios set ?', [req.body]);
         res.json({ message: 'User Saved' });
     }
 
@@ -38,6 +38,10 @@ class UsuariosController{
         await pool.query('UPDATE usuarios set ? WHERE id = ?', [req.body, id]);
         res.json({ message: "The user was Updated" });
     }
+
+
+
+
 }
 
 const usuariosController = new UsuariosController();

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Usuarios } from '../models/models';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -30,6 +31,8 @@ export class UsuariosService {
     );
   }
 
+
+
   upuser(id: string | number, update: Usuarios): Observable<Usuarios> {
     return this.http.put<Usuarios>(`${this.API_URI}/users/${id}`, update);
   }
@@ -37,4 +40,7 @@ export class UsuariosService {
   getTipoU(){
     return this.http.get<Usuarios[]>(`${this.API_URI2}/tipos`);
   }
+
+
+
 }

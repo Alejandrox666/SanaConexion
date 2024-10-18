@@ -5,6 +5,7 @@ import { FormEspComponent } from './components/form-esp/form-esp.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
+import { RegistrosComponent } from './components/registros/registros.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path:'formEspCuenta',
     component:FormEspCuentaComponent
+  },
+  {
+    path:'registros',
+    component:RegistrosComponent
   },
 ];
 
