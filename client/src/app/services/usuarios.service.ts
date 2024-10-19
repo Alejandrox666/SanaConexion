@@ -9,6 +9,8 @@ import { Usuarios } from '../models/models';
 })
 export class UsuariosService {
 
+  private usuarioTemporal: Usuarios | null = null;
+
   private baseUrl = 'http://localhost:3002/api';
   API_URI='http://localhost:3002/api';
   API_URI2='http://localhost:3002/api';
@@ -42,5 +44,12 @@ export class UsuariosService {
   }
 
 
+  setUsuarioTemporal(usuario: Usuarios) {
+    this.usuarioTemporal = usuario;
+  }
+
+  getUsuarioTemporal(): Usuarios | null {
+    return this.usuarioTemporal;
+  }
 
 }

@@ -6,6 +6,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RegistrosComponent } from './components/registros/registros.component';
+import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path:'registros',
     component:RegistrosComponent
+  },
+  {
+    path:'registrosClientes',
+    component:RegistroClienteComponent
   },
 ];
 

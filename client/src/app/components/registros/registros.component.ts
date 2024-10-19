@@ -40,7 +40,7 @@ export class RegistrosComponent implements OnInit {
   }
 
   // Método para registrar al cliente
-  async registrarCliente() {
+  async registrarUsuario() {
     const fechaActual = new Date();
     this.registro.FechaRegistro = fechaActual; // Mantenerlo como un objeto Date
 
@@ -63,4 +63,21 @@ export class RegistrosComponent implements OnInit {
       }
     );
   }
+
+  irAlSiguientePaso() {
+    // Convertir la fecha a formato MySQL
+    const fechaActual = new Date();
+    const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+  
+    // Asigna la fecha formateada antes de guardar
+    this.registro.FechaRegistro = fechaFormatoMySQL;
+  
+    // Guarda los datos del usuario en un servicio compartido para usarlos más adelante
+    this.usuarioService.setUsuarioTemporal(this.registro);
+    
+    // Redirige al siguiente componente
+    this.router.navigate(['/registrosClientes']);
+  }
+  
+  
 }

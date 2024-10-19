@@ -22,9 +22,21 @@ class UsuariosController{
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await pool.query('INSERT INTO Usuarios set ?', [req.body]);
-        res.json({ message: 'User Saved' });
+        try {
+            // Realiza la inserción y almacena el resultado
+            const result = await pool.query('INSERT INTO Usuarios set ?', [req.body]);
+            
+            // Obtiene el ID del usuario recién creado
+            const userId = result.insertId; // Asegúrate de que el método de consulta devuelve insertId
+            
+            // Devuelve el ID del usuario como parte de la respuesta
+            res.json({ IdUsuario: userId, message: 'User Saved' });
+        } catch (error) {
+            console.error('Error al crear usuario:', error);
+            res.status(500).json({ message: 'Error al crear usuario' });
+        }
     }
+    
 
     public  async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;

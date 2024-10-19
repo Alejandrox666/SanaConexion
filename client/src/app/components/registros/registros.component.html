@@ -1,4 +1,4 @@
-<form (ngSubmit)="registrarCliente()">
+<form (ngSubmit)="registrarUsuario()">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="card-body p-4">
                         <!-- Formulario de registro -->
-                        <form (ngSubmit)="registrarCliente()">
+                        <form (ngSubmit)="registrarUsuario()">
                             <div class="mb-3">
                                 <label for="nombre" class="form-label fw-bold">Nombre</label>
                                 <input type="text" class="form-control form-control-lg" id="nombre" [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100" placeholder="Ingresa tu nombre" required>
@@ -31,7 +31,9 @@
                             </div>
                           
                             <div class="d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-primary btn-lg">Registrar</button>
+                                <button type="button" class="btn btn-primary btn-lg" (click)="irAlSiguientePaso()">Siguiente</button>
+
+
                                 <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
                             </div>
                         </form>
