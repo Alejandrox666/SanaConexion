@@ -1,41 +1,36 @@
-<section class="vh-100 d-flex justify-content-center align-items-center" style="background-color: #d4ecec;">
-    <div class="container h-100">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-md-8 col-lg-6">
-          <div class="card shadow-lg" style="border-radius: 1rem; height: 100%; display: flex; flex-direction: column;">
-            <div class="row g-0 flex-fill">
-              <!-- Formulario de inicio de sesión -->
-              <div class="col-md-6 d-flex align-items-center justify-content-center p-4">
-                <div class="card-body">
-                  <h2 class="fw-bold mb-4 text-center" style="color:#040d97;">Inicia sesión</h2>
-                  <form (ngSubmit)="login()">
-                    <div class="form-outline mb-4">
-                      <input type="correo" [(ngModel)]="Email" name="correo" placeholder="Correo Electrónico" class="form-control form-control-lg" required />
-                      <label class="form-label">Correo Electrónico</label>
-                    </div>
-                    <div class="form-outline mb-4">
-                      <input type="password" [(ngModel)]="Password" name="contrasena" placeholder="Contraseña" class="form-control form-control-lg" required />
-                      <label class="form-label">Contraseña</label>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                      <a href="#" style="color: #040d97;">¿Olvidaste tu contraseña?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg w-100">Iniciar Sesión</button>
-                  </form>
-                  <br>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <p>¿Aún no tienes una cuenta? <a routerLink="/registros" style="color: #040d97;">Regístrate aquí</a></p>
+<section class="vh-100 d-flex justify-content-center align-items-center" style="background: url('assets/nutrition-background.jpg') no-repeat center center; background-size: cover;">
+  <div class="container h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-lg" style="border-radius: 1rem; background-color: rgba(255, 255, 255, 0.9);">
+          <div class="row g-0 flex-fill">
+            <!-- Formulario de inicio de sesión -->
+            <div class="col-12 d-flex align-items-center justify-content-center p-4">
+              <div class="card-body">
+                <h2 class="fw-bold mb-4 text-center" style="color:#040d97;">Inicia sesión</h2>
+                <form (ngSubmit)="login()">
+                  <div class="form-outline mb-4">
+                    <input type="email" [(ngModel)]="Email" name="correo" placeholder="Correo Electrónico" class="form-control form-control-lg" required />
+                    <label class="form-label">Correo Electrónico</label>
                   </div>
+                  <div class="form-outline mb-4">
+                    <input type="password" [(ngModel)]="Password" name="contrasena" placeholder="Contraseña" class="form-control form-control-lg" required />
+                    <label class="form-label">Contraseña</label>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <a href="#" style="color: #040d97;">¿Olvidaste tu contraseña?</a>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg w-100">Iniciar Sesión</button>
+                </form>
+                <br>
+                <div class="d-flex justify-content-between align-items-center">
+                  <p>¿Aún no tienes una cuenta? <a routerLink="/registros" style="color: #040d97;">Regístrate aquí</a></p>
                 </div>
-              </div>
-              <!-- Imagen de fondo -->
-              <div class="col-md-6 d-none d-md-block">
-                <img src="assets/login.jpg"
-                    alt="login form" class="img-fluid" style="border-radius: 0 1rem 1rem 0; height: 100%; object-fit: cover;" />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </section>
