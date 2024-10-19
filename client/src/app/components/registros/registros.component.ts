@@ -20,8 +20,8 @@ export class RegistrosComponent implements OnInit {
     Telefono: 0,
     Email: '',
     Password: '',
-    FechaRegistro: new Date(), // Mantenerlo como un objeto Date
-    tipoUsuario: 'Cliente'
+    FechaRegistro: new Date(),
+    tipoUsuario: ''
   };
 
   constructor(

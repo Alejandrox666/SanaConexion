@@ -1,50 +1,44 @@
 <div class="registro-container">
     <h2 class="registro-title">Registro de Nutriólogo Especialista</h2>
-    <div class="form-group">
-        <label for="nombreEsp">Nombre completo</label>
-        <input type="text" id="nombreEsp" placeholder="Nombre completo">
-    </div>
-    
-    <div class="form-group">
-        <label for="telefonoEsp">Número de teléfono</label>
-        <input type="text" id="telefonoEsp" placeholder="Número de teléfono">
-    </div>
-    
+
     <div class="form-group">
         <label for="cedulaEsp">Número de cédula</label>
-        <input type="text" id="cedulaEsp" placeholder="Número de cédula">
+        <input type="text" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
     </div>
 
     <div class="form-group">
         <label for="gradoEsp">Grado de estudios</label>
-        <input type="text" id="gradoEsp" placeholder="Grado de estudios">
+        <input type="text" id="gradoEsp" [(ngModel)]="especialista.GradoEstudios" name="GradoEstudios" placeholder="Grado de estudios" required>
     </div>
 
     <div class="form-group">
         <label for="especialidadEsp">Especialidad</label>
-        <input type="text" id="especialidadEsp" placeholder="Especialidad">
+        <input type="text" id="especialidadEsp" [(ngModel)]="especialista.Especialidad" name="Especialidad" placeholder="Especialidad" required>
     </div>
 
     <div class="form-group">
         <label for="certificacionesEsp">Certificaciones</label>
-        <input type="text" id="certificacionesEsp" placeholder="Certificaciones">
+        <input type="text" id="certificacionesEsp" [(ngModel)]="especialista.Certificaciones" name="Certificaciones" placeholder="Certificaciones" required>
     </div>
 
     <div class="form-group">
         <label for="experienciaEsp">Años de experiencia</label>
-        <input type="text" id="experienciaEsp" placeholder="Años de experiencia">
+        <input type="number" id="experienciaEsp" [(ngModel)]="especialista.YearsExperience" name="YearsExperience" placeholder="Años de experiencia" required>
     </div>
 
-    <div class="form-group">
-        <label for="fotoEsp">Tómate una foto, por favor</label>
-        <button class="camera-button">Activar cámara</button>
+    <div class="mb-3">
+        <label for="foto" class="form-label fw-bold">Foto (para identificación)</label>
+        <input type="file" class="form-control form-control-lg" id="foto" name="foto">
     </div>
-    
+
     <a routerLink="/formEspCuenta">
-        <button class="next-button">Siguiente</button>
+        <button type="button" (click)="guardarEspe()" class="next-button">Siguiente</button>
     </a>
 
-    <div class="d-flex justify-content-between align-items-center">
-        <p>Ya tengo cuenta <a (click)="goToComponent()" style="color: #040d97;">Regresar</a></p>
-      </div>
+    <div class="card-footer text-center bg-light">
+        <small class="text-muted">¿Ya tienes una cuenta? <a (click)="goToComponent()"
+                class="text-primary fw-bold">Inicia sesión aquí</a></small>
+    </div>
+
+
 </div>

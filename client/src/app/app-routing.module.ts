@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormEspCuentaComponent } from './components/form-esp/form-esp-cuenta/form-esp-cuenta.component';
 import { FormEspComponent } from './components/form-esp/form-esp.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -30,10 +29,6 @@ const routes: Routes = [
   {
     path:'formEsp',
     component:FormEspComponent
-  },
-  {
-    path:'formEspCuenta',
-    component:FormEspCuentaComponent
   },
   {
     path:'registros',

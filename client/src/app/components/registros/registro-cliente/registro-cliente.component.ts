@@ -27,7 +27,7 @@ export class RegistroClienteComponent implements OnInit {
     private usuarioService: UsuariosService,
     private clientesService: ClientesService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
@@ -40,21 +40,24 @@ export class RegistroClienteComponent implements OnInit {
 
   registrarAmbos() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
-    
+
+
+
     // Comprobar que usuarioTemporal no es null antes de guardar
     if (usuarioTemporal) {
       // Primero guardar el usuario
+      usuarioTemporal.tipoUsuario = 'Cliente'
       this.usuarioService.saveuser(usuarioTemporal).subscribe(
         resp => {
-          console.log('Respuesta del servidor:', resp); 
+          console.log('Respuesta del servidor:', resp);
           if (resp && resp.IdUsuario) {
             // Asigna el IdUsuario recibido
             this.cliente.IdUsuario = resp.IdUsuario;
 
             // Muestra el IdUsuario en la consola
-          console.log('ID del usuario registrado:', this.cliente.IdUsuario);
-  
-        
+            console.log('ID del usuario registrado:', this.cliente.IdUsuario);
+
+
             // Ahora guardar los datos en la tabla 'clientes'
             this.clientesService.saveCliente(this.cliente).subscribe(
               (respCliente: any) => {
@@ -79,6 +82,6 @@ export class RegistroClienteComponent implements OnInit {
   goToLogin() {
     this.router.navigate(['/login'], { replaceUrl: true });
   }
-  
-  
+
+
 }
