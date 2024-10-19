@@ -81,8 +81,6 @@ export class RegistrosComponent implements OnInit {
     // Guarda los datos del usuario en un servicio compartido para usarlos más adelante
     this.usuarioService.setUsuarioTemporal(this.registro);
     
-    // Redirige al siguiente componente
-    this.router.navigate(['/registrosClientes']);
   }
 
   openModal() {
