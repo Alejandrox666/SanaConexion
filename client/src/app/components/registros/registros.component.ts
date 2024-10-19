@@ -64,13 +64,16 @@ export class RegistrosComponent implements OnInit {
     );
   }
 
-  irAlSiguientePaso() {
+  async irAlSiguientePaso() {
     // Convertir la fecha a formato MySQL
     const fechaActual = new Date();
     const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
   
     // Asigna la fecha formateada antes de guardar
     this.registro.FechaRegistro = fechaFormatoMySQL;
+
+    // Encriptar la contraseña de forma asíncrona
+    this.registro.Password = await this.hashPassword(this.registro.Password);
   
     // Guarda los datos del usuario en un servicio compartido para usarlos más adelante
     this.usuarioService.setUsuarioTemporal(this.registro);

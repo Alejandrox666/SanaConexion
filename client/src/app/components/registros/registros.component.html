@@ -10,13 +10,10 @@
                         <!-- Formulario de registro -->
                         <form (ngSubmit)="registrarUsuario()">
                             <div class="mb-3">
-                                <label for="nombre" class="form-label fw-bold">Nombre</label>
+                                <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
                                 <input type="text" class="form-control form-control-lg" id="nombre" [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100" placeholder="Ingresa tu nombre" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="apellidos" class="form-label fw-bold">Apellidos</label>
-                                <input type="text" class="form-control form-control-lg" id="apellidos" name="apellidos" maxlength="100" placeholder="Ingresa tus apellidos" required>
-                            </div>
+                            
                             <div class="mb-3">
                                 <label for="telefono" class="form-label fw-bold">Teléfono</label>
                                 <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required>
