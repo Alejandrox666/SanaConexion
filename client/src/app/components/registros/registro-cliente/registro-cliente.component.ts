@@ -75,6 +75,10 @@ export class RegistroClienteComponent implements OnInit {
       console.log('No se encontraron datos del usuario para guardar.');
     }
   }
+
+  goToLogin() {
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
   
   
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Usuarios } from 'src/app/models/models';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
+import { RegistroComponent } from '../login/registro/registro.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registro',
@@ -24,7 +26,8 @@ export class RegistrosComponent implements OnInit {
 
   constructor(
     private usuarioService: UsuariosService,
-    private router: Router
+    private router: Router,
+    private modal:NgbModal
   ) {}
 
   ngOnInit() {}
@@ -64,7 +67,7 @@ export class RegistrosComponent implements OnInit {
     );
   }
 
-  async irAlSiguientePaso() {
+  async guardarDatos() {
     // Convertir la fecha a formato MySQL
     const fechaActual = new Date();
     const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
@@ -81,6 +84,17 @@ export class RegistrosComponent implements OnInit {
     // Redirige al siguiente componente
     this.router.navigate(['/registrosClientes']);
   }
+
+  openModal() {
+    const modalRef = this.modal.open(RegistroComponent, {
+      backdrop: 'static',
+      size: 'lg',
+      centered: true
+    });
+  }
   
+  goToLogin() {
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
   
 }
