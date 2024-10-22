@@ -44,7 +44,7 @@ export class RegistroClienteComponent implements OnInit {
     
     // Comprobar que usuarioTemporal no es null antes de guardar
     if (usuarioTemporal) {
-      // Primero guardar el usuario
+      usuarioTemporal.tipoUsuario='Cliente'
       this.usuarioService.saveuser(usuarioTemporal).subscribe(
         resp => {
           console.log('Respuesta del servidor:', resp); 
