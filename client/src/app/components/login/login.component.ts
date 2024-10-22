@@ -47,7 +47,7 @@ export class LoginComponent {
           this.datosUsuario.emit(usuario);
     
           // Navegar según el rol del usuario
-          const destination = usuario.tipoUsuario === "Cliente" ? '/home' : '/home';
+          const destination = usuario.tipoUsuario === "Cliente" ? '/home' : '/inicioE';
           this.router.navigate([destination]);
         } else {
           // Manejo de error en caso de que el éxito sea falso
