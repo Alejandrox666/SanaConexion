@@ -1,0 +1,22 @@
+<div class="container mt-4">
+    <div class="row">
+      <div *ngFor="let especialista of especialistas" class="col-md-4 mb-4">
+        <div class="card shadow-sm">
+          <img *ngIf="especialista.Foto" [src]="especialista.Foto" alt="Foto del Especialista" class="card-img-top" style="width: 100%; height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">{{ especialista.NombreCompleto }}</h5>
+            <p class="card-text">
+              <strong>Teléfono:</strong> {{ especialista.Telefono }} <br>
+              <strong>Email:</strong> {{ especialista.Email }} <br>
+              <strong>Número de Cédula:</strong> {{ especialista.NumCedula }} <br>
+              <strong>Grado de Estudios:</strong> {{ especialista.GradoEstudios }} <br>
+              <strong>Especialidad:</strong> {{ especialista.Especialidad }} <br>
+              <strong>Certificaciones:</strong> {{ especialista.Certificaciones }} <br>
+              <strong>Años de Experiencia:</strong> {{ especialista.YearsExperience }} <br>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

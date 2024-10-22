@@ -47,10 +47,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="foto" class="form-label fw-bold">Foto</label>
-                            <input type="file" class="form-control form-control-lg" id="foto" name="foto">
+                            <input type="file" class="form-control form-control-lg" id="foto" name="foto" (change)="onFileSelected($event)">
                         </div>
+                        
                         <div class="d-grid gap-2 mt-3">
-                            <button type="button" class="btn btn-primary btn-lg" (click)="registrarAmbos()">Registrar</button>
+                            <button type="button" href="/vistaClient" class="btn btn-primary btn-lg" (click)="registrarAmbos()">Registrar</button>
                             <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RegistrosComponent } from './components/registros/registros.component';
 import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
+import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,11 @@ const routes: Routes = [
     path:'registrosClientes',
     component:RegistroClienteComponent
   },
+  {
+    path:'vistaClient',
+    component:VistaClienteComponent
+  },
+
 ];
 
 @NgModule({

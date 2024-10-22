@@ -20,14 +20,15 @@ export class RegistroClienteComponent implements OnInit {
     EnfCronicas: '',
     Alergias: '',
     ObjetivoSalud: '',
-    Medicamentos: ''
+    Medicamentos: '',
+    Foto: null as unknown as File
   };
 
   constructor(
     private usuarioService: UsuariosService,
     private clientesService: ClientesService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
@@ -40,29 +41,27 @@ export class RegistroClienteComponent implements OnInit {
 
   registrarAmbos() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
-
-
-
+    
     // Comprobar que usuarioTemporal no es null antes de guardar
     if (usuarioTemporal) {
       // Primero guardar el usuario
-      usuarioTemporal.tipoUsuario = 'Cliente'
       this.usuarioService.saveuser(usuarioTemporal).subscribe(
         resp => {
-          console.log('Respuesta del servidor:', resp);
+          console.log('Respuesta del servidor:', resp); 
           if (resp && resp.IdUsuario) {
             // Asigna el IdUsuario recibido
             this.cliente.IdUsuario = resp.IdUsuario;
 
             // Muestra el IdUsuario en la consola
-            console.log('ID del usuario registrado:', this.cliente.IdUsuario);
-
-
+          console.log('ID del usuario registrado:', this.cliente.IdUsuario);
+            
+         
+        
             // Ahora guardar los datos en la tabla 'clientes'
             this.clientesService.saveCliente(this.cliente).subscribe(
               (respCliente: any) => {
                 console.log('Cliente guardado:', respCliente);
-                this.router.navigate(['/exito']);
+                this.router.navigate(['/vistaClient']);
               },
               (err: any) => {
                 console.log('Error al guardar cliente:', err);
@@ -78,10 +77,15 @@ export class RegistroClienteComponent implements OnInit {
       console.log('No se encontraron datos del usuario para guardar.');
     }
   }
-
-  goToLogin() {
-    this.router.navigate(['/login'], { replaceUrl: true });
+  goToLogin(){
+    this.router.navigate(["/login"],{replaceUrl:true})
   }
 
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+        this.cliente.Foto = event.target.files[0]; // Asigna el primer archivo seleccionado
+    }
+}
 
+  
 }
