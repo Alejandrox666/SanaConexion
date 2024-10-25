@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container mt-4">
+    <h2>Crear Formulario Personalizado</h2>
+  
+    <form [formGroup]="form">
+      <div formArrayName="fields">
+        <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i" class="question-container">
+          
+          <!-- Pregunta -->
+          <div class="form-group">
+            <label for="question">Pregunta {{i + 1}}</label>
+            <input class="form-control" formControlName="question" placeholder="Escribe tu pregunta">
+          </div>
+  
+          <!-- Mostrar input de respuesta si es pregunta abierta -->
+          <div *ngIf="field.value.type === 'text'" class="form-group">
+            <label for="answer">Respuesta</label>
+            <input class="form-control" formControlName="answer" placeholder="Respuesta abierta">
+          </div>
+  
+          <!-- Mostrar opciones si es pregunta de opción múltiple -->
+          <div *ngIf="field.value.type === 'multiple-choice'" class="options-container">
+            <label for="options">Opciones</label>
+            <div formArrayName="options" class="mb-3">
+              <div *ngFor="let option of getOptions(i).controls; let j = index" class="form-group">
+                <input class="form-control" [formControlName]="j" placeholder="Escribe una opción">
+              </div>
+            </div>
+            <button type="button" class="btn btn-secondary btn-sm" (click)="addOptionToField(i)">Añadir Opción</button>
+          </div>
+  
+          <!-- Botón para eliminar la pregunta -->
+          <button class="btn btn-danger btn-sm" (click)="removeField(i)">Eliminar Pregunta</button>
+        </div>
+      </div>
+    </form>
+  
+    <!-- Botones para añadir preguntas -->
+    <div class="mt-4">
+      <button class="btn btn-primary" (click)="addTextField()">Añadir Pregunta Abierta</button>
+      <button class="btn btn-info" (click)="addMultipleChoiceField()">Añadir Opción Múltiple</button>
+    </div>
+  </div>
+  

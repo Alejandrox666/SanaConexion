@@ -1,21 +1,34 @@
-<nav class="navbar navbar-expand-lg fixed-top w-100 navbar-custom" style="background-color: #1abc9c;">  
-  <div class="container-fluid">  
-    <a class="navbar-brand text-white" href="/inicioE">Navbar</a>  <!-- Texto en blanco para contraste -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">  
-      <span class="navbar-toggler-icon"></span>  
-    </button>  
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">  
-      <ul class="navbar-nav">  
-        <li class="nav-item">  
+<nav class="navbar navbar-expand-lg fixed-top w-100 navbar-custom" style="background-color: #1abc9c;">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="/inicioE">Navbar</a> <!-- Texto en blanco para contraste -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
           <a class="nav-link active text-white" aria-current="page" href="/inicioE">Home</a>
-        </li>  
-        <li class="nav-item">  
+        </li>
+        <li class="nav-item">
           <a class="nav-link text-white" href="#">Mensajeria</a>
-        </li>  
-        <li class="nav-item">  
-          <a class="nav-link text-white" href="#">Formularios</a>
-        </li> 
-      </ul>  
-    </div>  
-  </div>  
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/formE">Formularios</a>
+        </li>
+      </ul>
+
+      <!-- Alinear el icono de sesión a la derecha con el menú desplegable -->
+      <div class="ms-auto d-flex align-items-center" *ngIf="isLoggedIn">
+        <div class="dropdown">
+          <img src="assets/avatar.png" alt="User Icon" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" />
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <a class="dropdown-item" routerLink="/mi-perfil">Mi perfil</a>
+            <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>

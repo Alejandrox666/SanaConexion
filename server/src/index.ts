@@ -8,6 +8,7 @@ import loginRoutes from './routes/loginRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import usuarioEspRoutes from './routes/usuarioEspRoutes';
 import clientesRoutes from './routes/clientesRoutes';
+import formularioRoutes from './routes/formularioRoutes';
 
 
 class Server {
@@ -35,6 +36,7 @@ class Server {
         this.app.use('/api/clientes', clientesRoutes);
         this.app.use('/api/login', loginRoutes)
         this.app.use('/api/usuarioEsp',usuarioEspRoutes)
+        this.app.use('/api/formularios',formularioRoutes)
 
     }
 

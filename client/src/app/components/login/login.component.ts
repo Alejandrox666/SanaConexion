@@ -30,12 +30,11 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
-    // Encriptar la contraseña proporcionada por el usuario
     const encryptedPassword = await this.hashPassword(this.Password);
 
     this.authService.loginToServer(this.Email, encryptedPassword).subscribe({
       next: (response: any) => {
-        console.log('Response:', response); // Para verificar la respuesta
+        console.log('Response:', response);
     
         if (response && response.success) {
           this.authService.setLoggedInStatus(true);

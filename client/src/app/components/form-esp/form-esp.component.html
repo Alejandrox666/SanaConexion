@@ -28,7 +28,7 @@
 
     <div class="mb-3">
         <label for="foto" class="form-label fw-bold">Foto (para identificación)</label>
-        <input type="file" class="form-control form-control-lg" id="foto" name="foto">
+        <input type="file" (change)="onFileSelected($event)" class="form-control form-control-lg" id="foto" name="foto">
     </div>
 
     <a routerLink="/formEspCuenta">

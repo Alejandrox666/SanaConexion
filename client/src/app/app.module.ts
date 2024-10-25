@@ -19,6 +19,7 @@ import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
+import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionar
     VistaClienteComponent,
     NavbarComponent,
     EspecialistaComponent,
-    RCuestionarioComponent
+    RCuestionarioComponent,
+    FormulariosComponent
   ],
   imports: [
     BrowserModule,

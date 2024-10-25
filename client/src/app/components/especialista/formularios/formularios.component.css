@@ -1,0 +1,32 @@
+/* Espacio entre las preguntas */
+.question-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Botón de añadir y eliminar */
+  button {
+    margin-top: 10px;
+  }
+  
+  /* Opciones de preguntas de opción múltiple */
+  .options-container {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  /* Estilo de los inputs */
+  input {
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo de las etiquetas */
+  label {
+    font-weight: bold;
+  }
+  

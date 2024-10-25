@@ -6,7 +6,7 @@ class UsuarioEspController {
     public async list(req: Request, res: Response): Promise<void> {
         const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
    FROM Usuarios
-   INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`,)
+   INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`)
    res.json(usuarios)
     }
 
