@@ -1,0 +1,106 @@
+<div class="container mt-5 p-4" style="max-width: 1200px;">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 style="font-size: 2rem;">Cuestionario de Salud</h2>
+            <p class="mb-0" style="font-size: 1.5rem;">Objetivo: Bajar de Peso</p>
+        </div>
+        <div class="card-body bg-light">
+            <form (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Pregunta 1 -->
+                        <div class="form-group mb-4">
+                            <label for="motivo" class="font-weight-bold" style="font-size: 1.4rem;">1. ¿Por qué deseas bajar de peso?</label>
+                            <input type="text" id="motivo" class="form-control" placeholder="Describe tu motivo principal" style="font-size: 1.4rem;" required>
+                        </div>
+
+                        <!-- Pregunta 2 -->
+                        <div class="form-group mb-4">
+                            <label for="comidas" class="font-weight-bold" style="font-size: 1.4rem;">2. ¿Cuántas comidas completas realizas al día?</label>
+                            <select id="comidas" class="form-control" style="font-size: 1.4rem;" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="1-2">1-2 comidas</option>
+                                <option value="3">3 comidas</option>
+                                <option value="4 o más">4 o más comidas</option>
+                            </select>
+                        </div>
+
+                        <!-- Pregunta 3 -->
+                        <div class="form-group mb-4">
+                            <label for="snacks" class="font-weight-bold" style="font-size: 1.4rem;">3. ¿Consumes snacks entre comidas?</label>
+                            <select id="snacks" class="form-control" style="font-size: 1.4rem;" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="nunca">Nunca</option>
+                                <option value="ocasionalmente">Ocasionalmente</option>
+                                <option value="a menudo">A menudo</option>
+                            </select>
+                        </div>
+
+                        <!-- Pregunta 4 -->
+                        <div class="form-group mb-4">
+                            <label for="actividad" class="font-weight-bold" style="font-size: 1.4rem;">4. ¿Qué tipo de actividad física realizas actualmente y cuántas veces por semana?</label>
+                            <textarea id="actividad" class="form-control" placeholder="Describe la actividad y la frecuencia semanal" style="font-size: 1.4rem;" required></textarea>
+                        </div>
+
+                        <!-- Pregunta 5 -->
+                        <div class="form-group mb-4">
+                            <label for="agua" class="font-weight-bold" style="font-size: 1.4rem;">5. ¿Cuántos litros de agua consumes diariamente?</label>
+                            <select id="agua" class="form-control" style="font-size: 1.4rem;" required>
+                                <option value="">Selecciona una opción</option>
+                                <option value="menos de 1L">Menos de 1L</option>
+                                <option value="1-2L">1-2L</option>
+                                <option value="más de 2L">Más de 2L</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <!-- Pregunta 6 -->
+                        <div class="form-group mb-4">
+                            <label for="alimentos" class="font-weight-bold" style="font-size: 1.4rem;">6. ¿Tienes algún alimento que evitas o al que eres intolerante?</label>
+                            <input type="text" id="alimentos" class="form-control" placeholder="Escribe el alimento o pon 'Ninguno'" style="font-size: 1.4rem;">
+                        </div>
+
+                        <!-- Pregunta 7 -->
+                        <div class="form-group mb-4">
+                            <label for="dietaPasada" class="font-weight-bold" style="font-size: 1.4rem;">7. ¿Has seguido alguna dieta para perder peso en el pasado? Si es así, ¿cuál?</label>
+                            <textarea id="dietaPasada" class="form-control" placeholder="Describe la dieta o pon 'No'" style="font-size: 1.4rem;"></textarea>
+                        </div>
+
+                        <!-- Pregunta 8 -->
+                        <div class="form-group mb-4">
+                            <label for="metas" class="font-weight-bold" style="font-size: 1.4rem;">8. ¿Tienes alguna meta de peso específica que desees alcanzar?</label>
+                            <input type="text" id="metas" class="form-control" placeholder="Escribe tu peso meta o 'No' si no tienes uno específico" style="font-size: 1.4rem;">
+                        </div>
+
+                        <!-- Pregunta 9 -->
+                        <div class="form-group mb-4">
+                            <label for="suplementos" class="font-weight-bold" style="font-size: 1.4rem;">9. ¿Estás consumiendo algún suplemento alimenticio o vitaminas?</label>
+                            <input type="text" id="suplementos" class="form-control" placeholder="Describe los suplementos o pon 'No'" style="font-size: 1.4rem;">
+                        </div>
+
+                        <!-- Pregunta 10 -->
+                        <div class="form-group mb-4">
+                            <label for="suenio" class="font-weight-bold" style="font-size: 1.4rem;">10. ¿Cuántas horas de sueño tienes por noche en promedio?</label>
+                            <select id="suenio" class="form-control" style="font-size: 1.4rem;">
+                                <option value="">Selecciona una opción</option>
+                                <option value="menos de 5 horas">Menos de 5 horas</option>
+                                <option value="5-6 horas">5-6 horas</option>
+                                <option value="7-8 horas">7-8 horas</option>
+                                <option value="más de 8 horas">Más de 8 horas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón de envío -->
+                <button type="submit" class="btn btn-primary mt-3 w-100" style="font-size: 1.5rem;">Enviar Cuestionario</button>
+            </form>
+
+            <!-- Mensaje de éxito -->
+            <div *ngIf="mensaje" class="alert alert-success mt-3" role="alert">
+                {{ mensaje }}
+            </div>
+        </div>
+    </div>
+</div>

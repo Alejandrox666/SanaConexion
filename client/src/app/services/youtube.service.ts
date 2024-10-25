@@ -13,7 +13,7 @@ export class YoutubeService {
   constructor(private http: HttpClient) { }
 
   getVideos(): Observable<any> {
-    const url = `${this.apiUrl}/search?key=${this.apiKey}&part=snippet&type=video&q=Salud`;
+    const url = `${this.apiUrl}/search?key=${this.apiKey}&part=snippet&type=video&q=Consejos para bajar de peso saludablemente`;
     return this.http.get(url);
   }
 }

@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavigationComponent implements OnInit {
   isLoginPage: boolean = false;
   isHomePage: boolean = false;
+  isRegistrosPage: boolean = false;
   isDestacadosPage: boolean = false;
   isLoggedIn: boolean = false;
 
@@ -24,6 +25,7 @@ export class NavigationComponent implements OnInit {
       const url = this.router.url;
       this.isLoginPage = url === '/login';
       this.isHomePage = url === '/home';
+      this.isRegistrosPage = url === '/registros';
       this.isDestacadosPage = url === '/destacados';
     });
 

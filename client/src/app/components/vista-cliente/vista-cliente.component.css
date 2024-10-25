@@ -1,0 +1,26 @@
+/* Icono de Notificación */
+.notification-icon {
+    font-size: 1.25rem;
+  }
+  
+  /* Estilo para cada notificación */
+  .list-group-item {
+    background-color: #f7f7f7;
+    transition: background-color 0.2s ease;
+  }
+  
+  .list-group-item:hover {
+    background-color: #e9ecef;
+    border-radius: 8px;
+  }
+  
+  /* Tipografía y color */
+  .card-body p {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  small.text-muted {
+    font-size: 0.85rem;
+  }
+  

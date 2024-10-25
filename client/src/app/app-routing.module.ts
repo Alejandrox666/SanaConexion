@@ -9,6 +9,7 @@ import { RegistroClienteComponent } from './components/registros/registro-client
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
+import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path:'navE',
     component:NavbarComponent
+  },
+  {
+    path:'rCuestionario',
+    component: RCuestionarioComponent
   },
 
 ];
