@@ -38,18 +38,12 @@ export class LoginComponent {
     
         if (response && response.success) {
           this.authService.setLoggedInStatus(true);
-    
           const usuario: Usuarios = response.usuario[0];
           this.authService.setCurrentUser(usuario);
-    
-          // Emitir los datos del usuario
           this.datosUsuario.emit(usuario);
-    
-          // Navegar según el rol del usuario
-          const destination = usuario.tipoUsuario === "Cliente" ? '/home' : '/inicioE';
+          const destination = usuario.tipoUsuario === "Cliente" ? '/vistaClient' : '/inicioE';
           this.router.navigate([destination]);
         } else {
-          // Manejo de error en caso de que el éxito sea falso
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -58,7 +52,6 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        // Manejo de error para problemas con el servidor o la red
         Swal.fire({
           icon: 'error',
           title: 'Error',

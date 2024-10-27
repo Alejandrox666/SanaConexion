@@ -58,4 +58,8 @@ export class AuthService {
   getCurrentUser(): Observable<Usuarios | null> {
     return this.currentUserSubject.asObservable();
   }
+
+  getEspecialistaByIdUsuario(idUsuario: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:3002/api/usuarioEsp/${idUsuario}`);
+  }
 }

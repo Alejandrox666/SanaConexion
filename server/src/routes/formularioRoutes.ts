@@ -11,6 +11,12 @@ class FormularioRoutes{
     config(): void {
         this.router.get('/',formularioController.formList);
         this.router.get('/:id',formularioController.getOneForm);
+        this.router.post('/',formularioController.createForm)
+        this.router.post('/preguntas',formularioController.createPre)
+        this.router.put('/:id',formularioController.updateForm)
+        this.router.put('/preguntas/:id',formularioController.updatePre)
+        this.router.delete('/:id',formularioController.deleteForm)
+        this.router.delete('/preguntas/:id',formularioController.deletePre)
     }
 }
 
