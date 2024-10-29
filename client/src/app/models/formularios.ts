@@ -4,6 +4,8 @@ export interface Cuestionarios {
     NomCuestionario: string;
     Descripcion: string;
     FechaCreacion: Date | string;
+
+    preguntas?: Preguntas[];
 }
 
 export interface Preguntas {

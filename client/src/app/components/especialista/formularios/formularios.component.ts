@@ -13,8 +13,18 @@ import { FormularioService } from 'src/app/services/formulario.service';
 export class FormulariosComponent implements OnInit {
   @Input() datosUsuario!: Usuarios;
   user: Usuarios = {} as Usuarios;
+  cuestionarios: (Cuestionarios & { mostrarPreguntas: boolean })[] = [];
+  preguntas: Preguntas[] = [];
+
+  selectedCuestionario: Cuestionarios | null = null;
+  selectedPregunta: Preguntas | null = null;
 
   form: FormGroup;
+  editForm: FormGroup;
+  editPre: FormGroup;
+
+  enEdicion = false
+  enEdicionPre = false
 
   cuestionario: Cuestionarios = {
     IdCuestionario: 0,
@@ -27,12 +37,22 @@ export class FormulariosComponent implements OnInit {
   constructor(private fb: FormBuilder, private formularioService: FormularioService,
     private authService: AuthService
   ) {
+    this.editForm = this.fb.group({
+      NomCuestionario: [''],
+      Descripcion: ['']
+    });
+
+    this.editPre = this.fb.group({
+      Pregunta: ['']
+    });
+
     this.form = this.fb.group({
       fields: this.fb.array([])
     });
   }
 
   ngOnInit(): void {
+    this.getForm()
     this.authService.getCurrentUser().subscribe(
       (user) => {
         if (user) {
@@ -58,9 +78,6 @@ export class FormulariosComponent implements OnInit {
       }
     );
   }
-
-
-
 
   get fields() {
     return this.form.get('fields') as FormArray;
@@ -97,6 +114,26 @@ export class FormulariosComponent implements OnInit {
     options.push(new FormControl(''));
   }
 
+  getForm() {
+    this.formularioService.getForm().subscribe((cuestionariosResponse: Cuestionarios[]) => {
+      this.formularioService.getPre().subscribe((preguntasResponse: Preguntas[]) => {
+        this.cuestionarios = cuestionariosResponse.map(cuestionario => ({
+          ...cuestionario,
+          preguntas: preguntasResponse.filter(p => p.IdCuestionario === cuestionario.IdCuestionario),
+          mostrarPreguntas: false,
+        }));
+      });
+    });
+  }
+
+
+
+  getPre() {
+    this.formularioService.getPre().subscribe(response => {
+      this.preguntas = response
+    })
+  }
+
   saveForm() {
     const formValues = this.form.value;
 
@@ -114,11 +151,9 @@ export class FormulariosComponent implements OnInit {
             Pregunta: field.question
           };
 
-          console.log("Pregunta a guardar:", pregunta); // Verifica cada pregunta aquí
           this.formularioService.createPre(pregunta).subscribe();
         });
-
-        // Resetear el formulario
+        this.getForm()
         this.form.reset();
         this.fields.clear();
 
@@ -139,6 +174,114 @@ export class FormulariosComponent implements OnInit {
     });
   }
 
+  editCuestionario(cuestionario: Cuestionarios) {
+    this.enEdicion = true
+    this.selectedCuestionario = cuestionario;
+    this.editForm.patchValue({
+      NomCuestionario: cuestionario.NomCuestionario,
+      Descripcion: cuestionario.Descripcion
+    });
+  }
 
+  saveChanges(IdCuestionario: number) {
+    if (this.selectedCuestionario) {
+
+      const fechaActual = new Date();
+      this.selectedCuestionario.FechaCreacion = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+
+      const formSave: Cuestionarios = {
+        IdCuestionario: IdCuestionario,
+        IdEspecialista: this.selectedCuestionario.IdEspecialista,
+        NomCuestionario: this.editForm.value.NomCuestionario,
+        Descripcion: this.editForm.value.Descripcion,
+        FechaCreacion: this.selectedCuestionario.FechaCreacion,
+      };
+      this.formularioService.updateForm(IdCuestionario, formSave).subscribe(
+        response => {
+          this.getForm()
+        },
+        error => {
+          console.error('Error al actualizar el formulario', error);
+        }
+      );
+      this.enEdicion = false;
+      this.selectedCuestionario = null;
+      this.editForm.reset();
+    }
+  }
+
+  cancelEditForm() {
+    this.enEdicion = false;
+    this.selectedCuestionario = null;
+    this.editForm.reset();
+  }
+
+  deleteForm(id: number) {
+    this.formularioService.deleteForm(id).subscribe(() => {
+      this.cuestionarios = this.cuestionarios.filter(c => c.IdCuestionario !== id);
+    });
+  }
+
+  // savePre(cuestionario: Cuestionarios) {
+  //   // Lógica para agregar una nueva pregunta a un cuestionario
+  //   const nuevaPregunta: Preguntas = {
+  //     IdPregunta: 0, // Asignar un ID apropiado, puede ser autoincremental en el backend
+  //     Pregunta: "Nueva pregunta" // Aquí puedes abrir un modal o un formulario para que el usuario ingrese la pregunta
+  //   };
+
+  //   // Asegúrate de que el nuevo objeto se guarde en la base de datos
+  //   this.formularioService.addPregunta(cuestionario.IdCuestionario, nuevaPregunta).subscribe((respuesta) => {
+  //     cuestionario.preguntas.push(respuesta); // Agregar la pregunta a la lista
+  //   });
+  // }
+
+  editPreguntas(pregunta: Preguntas) {
+    this.enEdicionPre = true
+    this.selectedPregunta = pregunta;
+    this.editPre.patchValue({
+      pregunta: pregunta.Pregunta
+    });
+  }
+
+  saveChangePre(IdPregunta: number) {
+    if (this.selectedPregunta) {
+
+      const formPre: Preguntas = {
+        IdPregunta: IdPregunta,
+        IdCuestionario: this.selectedPregunta.IdCuestionario,
+        Pregunta: this.editPre.value.Pregunta
+
+      };
+      this.formularioService.updatePre(IdPregunta, formPre).subscribe(
+        response => {
+          this.getForm()
+        },
+        error => {
+          console.error('Error al actualizar el formulario', error);
+        }
+      );
+      this.enEdicionPre = false
+      this.selectedPregunta = null;
+      this.editForm.reset();
+    }
+  }
+
+  cancelEditPre() {
+    this.enEdicionPre = false
+    this.selectedPregunta = null;
+    this.editForm.reset();
+  }
+
+  deletePregunta(idPregunta: number) {
+    console.log(idPregunta)
+    this.formularioService.deletePre(idPregunta).subscribe(() => {
+      this.preguntas = this.preguntas.filter(c => c.IdCuestionario !== idPregunta);
+      this.getForm()
+    });
+  }
+
+  togglePreguntas(index: number) {
+    this.cuestionarios[index].mostrarPreguntas = !this.cuestionarios[index].mostrarPreguntas;
+  }
 
 }

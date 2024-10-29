@@ -15,6 +15,10 @@ export class FormularioService {
   getForm() {
     return this.http.get<Cuestionarios[]>(`${this.Back_Api}/`)
   }
+  
+  getPre() {
+    return this.http.get<Preguntas[]>(`${this.Back_Api}/preguntas`)
+  }
 
   createForm(cuestionario: Cuestionarios): Observable<any> {
     return this.http.post(`${this.Back_Api}`, cuestionario).pipe(

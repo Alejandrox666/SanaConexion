@@ -10,6 +10,7 @@ class FormularioRoutes{
 
     config(): void {
         this.router.get('/',formularioController.formList);
+        this.router.get('/preguntas',formularioController.preList);
         this.router.get('/:id',formularioController.getOneForm);
         this.router.post('/',formularioController.createForm)
         this.router.post('/preguntas',formularioController.createPre)

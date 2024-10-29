@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
+<!-- Crear Formulario -->
 <div class="container mt-4">
-  <h2>Crear Formulario Personalizado</h2>
+  <h2 class="mb-4">Crear Nuevo Formulario</h2>
 
-  <!-- Formulario para nombre y descripción del cuestionario -->
   <div class="form-group">
     <label for="NomCuestionario">Nombre del Cuestionario</label>
     <input type="text" class="form-control" [(ngModel)]="cuestionario.NomCuestionario" name="NomCuestionario"
@@ -12,21 +12,18 @@
   <div class="form-group">
     <label for="Descripcion">Descripción</label>
     <textarea class="form-control" [(ngModel)]="cuestionario.Descripcion" name="Descripcion"
-      placeholder="Descripción del Cuestionario"></textarea>
+      placeholder="Objetivo del Cuestionario"></textarea>
   </div>
 
-  <!-- Formulario dinámico de preguntas -->
   <form [formGroup]="form">
     <div formArrayName="fields">
       <div *ngFor="let field of fields.controls; let i = index" [formGroupName]="i" class="question-container">
 
-        <!-- Pregunta -->
         <div class="form-group">
           <label for="question">Pregunta {{i + 1}}</label>
           <input class="form-control" formControlName="question" placeholder="Escribe tu pregunta">
         </div>
 
-        <!-- Mostrar opciones si es pregunta de opción múltiple -->
         <div *ngIf="field.value.type === 'multiple-choice'" class="options-container">
           <label for="options">Opciones</label>
           <div formArrayName="options" class="mb-3">
@@ -37,7 +34,6 @@
           <button type="button" class="btn btn-secondary btn-sm" (click)="addOptionToField(i)">Añadir Opción</button>
         </div>
 
-        <!-- Botón para eliminar la pregunta -->
         <button class="btn btn-danger btn-sm" (click)="removeField(i)">Eliminar Pregunta</button>
       </div>
     </div>
@@ -50,5 +46,84 @@
   </div>
   <div class="mt-4">
     <button class="btn btn-success" (click)="saveForm()">Guardar Formulario</button>
+  </div>
+</div>
+
+<!-- Formularios existentes -->
+<div class="container mt-4">
+  <h2 class="mb-4">Tus formularios</h2>
+
+  <div class="col-md-4" *ngFor="let cuestionario of cuestionarios; let i = index">
+    <div *ngIf="!enEdicion" class="card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">{{ cuestionario.NomCuestionario }}</h5>
+        <p class="card-text">{{ cuestionario.Descripcion }}</p>
+        <button class="btn btn-primary" (click)="togglePreguntas(i)">
+          {{ cuestionario.mostrarPreguntas ? 'Ocultar preguntas' : 'Ver preguntas' }}
+        </button>
+        <div *ngIf="!enEdicionPre">
+          <div *ngIf="cuestionario.mostrarPreguntas" class="mt-3">
+            <p>Preguntas:</p>
+            <ul>
+              <li *ngFor="let pregunta of cuestionario.preguntas">
+                {{ pregunta.Pregunta }}
+                <button class="btn btn-warning mt-2" (click)="editPreguntas(pregunta)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger mt-2" (click)="deletePregunta(pregunta.IdPregunta)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </li>
+            </ul>
+            <!-- <button class="btn btn-secondary mt-2" (click)="addPregunta(cuestionario)">Agregar Pregunta</button> -->
+          </div>
+        </div>
+
+        <div *ngIf="enEdicionPre">
+          <div *ngIf="selectedPregunta" class="edit-form mt-4">
+            <form [formGroup]="editPre" (ngSubmit)="saveChangePre(selectedPregunta.IdPregunta)">
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="Pregunta" placeholder="Escribe tu pregunta">
+              </div>
+              <button type="submit" class="btn btn-success">Guardar Cambios</button>
+              <button type="button" class="btn btn-secondary" (click)="cancelEditPre()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+
+
+        <!-- Botones de editar y eliminar para el cuestionario -->
+        <button class="btn btn-warning mt-2" (click)="editCuestionario(cuestionario)">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn btn-danger mt-2" (click)="deleteForm(cuestionario.IdCuestionario)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div *ngIf="enEdicion" class="card mb-4">
+        <div class="card-body">
+          <div *ngIf="selectedCuestionario" class="edit-form mt-4">
+            <form [formGroup]="editForm" (ngSubmit)="saveChanges(selectedCuestionario.IdCuestionario)">
+              <div class="form-group">
+                <label for="NomCuestionario">Nombre del Cuestionario</label>
+                <input type="text" class="form-control" formControlName="NomCuestionario"
+                  placeholder="Nombre del Cuestionario">
+              </div>
+              <div class="form-group">
+                <label for="Descripcion">Descripción</label>
+                <textarea class="form-control" formControlName="Descripcion"
+                  placeholder="Objetivo del Cuestionario"></textarea>
+              </div>
+              <button type="submit" class="btn btn-success">Guardar Cambios</button>
+              <button type="button" class="btn btn-secondary" (click)="cancelEditForm()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
