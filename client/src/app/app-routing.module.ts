@@ -10,6 +10,7 @@ import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
+import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 
 const routes: Routes = [
   {
@@ -57,6 +58,10 @@ const routes: Routes = [
   {
     path:'rCuestionario',
     component: RCuestionarioComponent
+  },
+  {
+    path:'formE',
+    component:FormulariosComponent
   },
 
 ];

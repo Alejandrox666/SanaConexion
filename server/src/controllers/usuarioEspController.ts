@@ -6,15 +6,15 @@ class UsuarioEspController {
     public async list(req: Request, res: Response): Promise<void> {
         const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
    FROM Usuarios
-   INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`,)
-   res.json(usuarios)
+   INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`)
+        res.json(usuarios)
     }
 
-    public async getOne (req: Request, res: Response): Promise<any> {
+    public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
 
         try {
-            const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
+            const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.IdEspecialista, Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
                 FROM Usuarios
                 INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario
                 WHERE Usuarios.IdUsuario = ?`, [id]);
@@ -27,26 +27,21 @@ class UsuarioEspController {
         }
     }
 
-    public async createUsu (req:Request, res:Response): Promise<void>{
-        const insert = await pool.query('INSERT INTO Usuarios set ?', [req.body]);
-        res.json({message:'User Saved'})
+    public async createEsp(req: Request, res: Response): Promise<void> {
+        await pool.query('INSERT INTO Especialistas set ?', [req.body]);
+        res.json({ message: 'Especialista Saved' })
     }
 
-    public async createEsp (req:Request, res:Response): Promise<void>{
-        const insert = await pool.query('INSERT INTO Especialistas set ?', [req.body]);
-        res.json({message:'Especialista Saved'})
+    public async updateUsu(req: Request, res: Response): Promise<void> {
+        const { id } = req.params;
+        await pool.query('UPDATE Usuarios set ? WHERE IdUsuario = ?', [req.body, id]);
+        res.json({ message: 'The usuario was update' })
     }
 
-    public async updateUsu (req: Request, res:Response): Promise<void>{
-        const {id} = req.params;
-        await pool.query('UPDATE Usuarios set ? WHERE IdUsuario = ?',[req.body,id]);
-        res.json({message:'The usuario was update'})
-    }
-
-    public async updateEsp (req: Request, res:Response): Promise<void>{
-        const {id} = req.params;
-        await pool.query('UPDATE Especialistas set ? WHERE IdEspecialista = ?',[req.body,id]);
-        res.json({message:'The usuario was update'})
+    public async updateEsp(req: Request, res: Response): Promise<void> {
+        const { id } = req.params;
+        await pool.query('UPDATE Especialistas set ? WHERE IdEspecialista = ?', [req.body, id]);
+        res.json({ message: 'The especialista was update' })
     }
 }
 

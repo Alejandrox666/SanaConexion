@@ -19,6 +19,7 @@ export class FormEspComponent implements OnInit {
     Especialidad: '',
     Certificaciones: '',
     YearsExperience: 0,
+    Foto: null as unknown as File
   }
 
   constructor(private router: Router, private especialistaS: DatosEspService, private usuarioService: UsuariosService) { }
@@ -71,5 +72,11 @@ export class FormEspComponent implements OnInit {
       console.log('No se encontraron datos del usuario para guardar.');
     }
   }
+
+  onFileSelected(event: any) {
+    if (event.target.files.length > 0) {
+        this.especialista.Foto = event.target.files[0]; // Asigna el primer archivo seleccionado
+    }
+}
 
 }

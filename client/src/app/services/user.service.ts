@@ -7,8 +7,8 @@ import { Usuarios } from '../models/models';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3002/api/usuarios'; // Cambia esto a tu URL real de API
-
+  private apiUrl = 'http://localhost:3002/api/usuarios';
+  
   constructor(private http: HttpClient) {}
 
   getUserProfile(userId: string): Observable<Usuarios> {

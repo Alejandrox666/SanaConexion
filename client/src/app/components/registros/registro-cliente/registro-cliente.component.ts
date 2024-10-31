@@ -33,7 +33,7 @@ export class RegistroClienteComponent implements OnInit {
   ngOnInit() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
     if (usuarioTemporal) {
-      this.cliente.IdUsuario = usuarioTemporal.IdUsuario; // Asignar el IdUsuario al cliente
+      this.cliente.IdUsuario = usuarioTemporal.IdUsuario;
     } else {
       console.log('No se encontraron datos del usuario.');
     }
@@ -52,11 +52,6 @@ export class RegistroClienteComponent implements OnInit {
             // Asigna el IdUsuario recibido
             this.cliente.IdUsuario = resp.IdUsuario;
 
-            // Muestra el IdUsuario en la consola
-          console.log('ID del usuario registrado:', this.cliente.IdUsuario);
-            
-         
-        
             // Ahora guardar los datos en la tabla 'clientes'
             this.clientesService.saveCliente(this.cliente).subscribe(
               (respCliente: any) => {
