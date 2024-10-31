@@ -61,7 +61,7 @@ export class RegistroClienteComponent implements OnInit {
             this.clientesService.saveCliente(this.cliente).subscribe(
               (respCliente: any) => {
                 console.log('Cliente guardado:', respCliente);
-                this.router.navigate(['/vistaClient']);
+                this.router.navigate(['/login']);
               },
               (err: any) => {
                 console.log('Error al guardar cliente:', err);

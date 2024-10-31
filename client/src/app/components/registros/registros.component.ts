@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Usuarios } from 'src/app/models/models';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Router } from '@angular/router';
-import { RegistroComponent } from '../login/registro/registro.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registro',
@@ -11,7 +10,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./registros.component.css']
 })
 export class RegistrosComponent implements OnInit {
-  
   mostrarAlertaInsert: boolean = false;
   hayError: boolean = false;
   registro: Usuarios = {
@@ -21,18 +19,23 @@ export class RegistrosComponent implements OnInit {
     Email: '',
     Password: '',
     FechaRegistro: new Date(),
-    tipoUsuario: ''
+    tipoUsuario: 'Cliente',
   };
+  codigoVerificacion: string = '';
+  modalRef: NgbModalRef | undefined;
+
+  @ViewChild('verificacionCodigoModal') verificacionCodigoModal: any;
+  @ViewChild('seleccionRolModal') seleccionRolModal: any; // Referencia al modal de selección de rol
 
   constructor(
     private usuarioService: UsuariosService,
     private router: Router,
-    private modal:NgbModal
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {}
 
-  // Método para convertir una cadena de texto en SHA-256
+  // Método para encriptar la contraseña en SHA-256
   async hashPassword(password: string): Promise<string> {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -42,18 +45,57 @@ export class RegistrosComponent implements OnInit {
       .join('');
   }
 
-  // Método para registrar al cliente
-  async registrarUsuario() {
+  // Enviar el código de verificación al correo
+  async guardarDatos() {
     const fechaActual = new Date();
-    this.registro.FechaRegistro = fechaActual; // Mantenerlo como un objeto Date
-
-    // Convertir la fecha a formato MySQL
     const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
-    this.registro.FechaRegistro = fechaFormatoMySQL; // Asignar el formato correcto
-
-    // Encriptar la contraseña de forma asíncrona
+    this.registro.FechaRegistro = fechaFormatoMySQL;
     this.registro.Password = await this.hashPassword(this.registro.Password);
 
+    this.usuarioService.setUsuarioTemporal(this.registro);
+
+    try {
+      await this.usuarioService.enviarCodigo(this.registro.Email).toPromise();
+      // Abre el modal para ingresar el código de verificación
+      this.modalRef = this.modalService.open(this.verificacionCodigoModal, {
+        backdrop: 'static',
+        size: 'lg',
+        centered: true
+      });
+    } catch (error) {
+      console.error('Error al enviar el código de verificación:', error);
+    }
+  }
+
+  // Verificar el código ingresado por el usuario
+  async verificarCodigo() {
+    if (!this.codigoVerificacion) {
+      console.error("El código de verificación no está ingresado");
+      alert("Por favor, ingresa el código de verificación.");
+      return;
+    }
+
+    try {
+      const resultado = await this.usuarioService.verificarCodigo(this.registro.Email, this.codigoVerificacion).toPromise();
+      if (resultado && resultado.message === 'Código verificado correctamente') {
+        this.modalRef?.close();
+        // Abre el modal de selección de rol
+        this.modalRef = this.modalService.open(this.seleccionRolModal, {
+          backdrop: 'static',
+          size: 'lg',
+          centered: true
+        });
+      } else {
+        alert('Código incorrecto. Inténtalo de nuevo.');
+      }
+    } catch (error) {
+      console.error('Error al verificar el código:', error);
+      alert('Error al verificar el código.');
+    }
+  }
+
+  // Método para registrar al cliente
+  async registrarUsuario() {
     this.usuarioService.saveuser(this.registro).subscribe(
       resp => {
         console.log(resp);
@@ -62,37 +104,30 @@ export class RegistrosComponent implements OnInit {
       },
       err => {
         console.log(err);
-        this.hayError = true; // Muestra un error más detallado aquí si es posible
+        this.hayError = true;
       }
     );
   }
 
-  async guardarDatos() {
-    // Convertir la fecha a formato MySQL
-    const fechaActual = new Date();
-    const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
-  
-    // Asigna la fecha formateada antes de guardar
-    this.registro.FechaRegistro = fechaFormatoMySQL;
+  // Método para seleccionar el rol y redirigir
+  seleccionarRol(rol: string) {
+    this.modalRef?.close();
+    if (rol === 'especialista') {
+      this.router.navigate(['/formEsp']);
+    } else if (rol === 'cliente') {
+      this.router.navigate(['/registrosClientes']);
+    }
+  }
 
-    // Encriptar la contraseña de forma asíncrona
-    this.registro.Password = await this.hashPassword(this.registro.Password);
-  
-    // Guarda los datos del usuario en un servicio compartido para usarlos más adelante
-    this.usuarioService.setUsuarioTemporal(this.registro);
-    
+  goToLogin() {
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   openModal() {
-    const modalRef = this.modal.open(RegistroComponent, {
+    this.modalRef = this.modalService.open(this.verificacionCodigoModal, {
       backdrop: 'static',
       size: 'lg',
       centered: true
     });
   }
-  
-  goToLogin() {
-    this.router.navigate(['/login'], { replaceUrl: true });
-  }
-  
 }

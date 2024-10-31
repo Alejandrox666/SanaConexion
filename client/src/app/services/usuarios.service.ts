@@ -20,6 +20,16 @@ export class UsuariosService {
     return this.http.get<Usuarios[]>(`${this.API_URI}/users`);
   }
 
+  // Método para enviar el código de verificación
+  enviarCodigo(email: string): Observable<any> {
+    return this.http.post(`${this.API_URI}/users/send-code`, { email });
+  }
+
+  // Método para verificar el código de verificación
+  verificarCodigo(email: string, code: string): Observable<any> {
+    return this.http.post(`${this.API_URI}/users/verify-code`, { email, code });
+  }
+
   deleteuser(id: string|number){
     return this.http.delete(`${this.API_URI}/users/${id}`);
   }
