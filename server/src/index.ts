@@ -36,6 +36,7 @@ class Server {
         this.app.use('/api/clientes', clientesRoutes);
         this.app.use('/api/login', loginRoutes)
         this.app.use('/api/usuarioEsp',usuarioEspRoutes)
+        this.app.use('/api/formularios',formularioRoutes)
 
     }
 

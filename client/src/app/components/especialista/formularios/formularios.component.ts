@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Cuestionarios, Preguntas } from 'src/app/models/formularios';
 import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,13 +18,15 @@ export class FormulariosComponent implements OnInit {
 
   selectedCuestionario: Cuestionarios | null = null;
   selectedPregunta: Preguntas | null = null;
+  formularioEnEdicion: number | null = null;
 
   form: FormGroup;
   editForm: FormGroup;
   editPre: FormGroup;
 
-  enEdicion = false
-  enEdicionPre = false
+  enEdicion: { [key: number]: boolean } = {};
+  enEdicionPre: { [key: number]: boolean } = {};
+  addPre: { [key: number]: boolean } = {};
 
   cuestionario: Cuestionarios = {
     IdCuestionario: 0,
@@ -38,16 +40,16 @@ export class FormulariosComponent implements OnInit {
     private authService: AuthService
   ) {
     this.editForm = this.fb.group({
-      NomCuestionario: [''],
-      Descripcion: ['']
+      NomCuestionario: ['', Validators.required],
+      Descripcion: ['', Validators.required]
     });
 
     this.editPre = this.fb.group({
-      Pregunta: ['']
+      Pregunta: ['', Validators.required]
     });
 
     this.form = this.fb.group({
-      fields: this.fb.array([])
+      fields: this.fb.array([], Validators.required)
     });
   }
 
@@ -79,17 +81,19 @@ export class FormulariosComponent implements OnInit {
     );
   }
 
+  //Formularios
+
   get fields() {
     return this.form.get('fields') as FormArray;
   }
 
   addTextField() {
     const textField = this.fb.group({
-      type: 'text',
-      question: ''
+        type: 'text',
+        question: ['', Validators.required]
     });
     this.fields.push(textField);
-  }
+}
 
   removeField(index: number) {
     this.fields.removeAt(index);
@@ -114,6 +118,8 @@ export class FormulariosComponent implements OnInit {
     options.push(new FormControl(''));
   }
 
+  //Cuestionarios
+
   getForm() {
     this.formularioService.getForm().subscribe((cuestionariosResponse: Cuestionarios[]) => {
       this.formularioService.getPre().subscribe((preguntasResponse: Preguntas[]) => {
@@ -126,15 +132,24 @@ export class FormulariosComponent implements OnInit {
     });
   }
 
-
-
-  getPre() {
-    this.formularioService.getPre().subscribe(response => {
-      this.preguntas = response
-    })
+  getFormNoUpdate() {
+    this.formularioService.getForm().subscribe((cuestionariosResponse: Cuestionarios[]) => {
+      this.formularioService.getPre().subscribe((preguntasResponse: Preguntas[]) => {
+        this.cuestionarios = cuestionariosResponse.map(cuestionario => ({
+          ...cuestionario,
+          preguntas: preguntasResponse.filter(p => p.IdCuestionario === cuestionario.IdCuestionario),
+          mostrarPreguntas: true,
+        }));
+      });
+    });
   }
 
   saveForm() {
+
+    if (this.form.invalid || !this.cuestionario.NomCuestionario || !this.cuestionario.Descripcion) {
+      alert('Por favor, completa todos los campos requeridos.');
+      return;
+  }
     const formValues = this.form.value;
 
     const fechaActual = new Date();
@@ -175,13 +190,16 @@ export class FormulariosComponent implements OnInit {
   }
 
   editCuestionario(cuestionario: Cuestionarios) {
-    this.enEdicion = true
+    console.log('Editando cuestionario:', cuestionario);
+    this.enEdicion[cuestionario.IdCuestionario] = true;
+    console.log(this.enEdicion);
     this.selectedCuestionario = cuestionario;
     this.editForm.patchValue({
       NomCuestionario: cuestionario.NomCuestionario,
       Descripcion: cuestionario.Descripcion
     });
   }
+
 
   saveChanges(IdCuestionario: number) {
     if (this.selectedCuestionario) {
@@ -204,14 +222,15 @@ export class FormulariosComponent implements OnInit {
           console.error('Error al actualizar el formulario', error);
         }
       );
-      this.enEdicion = false;
+      this.enEdicion[IdCuestionario] = false;
       this.selectedCuestionario = null;
       this.editForm.reset();
     }
   }
 
-  cancelEditForm() {
-    this.enEdicion = false;
+
+  cancelEditForm(IdCuestionario: number) {
+    this.enEdicion[IdCuestionario] = false;
     this.selectedCuestionario = null;
     this.editForm.reset();
   }
@@ -222,22 +241,41 @@ export class FormulariosComponent implements OnInit {
     });
   }
 
-  // savePre(cuestionario: Cuestionarios) {
-  //   // Lógica para agregar una nueva pregunta a un cuestionario
-  //   const nuevaPregunta: Preguntas = {
-  //     IdPregunta: 0, // Asignar un ID apropiado, puede ser autoincremental en el backend
-  //     Pregunta: "Nueva pregunta" // Aquí puedes abrir un modal o un formulario para que el usuario ingrese la pregunta
-  //   };
+  //Preguntas
 
-  //   // Asegúrate de que el nuevo objeto se guarde en la base de datos
-  //   this.formularioService.addPregunta(cuestionario.IdCuestionario, nuevaPregunta).subscribe((respuesta) => {
-  //     cuestionario.preguntas.push(respuesta); // Agregar la pregunta a la lista
-  //   });
-  // }
+  addPregunta(IdCuestionario: number) {
+    this.addPre[IdCuestionario] = true
+  }
+
+  savePre(IdCuestionario: number) {
+    if (this.editPre.valid) {
+      const savPre: Preguntas = {
+        IdPregunta: 0,
+        IdCuestionario: IdCuestionario,
+        Pregunta: this.editPre.value.Pregunta
+      }
+
+      this.formularioService.createPre(savPre).subscribe(
+        () => { this.getForm(); }
+      );
+      this.addPre[IdCuestionario] = false
+      this.selectedPregunta = null;
+      this.editPre.reset();
+    }
+  }
+
+  cancelAddPre(IdCuestionario: number) {
+    this.addPre[IdCuestionario] = false
+    this.selectedPregunta = null;
+    this.editForm.reset();
+  }
 
   editPreguntas(pregunta: Preguntas) {
-    this.enEdicionPre = true
     this.selectedPregunta = pregunta;
+    this.enEdicionPre[pregunta.IdPregunta] = true;
+    this.editPre = this.fb.group({
+      Pregunta: [pregunta.Pregunta || '', Validators.required]
+    });
     this.editPre.patchValue({
       pregunta: pregunta.Pregunta
     });
@@ -255,19 +293,19 @@ export class FormulariosComponent implements OnInit {
       this.formularioService.updatePre(IdPregunta, formPre).subscribe(
         response => {
           this.getForm()
+          this.enEdicionPre[IdPregunta] = false;
+          this.selectedPregunta = null;
+          this.editPre.reset();
         },
         error => {
           console.error('Error al actualizar el formulario', error);
         }
       );
-      this.enEdicionPre = false
-      this.selectedPregunta = null;
-      this.editForm.reset();
     }
   }
 
-  cancelEditPre() {
-    this.enEdicionPre = false
+  cancelEditPre(IdPregunta: number) {
+    this.enEdicionPre[IdPregunta] = false;
     this.selectedPregunta = null;
     this.editForm.reset();
   }
@@ -276,7 +314,7 @@ export class FormulariosComponent implements OnInit {
     console.log(idPregunta)
     this.formularioService.deletePre(idPregunta).subscribe(() => {
       this.preguntas = this.preguntas.filter(c => c.IdCuestionario !== idPregunta);
-      this.getForm()
+      this.getFormNoUpdate()
     });
   }
 
