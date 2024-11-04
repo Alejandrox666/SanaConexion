@@ -1,0 +1,151 @@
+/* Estilos Generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+  }
+  
+  .container {
+    width: 90%;
+    margin: auto;
+    max-width: 1200px;
+  }
+  
+  /* Encabezado */
+  .header {
+    text-align: center;
+    padding: 60px 0;
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .header h1 {
+    font-size: 2.5em;
+  }
+  
+  .slogan {
+    font-size: 1.2em;
+    font-style: italic;
+    margin: 10px 0 20px;
+  }
+  
+  .cta-button {
+    background-color: #fff;
+    color: #4CAF50;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 5px;
+  }
+  
+  .cta-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Sección de Presentación */
+  .intro {
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .intro h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  
+  .intro p {
+    font-size: 1.1em;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Sección de Beneficios */
+  .benefits {
+    padding: 40px 20px;
+  }
+  
+  .benefits h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+  
+  .benefit-card {
+    display: inline-block;
+    width: 30%;
+    margin: 15px;
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .benefit-card h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+  }
+  
+  .benefit-card p {
+    font-size: 1em;
+    color: #666;
+  }
+  
+  /* Sección de Testimonios */
+  .testimonials {
+    background-color: #e0f7fa;
+    padding: 50px 20px;
+  }
+  
+  .testimonials h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 30px;
+  }
+  
+  .testimonial-card {
+    width: 45%;
+    margin: 10px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonial-card p {
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .client-name {
+    text-align: right;
+    font-weight: bold;
+    color: #4CAF50;
+  }
+  
+  /* Pie de Página */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1abc9c;
+    color: #fff;
+    font-size: 0.9em;
+  }
+  
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 5px;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }

@@ -1,0 +1,24 @@
+.card {
+    border-radius: 10px; /* Bordes redondeados para la tarjeta */
+}
+
+.card-header {
+    border-bottom: 2px solid #0056b3; /* Línea divisoria en el encabezado */
+}
+
+.form-control {
+    transition: border-color 0.3s ease; /* Suavizar la transición del borde */
+}
+
+.form-control:focus {
+    border-color: #0056b3; /* Color de borde al enfocar el campo */
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5); /* Sombra al enfocar el campo */
+}
+
+.btn-primary {
+    transition: background-color 0.3s ease; /* Suavizar la transición del fondo */
+}
+
+.btn-primary:hover {
+    background-color: #004494; /* Color de fondo al pasar el mouse */
+}

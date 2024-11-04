@@ -1,0 +1,13 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f1f1f1; /* Color de fondo en hover */
+    transition: background-color 0.3s ease; /* Transición suave */
+  }

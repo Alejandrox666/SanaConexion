@@ -15,7 +15,7 @@ export interface Preguntas {
 }
 
 export interface Respuestas {
-    IdRespuesta: number;
+    IdRespuesta?: number;
     IdPregunta: number;
     IdCliente: number;
     Respuesta: string;

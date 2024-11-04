@@ -5,13 +5,14 @@ import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-navigation-nut',
-  templateUrl: './navigation-nut.component.html',
-  styleUrls: ['./navigation-nut.component.css']
+  selector: 'app-navigation-c',
+  templateUrl: './navigation-c.component.html',
+  styleUrls: ['./navigation-c.component.css']
 })
-export class NavigationNutComponent implements OnInit {
+export class NavigationCComponent implements OnInit {
   isLoginPage: boolean = false;
   isHomePage: boolean = false;
+  isRegistrosPage: boolean = false;
   isDestacadosPage: boolean = false;
   isLoggedIn: boolean = false;
 
@@ -24,6 +25,7 @@ export class NavigationNutComponent implements OnInit {
       const url = this.router.url;
       this.isLoginPage = url === '/login';
       this.isHomePage = url === '/home';
+      this.isRegistrosPage = url === '/registros';
       this.isDestacadosPage = url === '/destacados';
     });
 
@@ -35,7 +37,8 @@ export class NavigationNutComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    window.location.reload(); // Recarga la página automáticamente después de cerrar sesión
+    this.router.navigate(['/home']); // Redirige al componente Home después de cerrar sesión
+    this.isLoggedIn = false;
   }
 
   showToggleViewButton(): boolean {

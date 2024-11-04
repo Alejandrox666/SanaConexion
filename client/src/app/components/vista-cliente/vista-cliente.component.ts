@@ -4,6 +4,8 @@ import { Usuarios, Especialistas } from 'src/app/models/models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YoutubeService } from 'src/app/services/youtube.service';
 import { Router } from '@angular/router';
+import { Cuestionarios } from 'src/app/models/formularios';
+import { FormularioService } from 'src/app/services/formulario.service';
 
 @Component({
   selector: 'app-vista-cliente',
@@ -12,6 +14,8 @@ import { Router } from '@angular/router';
 })
 export class VistaClienteComponent implements OnInit {
 
+  cuestionariosget: Cuestionarios [] = [];
+  
   videos: any[] | undefined; // Almacena los datos de los videos
   videoUrl: SafeResourceUrl; 
   especialistas: (Usuarios & Especialistas)[] = [];
@@ -33,7 +37,8 @@ export class VistaClienteComponent implements OnInit {
     private datosEspService: DatosEspService,
     private youtubeService: YoutubeService,
     private sanitizer: DomSanitizer,
-    private router: Router
+    private router: Router,
+    private preguntaSrv: FormularioService
   ) { 
     this.videoUrl = ''; // Inicializa videoUrl
   }
@@ -44,6 +49,13 @@ export class VistaClienteComponent implements OnInit {
     this.youtubeService.getVideos().subscribe((data: any) => {
       this.videos = data.items;
     });
+    this.preguntaSrv.getForm().subscribe(
+      (res: Cuestionarios[]) => {
+        this.cuestionariosget = res;
+        console.log('CUESTIONARIOS', this.cuestionariosget);
+      },
+      err => console.error(err)
+    );
   }
 
   // Obtiene la lista de especialistas

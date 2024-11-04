@@ -1,67 +1,60 @@
 <div class="page-container">
     <header class="header-custom">
-        <nav class="navbar navbar-light navbar-expand-md">
-            <div class="container">
-                <a class="navbar-brand custom-brand" routerLink="/">Sana Conexión</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navcol-1"
-                    aria-controls="navcol-1"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navcol-1">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link custom-link" routerLink=""
-                            ></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link custom-link" routerLink="/acerca-de"></a>
-                        </li>
-                    </ul>
-                </div>
+      <nav class="navbar navbar-light navbar-expand-md">
+        <div class="container">
+          <a class="navbar-brand custom-brand" routerLink="/">SanaConexión</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navcol-1"
+            aria-controls="navcol-1"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link custom-link" routerLink=""
+                ></a>
+              </li>
+            </ul>
+          </div>
   
-                <!-- Mostrar el botón de inicio de sesión si no se ha iniciado sesión -->
-                <div *ngIf="!isLoggedIn">
-                    <button data-mdb-ripple-init type="button" class="btn btn-primary me-3" routerLink="/login">
-                        Iniciar sesión
-                    </button>
-                </div>
+          <!-- Mostrar el botón de inicio de sesión si no se ha iniciado sesión y no estás en la página de login -->
+          <div *ngIf="!isLoggedIn && !isLoginPage">
+            <button data-mdb-ripple-init type="button" class="btn btn-primary me-3" routerLink="/login">
+              Iniciar sesión
+            </button>
+          </div>
   
-                <!-- Mostrar el ícono de usuario y menú desplegable si se ha iniciado sesión -->
-                <div *ngIf="isLoggedIn">
-                    <div class="dropdown">
-                        <img
-                            src="assets/avatar.png"
-                            alt="User Icon"
-                            class="dropdown-toggle"
-                            id="userDropdown"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                        />
-                        <div class="dropdown-menu" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" routerLink="/mi-perfil">Mi perfil</a>
-                            <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
-                        </div>
-                    </div>
-                </div>
+          <!-- Mostrar el ícono de usuario y menú desplegable si se ha iniciado sesión -->
+          <div *ngIf="isLoggedIn">
+            <div class="dropdown">
+              <img
+                src="assets/avatar.png"
+                alt="User Icon"
+                class="dropdown-toggle"
+                id="userDropdown"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              />
+              <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <a class="dropdown-item" routerLink="/mi-perfil">Mi perfil</a>
+                <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
+              </div>
             </div>
-        </nav>
+          </div>
+        </div>
+      </nav>
     </header>
-
+  
     <!-- Main content -->
     <main class="content">
-        <!-- Your content here -->
-        <router-outlet></router-outlet>
+      <!-- Your content here -->
+      <router-outlet></router-outlet>
     </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-    </footer>
-</div>
+  </div>

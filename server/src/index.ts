@@ -10,6 +10,8 @@ import usuarioEspRoutes from './routes/usuarioEspRoutes';
 import clientesRoutes from './routes/clientesRoutes';
 import formularioRoutes from './routes/formularioRoutes';
 import chatsRoutes from './routes/chatsRoutes'
+import respuestasRoutes from './routes/respuestasRoutes';
+import cuestionariosClientesRoutes from './routes/cuestionariosClientesRoutes';
 
 
 class Server {
@@ -39,7 +41,8 @@ class Server {
         this.app.use('/api/usuarioEsp',usuarioEspRoutes)
         this.app.use('/api/formularios',formularioRoutes)
         this.app.use('/api/chats',chatsRoutes)
-
+        this.app.use('/api/respuestas', respuestasRoutes);
+        this.app.use('/api/cuestionariosClientes', cuestionariosClientesRoutes);
     }
 
     start() {

@@ -37,8 +37,8 @@ export class NavbarComponent {
 
   logout(): void {
     this.authService.logout();
-    window.location.reload();
-    this.router.navigate(['/home'], { replaceUrl: true });
-}
+    this.router.navigate(['/home']); // Redirige al componente Home después de cerrar sesión
+    this.isLoggedIn = false;
+  }
 
 }

@@ -1,2 +1,15 @@
+<!-- Mostrar la barra de navegación correspondiente -->
+<ng-container *ngIf="getNavComponent() === 'app-navigation'">
+    <app-navigation></app-navigation>
+</ng-container>
 
-    <router-outlet></router-outlet>
+<ng-container *ngIf="getNavComponent() === 'app-navigation-c'">
+    <app-navigation-c></app-navigation-c>
+</ng-container>
+
+<ng-container *ngIf="getNavComponent() === 'app-navbar'">
+    <app-navbar></app-navbar>
+</ng-container>
+
+<!-- Contenido de la aplicación -->
+<router-outlet></router-outlet>

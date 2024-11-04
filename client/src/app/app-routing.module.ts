@@ -12,6 +12,7 @@ import { NavbarComponent } from './components/especialista/navbar/navbar.compone
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 import { ChatComponent } from './components/especialista/chat/chat.component';
+import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
 
 const routes: Routes = [
   {
@@ -57,7 +58,7 @@ const routes: Routes = [
     component:NavbarComponent
   },
   {
-    path:'rCuestionario',
+    path:'rCuestionario/:IdCuestionario',
     component: RCuestionarioComponent
   },
   {
@@ -68,7 +69,10 @@ const routes: Routes = [
     path:'mensajeria',
     component:ChatComponent
   },
-
+  {
+    path:'cuestionarios-disponibles',
+    component: CuestionariosDisponiblesComponent
+  },
 ];
 
 @NgModule({

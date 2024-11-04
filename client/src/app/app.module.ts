@@ -9,9 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/login/registro/registro.component';
-import { NavigationNutComponent } from './components/navigation-nut/navigation-nut.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { FormEspComponent } from './components/form-esp/form-esp.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RegistrosComponent } from './components/registros/registros.component';
@@ -22,6 +20,8 @@ import { EspecialistaComponent } from './components/especialista/especialista.co
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 import { ChatComponent } from './components/especialista/chat/chat.component';
+import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
+import { NavigationCComponent } from './components/navigation-c/navigation-c.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +30,6 @@ import { ChatComponent } from './components/especialista/chat/chat.component';
     LoginComponent,
     HomeComponent,
     RegistroComponent,
-    NavigationNutComponent,
-    HomeAdminComponent,
     FormEspComponent,
     MiPerfilComponent,
     RegistrosComponent,
@@ -41,7 +39,11 @@ import { ChatComponent } from './components/especialista/chat/chat.component';
     EspecialistaComponent,
     RCuestionarioComponent,
     FormulariosComponent,
-    ChatComponent
+    ChatComponent,
+    CuestionariosDisponiblesComponent,
+    NavigationCComponent,
+    NavigationCComponent,
+    CuestionariosDisponiblesComponent
   ],
   imports: [
     BrowserModule,

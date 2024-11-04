@@ -13,3 +13,11 @@ export interface Clientes {
 
     Nombre?: string; // Esta es la propiedad que deberías usar
   }
+
+  export interface CuestionariosClientes {
+    IdCuestionarioCliente: number
+    IdCliente: number,
+    IdCuestionario: number
+    Estado: string,
+    FechaAsignacion: Date | string
+  }
