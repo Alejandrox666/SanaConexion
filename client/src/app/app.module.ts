@@ -22,6 +22,7 @@ import { FormulariosComponent } from './components/especialista/formularios/form
 import { ChatComponent } from './components/especialista/chat/chat.component';
 import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
 import { NavigationCComponent } from './components/navigation-c/navigation-c.component';
+import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { NavigationCComponent } from './components/navigation-c/navigation-c.com
     CuestionariosDisponiblesComponent,
     NavigationCComponent,
     NavigationCComponent,
-    CuestionariosDisponiblesComponent
+    CuestionariosDisponiblesComponent,
+    ListaEspComponent
   ],
   imports: [
     BrowserModule,

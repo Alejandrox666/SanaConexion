@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
+import { ChatComponent } from './components/especialista/chat/chat.component';
+import { EspecialistaComponent } from './components/especialista/especialista.component';
+import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
+import { NavbarComponent } from './components/especialista/navbar/navbar.component';
 import { FormEspComponent } from './components/form-esp/form-esp.component';
 import { HomeComponent } from './components/home/home.component';
+import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 import { LoginComponent } from './components/login/login.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
-import { RegistrosComponent } from './components/registros/registros.component';
-import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
-import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
-import { EspecialistaComponent } from './components/especialista/especialista.component';
-import { NavbarComponent } from './components/especialista/navbar/navbar.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
-import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
-import { ChatComponent } from './components/especialista/chat/chat.component';
-import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
+import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
+import { RegistrosComponent } from './components/registros/registros.component';
+import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 
 const routes: Routes = [
   {
@@ -72,6 +73,10 @@ const routes: Routes = [
   {
     path:'cuestionarios-disponibles',
     component: CuestionariosDisponiblesComponent
+  },
+  {
+    path:'lista-especialistas',
+    component: ListaEspComponent
   },
 ];
 

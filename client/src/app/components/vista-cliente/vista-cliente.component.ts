@@ -24,7 +24,6 @@ export class VistaClienteComponent implements OnInit {
   imagenesEspecialistas = [
     'assets/casual.jpg',
     'assets/people.png',
-    
   ];
 
   notificaciones = [

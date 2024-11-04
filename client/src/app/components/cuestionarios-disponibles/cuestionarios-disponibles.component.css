@@ -11,3 +11,14 @@
     background-color: #f1f1f1; /* Color de fondo en hover */
     transition: background-color 0.3s ease; /* Transición suave */
   }
+
+  .cuestionario-item {
+    border: none;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cuestionario-item:hover {
+    background-color: #f8f9fa;
+}
