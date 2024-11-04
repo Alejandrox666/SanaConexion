@@ -77,10 +77,17 @@ export class RegistroClienteComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-        this.cliente.Foto = event.target.files[0]; // Asigna el primer archivo seleccionado
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // Guardamos la imagen en formato base64 en el objeto cliente
+        this.cliente.Foto = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
-}
+  }
+  
 
   
 }

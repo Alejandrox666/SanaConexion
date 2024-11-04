@@ -30,9 +30,18 @@ class UsuarioEspController {
     }
 
     public async createEsp(req: Request, res: Response): Promise<void> {
-        await pool.query('INSERT INTO Especialistas set ?', [req.body]);
-        res.json({ message: 'Especialista Saved' })
-    }
+        try {
+          const { Foto, ...datosEspecialista } = req.body;
+          
+          // Aquí podrías agregar lógica para manipular o guardar la imagen si es necesario
+          await pool.query('INSERT INTO especialistas SET ?', [{ ...datosEspecialista, Foto }]);
+          res.json({ message: 'Especialista guardado exitosamente' });
+        } catch (error) {
+          console.error("Error al guardar especialista:", error);
+          res.status(500).json({ error: 'Error al guardar especialista' });
+        }
+      }
+      
 
     public async updateUsu(req: Request, res: Response): Promise<void> {
         const { id } = req.params;

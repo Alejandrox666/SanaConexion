@@ -22,9 +22,19 @@ class ClientesController{
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await pool.query('INSERT INTO clientes set ?', [req.body]);
-        res.json({ message: 'User Saved' });
-    }
+        try {
+          const { Foto, ...datosCliente } = req.body;
+          
+          // Aquí podrías agregar lógica para manipular o guardar la imagen si es necesario
+          await pool.query('INSERT INTO clientes SET ?', [{ ...datosCliente, Foto }]);
+          
+          res.json({ message: 'Cliente guardado exitosamente' });
+        } catch (error) {
+          console.error("Error al guardar cliente:", error);
+          res.status(500).json({ error: 'Error al guardar cliente' });
+        }
+      }
+      
 
     public  async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;

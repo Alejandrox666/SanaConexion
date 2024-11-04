@@ -76,10 +76,16 @@ export class FormEspComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.especialista.Foto = file.name;
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // Guardamos la imagen en formato base64 en el objeto especialista
+        this.especialista.Foto = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
+  
   
 }

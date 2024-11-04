@@ -65,8 +65,7 @@ export class VistaClienteComponent implements OnInit {
         this.especialistas = data.map((especialista) => ({
           ...especialista,
           mostrarMas: false, // Inicializa mostrarMas en false
-          // Asigna una imagen aleatoria del arreglo
-          Foto: this.getRandomImage()
+          
         }));
       },
       (error: any) => console.error('Error al obtener especialistas:', error)

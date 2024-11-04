@@ -3,7 +3,7 @@ export default {
     database: {
         host: 'localhost',
         user: 'root',
-        password:'Weak',
+        password:'1492',
         database: 'sistema_nutricion'
     }
 

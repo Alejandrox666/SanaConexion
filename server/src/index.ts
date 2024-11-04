@@ -28,9 +28,9 @@ class Server {
         this.app.set('port',process.env.PORT || 3002);
         this.app.use(morgan('dev'));
         this.app.use(cors());
-        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.json({ limit: '10mb' }));
         this.app.use(express.json());
-        this.app.use(express.urlencoded({extended:false}));
+        this.app.use(express.urlencoded({ extended: false, limit: '10mb' }));
     }
 
     routes(): void {
