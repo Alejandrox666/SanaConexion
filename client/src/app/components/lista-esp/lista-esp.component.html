@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <!-- Sección de especialistas -->
+    <h2 class="mb-4 text-center">Nuestros Especialistas</h2>
+    <div class="row">
+        <div *ngFor="let especialista of especialistas" class="col-md-3 mb-4">
+            <div class="card shadow-sm align-items-center h-100">
+                <!-- Imagen del especialista -->
+                <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" 
+                    class="img-fluid rounded-circle mt-3" 
+                    style="width: 100px; height: 100px; object-fit: cover;">
+                
+                <div class="card-body text-center">
+                    <!-- Información del especialista -->
+                    <h5 class="card-title mt-3">{{ especialista.NombreCompleto }}</h5>
+                    <p class="card-text">
+                        <strong>Especialidad:</strong> {{ especialista.Especialidad }} <br>
+                        <strong>Número de Cédula:</strong> {{ especialista.NumCedula }} <br>
+                        <strong>Años de experiencia:</strong> {{ especialista.YearsExperience }}
+                    </p>
+                    <a href="javascript:void(0);" class="text-primary" style="cursor: pointer;">Leer más</a>
+                    <!-- Botones de agendar y contacto -->
+                    <div class="d-flex gap-2 mt-2 justify-content-center">
+                        <button class="btn btn-success">Agendar Asesoría</button>
+                        <button class="btn btn-outline-success">Contactar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
