@@ -14,8 +14,8 @@ export interface Especialistas{
     NumCedula?: string,
     GradoEstudios?: string,
     Especialidad?: string,
-    Certificaciones?: string,
+    Certificaciones?: File,
     YearsExperience?: number,
-    Foto?: string,
+    Foto?: File,
     moatrarMas? : boolean
 }

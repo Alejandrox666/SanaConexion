@@ -191,6 +191,8 @@ export class ChatComponent implements OnInit {
   }
 
   EnviarMensaje() {
+
+    if (this.nuevoMensaje == '') return
     if (this.checkChat !== null) {
 
       const fechaActual = new Date();
