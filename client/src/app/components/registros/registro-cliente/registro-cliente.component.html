@@ -1,4 +1,4 @@
-<form>
+<form #registroForm="ngForm" (ngSubmit)="registrarAmbos()">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
@@ -10,6 +10,9 @@
                         <div class="mb-3">
                             <label for="edad" class="form-label fw-bold">Edad</label>
                             <input type="number" class="form-control form-control-lg" id="edad" name="edad" [(ngModel)]="cliente.Edad" required>
+                            <div *ngIf="registroForm.controls['edad']?.invalid && registroForm.controls['edad']?.touched" class="text-danger">
+                                La edad es obligatoria.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="sexo" class="form-label fw-bold">Sexo</label>
@@ -18,14 +21,23 @@
                                 <option value="M">Masculino</option>
                                 <option value="F">Femenino</option>
                             </select>
+                            <div *ngIf="registroForm.controls['sexo']?.invalid && registroForm.controls['sexo']?.touched" class="text-danger">
+                                El sexo es obligatorio.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="peso" class="form-label fw-bold">Peso (kg)</label>
                             <input type="number" step="0.01" class="form-control form-control-lg" id="peso" name="peso" [(ngModel)]="cliente.Peso" required>
+                            <div *ngIf="registroForm.controls['peso']?.invalid && registroForm.controls['peso']?.touched" class="text-danger">
+                                El peso es obligatorio.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="estatura" class="form-label fw-bold">Estatura (m)</label>
                             <input type="number" step="0.01" class="form-control form-control-lg" id="estatura" name="estatura" [(ngModel)]="cliente.Estatura" required>
+                            <div *ngIf="registroForm.controls['estatura']?.invalid && registroForm.controls['estatura']?.touched" class="text-danger">
+                                La estatura es obligatoria.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="enfCronicas" class="form-label fw-bold">Enfermedades Crónicas</label>
@@ -49,7 +61,7 @@
                         </div>
                         
                         <div class="d-grid gap-2 mt-3">
-                            <button type="button" href="/vistaClient" class="btn btn-primary btn-lg" (click)="registrarAmbos()">Registrar</button>
+                            <button type="submit" class="btn btn-primary btn-lg" [disabled]="registroForm.invalid">Registrar</button>
                             <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
                         </div>
                     </div>

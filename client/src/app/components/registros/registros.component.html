@@ -1,4 +1,4 @@
-<form (ngSubmit)="guardarDatos()">
+<form (ngSubmit)="guardarDatos()" #registroForm="ngForm">
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
@@ -11,26 +11,37 @@
                         <div class="mb-3">
                             <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
                             <input type="text" class="form-control form-control-lg" id="nombre" [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100" placeholder="Ingresa tu nombre" required>
+                            <div *ngIf="registroForm.controls['nombre']?.invalid && registroForm.controls['nombre']?.touched" class="text-danger">
+                                El nombre es obligatorio.
+                            </div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="telefono" class="form-label fw-bold">Teléfono</label>
                             <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required>
+                            <div *ngIf="registroForm.controls['telefono']?.invalid && registroForm.controls['telefono']?.touched" class="text-danger">
+                                El teléfono es obligatorio.
+                            </div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold">Correo Electrónico</label>
                             <input type="email" class="form-control form-control-lg" id="email" [(ngModel)]="registro.Email" name="email" maxlength="100" placeholder="Ingresa tu correo electrónico" required>
+                            <div *ngIf="registroForm.controls['email']?.invalid && registroForm.controls['email']?.touched" class="text-danger">
+                                El correo electrónico es obligatorio.
+                            </div>
                         </div>
                         
                         <div class="mb-3">
                             <label for="password" class="form-label fw-bold">Contraseña</label>
                             <input type="password" class="form-control form-control-lg" id="password" [(ngModel)]="registro.Password" name="password" placeholder="Ingresa tu contraseña" required>
+                            <div *ngIf="registroForm.controls['password']?.invalid && registroForm.controls['password']?.touched" class="text-danger">
+                                La contraseña es obligatoria.
+                            </div>
                         </div>
 
                         <div class="d-grid gap-2 mt-3">
-                            <!-- Separar el botón de apertura de modal -->
-                            <button type="button" class="btn btn-primary btn-lg" (click)="guardarDatos()">Siguiente</button>
+                            <button type="submit" class="btn btn-primary btn-lg" [disabled]="registroForm.invalid">Siguiente</button>
                             <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
                         </div>
                     </div>
@@ -61,6 +72,7 @@
                             <button type="button" class="btn btn-secondary" (click)="modalRef?.close()">Cancelar</button>
                         </div>
                     </ng-template>
+
                     <!-- Modal de selección de rol -->
                     <ng-template #seleccionRolModal>
                         <div class="modal-header">

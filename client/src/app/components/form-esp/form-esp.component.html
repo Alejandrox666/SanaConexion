@@ -1,44 +1,58 @@
 <div class="registro-container">
     <h2 class="registro-title">Registro de Nutriólogo Especialista</h2>
 
-    <div class="form-group">
-        <label for="cedulaEsp">Número de cédula</label>
-        <input type="text" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
-    </div>
+    <form #registroForm="ngForm" (ngSubmit)="guardarEspe()">
+        <div class="form-group">
+            <label for="cedulaEsp">Número de cédula</label>
+            <input type="text" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
+            <div *ngIf="registroForm.controls['NumCedula']?.invalid && registroForm.controls['NumCedula']?.touched" class="text-danger">
+                El número de cédula es obligatorio.
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="gradoEsp">Grado de estudios</label>
-        <input type="text" id="gradoEsp" [(ngModel)]="especialista.GradoEstudios" name="GradoEstudios" placeholder="Grado de estudios" required>
-    </div>
+        <div class="form-group">
+            <label for="gradoEsp">Grado de estudios</label>
+            <input type="text" id="gradoEsp" [(ngModel)]="especialista.GradoEstudios" name="GradoEstudios" placeholder="Grado de estudios" required>
+            <div *ngIf="registroForm.controls['GradoEstudios']?.invalid && registroForm.controls['GradoEstudios']?.touched" class="text-danger">
+                El grado de estudios es obligatorio.
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="especialidadEsp">Especialidad</label>
-        <input type="text" id="especialidadEsp" [(ngModel)]="especialista.Especialidad" name="Especialidad" placeholder="Especialidad" required>
-    </div>
+        <div class="form-group">
+            <label for="especialidadEsp">Especialidad</label>
+            <input type="text" id="especialidadEsp" [(ngModel)]="especialista.Especialidad" name="Especialidad" placeholder="Especialidad" required>
+            <div *ngIf="registroForm.controls['Especialidad']?.invalid && registroForm.controls['Especialidad']?.touched" class="text-danger">
+                La especialidad es obligatoria.
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="certificacionesEsp">Certificaciones</label>
-        <input type="text" id="certificacionesEsp" [(ngModel)]="especialista.Certificaciones" name="Certificaciones" placeholder="Certificaciones" required>
-    </div>
+        <div class="form-group">
+            <label for="certificacionesEsp">Certificaciones</label>
+            <input type="text" id="certificacionesEsp" [(ngModel)]="especialista.Certificaciones" name="Certificaciones" placeholder="Certificaciones" required>
+            <div *ngIf="registroForm.controls['Certificaciones']?.invalid && registroForm.controls['Certificaciones']?.touched" class="text-danger">
+                Las certificaciones son obligatorias.
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="experienciaEsp">Años de experiencia</label>
-        <input type="number" id="experienciaEsp" [(ngModel)]="especialista.YearsExperience" name="YearsExperience" placeholder="Años de experiencia" required>
-    </div>
+        <div class="form-group">
+            <label for="experienciaEsp">Años de experiencia</label>
+            <input type="number" id="experienciaEsp" [(ngModel)]="especialista.YearsExperience" name="YearsExperience" placeholder="Años de experiencia" required>
+            <div *ngIf="registroForm.controls['YearsExperience']?.invalid && registroForm.controls['YearsExperience']?.touched" class="text-danger">
+                Los años de experiencia son obligatorios.
+            </div>
+        </div>
 
-    <div class="mb-3">
-        <label for="foto" class="form-label fw-bold">Foto (para identificación)</label>
-        <input type="file" (change)="onFileSelected($event)" class="form-control form-control-lg" id="foto" name="foto">
-    </div>
+        <div class="mb-3">
+            <label for="foto" class="form-label fw-bold">Foto (para identificación)</label>
+            <input type="file" (change)="onFileSelected($event)" class="form-control form-control-lg" id="foto" name="foto">
+        </div>
 
-    <a routerLink="/formEspCuenta">
-        <button type="button" (click)="guardarEspe()" class="next-button">Siguiente</button>
-    </a>
+        <div class="d-grid gap-2 mt-3">
+            <button type="submit" class="next-button" [disabled]="registroForm.invalid">Siguiente</button>
+        </div>
+    </form>
 
     <div class="card-footer text-center bg-light">
-        <small class="text-muted">¿Ya tienes una cuenta? <a (click)="goToComponent()"
-                class="text-primary fw-bold">Inicia sesión aquí</a></small>
+        <small class="text-muted">¿Ya tienes una cuenta? <a (click)="goToComponent()" class="text-primary fw-bold">Inicia sesión aquí</a></small>
     </div>
-
-
 </div>
