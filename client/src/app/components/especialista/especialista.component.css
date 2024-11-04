@@ -1,0 +1,76 @@
+.home-container {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.home-title {
+  font-size: 2em;
+  color: #4caf50;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.descripcion p {
+  font-size: 1.2em;
+  color: #666;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  color: #4caf50;
+  font-size: 1.5em;
+  margin: 20px 0 10px;
+}
+
+.beneficios,
+.servicios {
+  margin-top: 20px;
+}
+
+.beneficios ul,
+.servicios ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.beneficios li,
+.servicios li {
+  font-size: 1em;
+  padding: 10px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.beneficios li i,
+.servicios li i {
+  color: #4caf50;
+  margin-right: 8px;
+}
+
+.btn-agendar {
+  margin-top: 30px;
+  padding: 12px 24px;
+  font-size: 1.1em;
+  color: #fff;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-agendar:hover {
+  background-color: #43a047;
+}

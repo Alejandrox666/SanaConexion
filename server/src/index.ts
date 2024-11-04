@@ -9,6 +9,7 @@ import usuariosRoutes from './routes/usuariosRoutes';
 import usuarioEspRoutes from './routes/usuarioEspRoutes';
 import clientesRoutes from './routes/clientesRoutes';
 import formularioRoutes from './routes/formularioRoutes';
+import chatsRoutes from './routes/chatsRoutes'
 
 
 class Server {
@@ -37,6 +38,7 @@ class Server {
         this.app.use('/api/login', loginRoutes)
         this.app.use('/api/usuarioEsp',usuarioEspRoutes)
         this.app.use('/api/formularios',formularioRoutes)
+        this.app.use('/api/chats',chatsRoutes)
 
     }
 

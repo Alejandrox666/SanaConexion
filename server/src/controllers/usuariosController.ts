@@ -13,7 +13,7 @@ class UsuariosController{
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         try {
-            const usuarios = await pool.query('SELECT * FROM usuarios WHERE id = ?', [id]);
+            const usuarios = await pool.query('SELECT * FROM usuarios WHERE IdUsuario = ?', [id]);
             if (usuarios.length > 0) {
                 return res.json(usuarios[0]);
             }

@@ -19,7 +19,7 @@ export class FormEspComponent implements OnInit {
     Especialidad: '',
     Certificaciones: '',
     YearsExperience: 0,
-    Foto: null as unknown as File
+    Foto: ''
   }
 
   constructor(private router: Router, private especialistaS: DatosEspService, private usuarioService: UsuariosService) { }
@@ -49,10 +49,12 @@ export class FormEspComponent implements OnInit {
           if (resp && resp.IdUsuario) {
             this.especialista.IdUsuario = resp.IdUsuario;
 
-            console.log('ID del usuario registrado:', this.especialista.IdUsuario);
+            const formData = new FormData();
+            formData.append('especialista', JSON.stringify(this.especialista));
+            if (this.especialista.Foto) {
+              formData.append('foto', this.especialista.Foto);
+            }
 
-
-            // Ahora guardar los datos en la tabla 'clientes'
             this.especialistaS.createEsp(this.especialista).subscribe(
               (respCliente: any) => {
                 console.log('Especialista guardado:', respCliente);
@@ -75,8 +77,9 @@ export class FormEspComponent implements OnInit {
 
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
-        this.especialista.Foto = event.target.files[0]; // Asigna el primer archivo seleccionado
+      const file = event.target.files[0];
+      this.especialista.Foto = file.name;
     }
-}
-
+  }
+  
 }

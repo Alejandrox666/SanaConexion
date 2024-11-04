@@ -33,9 +33,7 @@ export class LoginComponent {
     const encryptedPassword = await this.hashPassword(this.Password);
 
     this.authService.loginToServer(this.Email, encryptedPassword).subscribe({
-      next: (response: any) => {
-        console.log('Response:', response);
-    
+      next: (response: any) => {    
         if (response && response.success) {
           this.authService.setLoggedInStatus(true);
           const usuario: Usuarios = response.usuario[0];

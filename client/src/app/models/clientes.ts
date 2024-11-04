@@ -10,4 +10,6 @@ export interface Clientes {
     ObjetivoSalud?: string;     // Objetivo de salud (opcional)
     Medicamentos?: string;      // Medicamentos que toma (opcional)
     Foto?: File;                // Foto del cliente (opcional)
+
+    Nombre?: string; // Esta es la propiedad que deberías usar
   }

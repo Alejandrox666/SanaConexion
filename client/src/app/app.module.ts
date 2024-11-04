@@ -21,6 +21,7 @@ import { NavbarComponent } from './components/especialista/navbar/navbar.compone
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
+import { ChatComponent } from './components/especialista/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FormulariosComponent } from './components/especialista/formularios/form
     NavbarComponent,
     EspecialistaComponent,
     RCuestionarioComponent,
-    FormulariosComponent
+    FormulariosComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

@@ -16,6 +16,6 @@ export interface Especialistas{
     Especialidad?: string,
     Certificaciones?: string,
     YearsExperience?: number,
-    Foto?: Blob,
+    Foto?: string,
     moatrarMas? : boolean
 }

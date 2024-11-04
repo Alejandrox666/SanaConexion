@@ -11,6 +11,7 @@ import { EspecialistaComponent } from './components/especialista/especialista.co
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
+import { ChatComponent } from './components/especialista/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
   {
     path:'formE',
     component:FormulariosComponent
+  },
+  {
+    path:'mensajeria',
+    component:ChatComponent
   },
 
 ];

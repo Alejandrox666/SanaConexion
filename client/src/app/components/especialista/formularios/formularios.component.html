@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <!-- Crear Formulario -->
-<div class="container mt-4">
+<div class="container mt-4" *ngIf="userLoger">
   <h2 class="mb-4">Crear Nuevo Formulario</h2>
 
   <div class="form-group">
@@ -58,7 +58,7 @@
 </div>
 
 <!-- Formularios existentes -->
-<div class="container mt-4">
+<div class="container mt-4" *ngIf="userLoger">
   <h2 class="mb-4">Tus formularios</h2>
 
   <div class="row">

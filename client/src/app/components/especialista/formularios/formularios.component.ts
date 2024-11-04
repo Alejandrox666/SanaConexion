@@ -15,6 +15,7 @@ export class FormulariosComponent implements OnInit {
   user: Usuarios = {} as Usuarios;
   cuestionarios: (Cuestionarios & { mostrarPreguntas: boolean })[] = [];
   preguntas: Preguntas[] = [];
+  userLoger: any;
 
   selectedCuestionario: Cuestionarios | null = null;
   selectedPregunta: Preguntas | null = null;
@@ -59,6 +60,7 @@ export class FormulariosComponent implements OnInit {
       (user) => {
         if (user) {
           this.user = user;
+          this.userLoger = user;
           this.authService.getEspecialistaByIdUsuario(this.user.IdUsuario).subscribe(
             (especialista) => {
               if (especialista) {
@@ -89,11 +91,11 @@ export class FormulariosComponent implements OnInit {
 
   addTextField() {
     const textField = this.fb.group({
-        type: 'text',
-        question: ['', Validators.required]
+      type: 'text',
+      question: ['', Validators.required]
     });
     this.fields.push(textField);
-}
+  }
 
   removeField(index: number) {
     this.fields.removeAt(index);
@@ -123,14 +125,17 @@ export class FormulariosComponent implements OnInit {
   getForm() {
     this.formularioService.getForm().subscribe((cuestionariosResponse: Cuestionarios[]) => {
       this.formularioService.getPre().subscribe((preguntasResponse: Preguntas[]) => {
-        this.cuestionarios = cuestionariosResponse.map(cuestionario => ({
-          ...cuestionario,
-          preguntas: preguntasResponse.filter(p => p.IdCuestionario === cuestionario.IdCuestionario),
-          mostrarPreguntas: false,
-        }));
+        this.cuestionarios = cuestionariosResponse
+          .filter(cuestionario => cuestionario.IdEspecialista === this.cuestionario.IdEspecialista)
+          .map(cuestionario => ({
+            ...cuestionario,
+            preguntas: preguntasResponse.filter(p => p.IdCuestionario === cuestionario.IdCuestionario),
+            mostrarPreguntas: false,
+          }));
       });
     });
   }
+
 
   getFormNoUpdate() {
     this.formularioService.getForm().subscribe((cuestionariosResponse: Cuestionarios[]) => {
@@ -149,7 +154,7 @@ export class FormulariosComponent implements OnInit {
     if (this.form.invalid || !this.cuestionario.NomCuestionario || !this.cuestionario.Descripcion) {
       alert('Por favor, completa todos los campos requeridos.');
       return;
-  }
+    }
     const formValues = this.form.value;
 
     const fechaActual = new Date();

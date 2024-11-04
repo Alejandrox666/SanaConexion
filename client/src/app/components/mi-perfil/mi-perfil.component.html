@@ -22,9 +22,11 @@
                         <strong><i class="fas fa-user mr-1"></i> Nombre:</strong>
                         <p class="text-muted">{{ user.NombreCompleto || 'No disponible' }}</p>
                         <hr />
-                        
-                        <strong><i class="fas fa-book mr-1"></i> Rol:</strong>
-                        <p class="text-muted">{{ user.tipoUsuario}}</p>
+                        <strong><i class="fas fa-book mr-1"></i> Perfil:</strong>
+                        <p class="text-muted">{{ user.tipoUsuario || 'No disponible'}}</p>
+                        <hr />
+                        <strong><i class="fas fa-phone mr-1"></i> Teléfono:</strong>
+                        <p class="text-muted">{{ user.Telefono || 'No disponible' }}</p>
                         <hr />
                         <strong><i class="fas fa-envelope mr-1"></i> Correo:</strong>
                         <p class="text-muted">{{ user.Email || 'No disponible' }}</p>
