@@ -14,6 +14,9 @@ import respuestasRoutes from './routes/respuestasRoutes';
 import cuestionariosClientesRoutes from './routes/cuestionariosClientesRoutes';
 
 
+
+
+
 class Server {
     public app : Application
 
@@ -43,6 +46,7 @@ class Server {
         this.app.use('/api/chats',chatsRoutes)
         this.app.use('/api/respuestas', respuestasRoutes);
         this.app.use('/api/cuestionariosClientes', cuestionariosClientesRoutes);
+       
     }
 
     start() {

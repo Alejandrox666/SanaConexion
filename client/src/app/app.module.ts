@@ -23,6 +23,7 @@ import { ChatComponent } from './components/especialista/chat/chat.component';
 import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
 import { NavigationCComponent } from './components/navigation-c/navigation-c.component';
 import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
+import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
     NavigationCComponent,
     NavigationCComponent,
     CuestionariosDisponiblesComponent,
-    ListaEspComponent
+    ListaEspComponent,
+    ReposicionContrasenaComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <h2 class="text-center">Reposición de Contraseña</h2>
+  
+    <!-- Formulario para solicitar reposición de contraseña -->
+    <div *ngIf="!emailSent && !codeRequested">
+      <p>Ingresa tu correo electrónico para recibir un código de verificación.</p>
+      <form [formGroup]="reposicionForm" (ngSubmit)="sendResetLink()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo Electrónico</label>
+          <input type="email"
+                 id="email"
+                 class="form-control"
+                 formControlName="email"
+                 placeholder="Ingresa tu correo electrónico">
+          <div *ngIf="reposicionForm.get('email')?.invalid && reposicionForm.get('email')?.touched" class="text-danger">
+            El correo electrónico es obligatorio y debe ser válido.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="reposicionForm.get('email')?.invalid">Enviar código de verificación</button>
+      </form>
+    </div>
+  
+    <!-- Formulario para ingresar el código de verificación -->
+    <div *ngIf="codeRequested && !codeVerified">
+      <p>Ingresa el código enviado a tu correo.</p>
+      <div class="mb-3">
+        <label for="verificationCode" class="form-label">Código de Verificación</label>
+        <input type="text"
+               id="verificationCode"
+               class="form-control"
+               [(ngModel)]="codigoVerificacion"
+               placeholder="Ingresa el código de verificación">
+      </div>
+      <button (click)="verificarCodigo()" class="btn btn-primary w-100">Verificar Código</button>
+    </div>
+  
+    <!-- Formulario para ingresar la nueva contraseña -->
+    <div *ngIf="codeVerified">
+      <p>Ingresa tu nueva contraseña.</p>
+      <form [formGroup]="reposicionForm" (ngSubmit)="resetPassword()">
+        <div class="mb-3">
+          <label for="newPassword" class="form-label">Nueva Contraseña</label>
+          <input type="password"
+                 id="newPassword"
+                 class="form-control"
+                 formControlName="newPassword"
+                 placeholder="Ingresa tu nueva contraseña">
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+          <input type="password"
+                 id="confirmPassword"
+                 class="form-control"
+                 formControlName="confirmPassword"
+                 placeholder="Confirma tu nueva contraseña">
+          <div *ngIf="reposicionForm.get('newPassword')?.value !== reposicionForm.get('confirmPassword')?.value && reposicionForm.get('confirmPassword')?.touched" class="text-danger">
+            Las contraseñas no coinciden.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="reposicionForm.invalid">Cambiar Contraseña</button>
+      </form>
+    </div>
+  
+    <!-- Mensaje de confirmación y botón para iniciar sesión -->
+    <div *ngIf="passwordChanged" class="text-center">
+      <p>Tu contraseña ha sido cambiada exitosamente.</p>
+      <button (click)="redirectToLogin()" class="btn btn-primary">Iniciar sesión</button>
+    </div>
+  </div>
+  

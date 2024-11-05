@@ -44,7 +44,25 @@ class UsuariosController{
         const { id } = req.params;
         await pool.query('DELETE FROM usuarios WHERE id = ?', [id]);
         res.json({ message: "The user was deleted" });
+
     }
+
+    public async updatePasswd(req: Request, res: Response): Promise<void> {
+        const { email, newPassword } = req.body; // Extrae email y newPassword de req.body
+        
+        if (email && newPassword) {
+            const query = `UPDATE usuarios SET password = ? WHERE email = ?`;
+            const values = [newPassword, email];
+            await pool.query('UPDATE usuarios set password = ? WHERE email = ?', [newPassword, email]);
+            res.json({ message: "The user was Updated" });
+            console.log(newPassword,email)
+            
+           
+        } else {
+            res.status(400).send("Email o contraseña no proporcionados");
+        }
+    }
+    
 
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
@@ -52,6 +70,9 @@ class UsuariosController{
         await pool.query('UPDATE usuarios set ? WHERE id = ?', [req.body, id]);
         res.json({ message: "The user was Updated" });
     }
+
+   
+    
 
     public async sendVerificationCode(req: Request, res: Response): Promise<any> {
         const { email } = req.body;
@@ -123,6 +144,48 @@ class UsuariosController{
         } catch (error) {
             console.error("Error al verificar el código:", error);
             res.status(500).json({ message: 'Error interno del servidor' });
+        }
+    }
+
+    public async sendNewPassword(req: Request, res: Response): Promise<any> {
+        const { email } = req.body;
+    
+        // Validar el formato del correo electrónico
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            return res.status(400).json({ message: 'Email no válido' });
+        }
+    
+        // Generar una nueva contraseña aleatoria
+        const newPassword = crypto.randomBytes(4).toString('hex'); // Contraseña de 8 caracteres
+    
+        // Configura el transporte de nodemailer
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'xela0206hena@gmail.com', // Utiliza variables de entorno
+                pass: 'otmf udry kibx nxmt' // Utiliza variables de entorno
+            }
+        });
+    
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Nueva contraseña generada',
+            text: `Tu nueva contraseña es: ${newPassword}`
+        };
+    
+        try {
+            // Envía el correo
+            await transporter.sendMail(mailOptions);
+            
+            // Aquí podrías agregar lógica para actualizar la contraseña en la base de datos
+            await pool.query('UPDATE usuarios SET password = ? WHERE email = ?', [newPassword, email]);
+            
+            return res.json({ message: 'Nueva contraseña enviada al correo' });
+        } catch (error) {
+            console.error('Error al enviar el correo:', error);
+            return res.status(500).json({ message: 'Error al enviar el correo' });
         }
     }
     

@@ -14,6 +14,7 @@ import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionar
 import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
 import { RegistrosComponent } from './components/registros/registros.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
+import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,11 @@ const routes: Routes = [
     path:'lista-especialistas',
     component: ListaEspComponent
   },
+  
+  {
+    path:'newPasswd',
+    component: ReposicionContrasenaComponent
+  }
 ];
 
 @NgModule({

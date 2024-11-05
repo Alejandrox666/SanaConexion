@@ -21,6 +21,11 @@ export class UsuariosService {
   }
 
   // Método para enviar el código de verificación
+  enviarContrasena(email: string): Observable<any> {
+    return this.http.post(`${this.API_URI}/users/send-passwd`, { email });
+  }
+
+  // Método para enviar el código de verificación
   enviarCodigo(email: string): Observable<any> {
     return this.http.post(`${this.API_URI}/users/send-code`, { email });
   }
@@ -48,6 +53,12 @@ export class UsuariosService {
   upuser(id: string | number, update: Usuarios): Observable<Usuarios> {
     return this.http.put<Usuarios>(`${this.API_URI}/users/${id}`, update);
   }
+
+  cambiarContrasena(email: string, newPassword: string): Observable<any> {
+    const update = { email, newPassword }; // Construir el objeto con ambos campos
+    return this.http.put<any>(`${this.API_URI}/users/${email}`, update);
+}
+
 
   getTipoU(){
     return this.http.get<Usuarios[]>(`${this.API_URI2}/tipos`);
