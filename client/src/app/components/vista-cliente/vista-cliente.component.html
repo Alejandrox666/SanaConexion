@@ -6,7 +6,8 @@
       <div *ngFor="let video of videos" class="card shadow-sm" style="flex: 0 0 20%; max-width: 20%;">
         <div class="card-body">
           <div *ngIf="video.id.videoId" class="video-container mt-3">
-            <iframe [src]="getVideoUrl(video.id.videoId)" frameborder="0" allowfullscreen class="w-100" style="height: 150px;"></iframe>
+            <iframe [src]="getVideoUrl(video.id.videoId)" frameborder="0" allowfullscreen class="w-100"
+              style="height: 150px;"></iframe>
           </div>
           <h5 class="card-title">{{ video.snippet.title }}</h5>
           <p class="card-text">{{ video.snippet.description }}</p>
@@ -29,20 +30,22 @@
                 <strong>Número de Cédula:</strong> {{ especialista.NumCedula }} <br>
                 <strong>Años de experiencia:</strong> {{ especialista.YearsExperience }} <br>
               </p>
-              <a href="javascript:void(0);" class="text-primary" style="cursor: pointer;">Leer más</a> 
-              <div class="d-flex gap-2 mt-2"> <!-- Flex para los botones -->
-                <button class="btn btn-success">Agendar Asesoría</button>
-                <button class="btn btn-outline-success">Contactar</button> <!-- Botón de contacto -->
+              <a href="javascript:void(0);" class="text-primary" style="cursor: pointer;">Leer más</a>
+              <div class="d-flex gap-2 mt-2">
+                <a href="/mensajeria">
+                  <button class="btn btn-outline-success">Contactar</button>
+                </a>
               </div>
             </div>
             <!-- Imagen del especialista -->
-            <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" class="img-fluid rounded-circle" style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
+            <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" class="img-fluid rounded-circle"
+              style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
           </div>
         </div>
       </div>
-      
-      
+
+
     </div>
   </div>
-  
+
 </div>

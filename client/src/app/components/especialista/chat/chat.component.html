@@ -1,4 +1,7 @@
-<app-navbar></app-navbar>
+<div *ngIf="userLoger && userLoger.tipoUsuario === 'Especialista'">
+    <app-navbar></app-navbar>
+</div>
+
 <!-- Interfaz de chat -->
 <div class="cardContainertext text-center" *ngIf="userLoger && userLoger.tipoUsuario === 'Cliente'">
     <div class="scrollable-container d-flex flex-column">

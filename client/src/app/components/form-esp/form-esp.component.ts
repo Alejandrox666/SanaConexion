@@ -17,9 +17,9 @@ export class FormEspComponent implements OnInit {
     NumCedula: '',
     GradoEstudios: '',
     Especialidad: '',
-    Certificaciones: '',
+    Certificaciones: null as unknown as File,
     YearsExperience: 0,
-    Foto: ''
+    Foto: null as unknown as File
   }
 
   constructor(private router: Router, private especialistaS: DatosEspService, private usuarioService: UsuariosService) { }
@@ -75,13 +75,23 @@ export class FormEspComponent implements OnInit {
     }
   }
 
-  onFileSelected(event: any) {
+  onFileSelectedFoto(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // Guardamos la imagen en formato base64 en el objeto especialista
         this.especialista.Foto = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onFileSelectedCert(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.especialista.Certificaciones = e.target.result;
       };
       reader.readAsDataURL(file);
     }

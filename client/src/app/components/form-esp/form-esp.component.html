@@ -4,7 +4,7 @@
     <form #registroForm="ngForm" (ngSubmit)="guardarEspe()">
         <div class="form-group">
             <label for="cedulaEsp">Número de cédula</label>
-            <input type="text" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
+            <input type="number" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
             <div *ngIf="registroForm.controls['NumCedula']?.invalid && registroForm.controls['NumCedula']?.touched" class="text-danger">
                 El número de cédula es obligatorio.
             </div>
@@ -26,12 +26,9 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="certificacionesEsp">Certificaciones</label>
-            <input type="text" id="certificacionesEsp" [(ngModel)]="especialista.Certificaciones" name="Certificaciones" placeholder="Certificaciones" required>
-            <div *ngIf="registroForm.controls['Certificaciones']?.invalid && registroForm.controls['Certificaciones']?.touched" class="text-danger">
-                Las certificaciones son obligatorias.
-            </div>
+        <div class="mb-3">
+            <label for="certificacionesEsp" class="form-label fw-bold">Certificaciones</label>
+            <input type="file" (change)="onFileSelectedCert($event)" class="form-control form-control-lg" id="certificacionesEsp" name="certificacionesEsp">
         </div>
 
         <div class="form-group">
@@ -44,7 +41,7 @@
 
         <div class="mb-3">
             <label for="foto" class="form-label fw-bold">Foto (para identificación)</label>
-            <input type="file" (change)="onFileSelected($event)" class="form-control form-control-lg" id="foto" name="foto">
+            <input type="file" (change)="onFileSelectedFoto($event)" class="form-control form-control-lg" id="foto" name="foto">
         </div>
 
         <div class="d-grid gap-2 mt-3">
