@@ -23,6 +23,8 @@ export class RegistrosComponent implements OnInit {
   };
   codigoVerificacion: string = '';
   modalRef: NgbModalRef | undefined;
+ 
+  showPassword = false;
 
   @ViewChild('verificacionCodigoModal') verificacionCodigoModal: any;
   @ViewChild('seleccionRolModal') seleccionRolModal: any; // Referencia al modal de selección de rol
@@ -129,5 +131,10 @@ export class RegistrosComponent implements OnInit {
       size: 'lg',
       centered: true
     });
+  }
+
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
