@@ -65,15 +65,28 @@ export class ReposicionContrasenaComponent {
     }
   }
 
+  // Método para encriptar la contraseña en SHA-256
+  async hashPassword(password: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash))
+      .map(byte => byte.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
   // Paso 3: Cambiar la contraseña después de la verificación exitosa del código
   async resetPassword() {
-    const newPassword = this.reposicionForm.get('newPassword')?.value;
+    const newPassword1 = this.reposicionForm.get('newPassword')?.value;
     const confirmPassword = this.reposicionForm.get('confirmPassword')?.value;
     const email = this.reposicionForm.get('email')?.value;
 
-    if (newPassword === confirmPassword) {
+    
+
+    if (newPassword1 === confirmPassword) {
       try {
-        await this.usuariosService.cambiarContrasena(email, newPassword).toPromise();
+        const newPassword = await this.hashPassword(newPassword1);
+        await this.usuariosService.cambiarContrasena(email,newPassword).toPromise();
         this.passwordChanged = true;
       } catch (error) {
         console.error('Error al cambiar la contraseña:', error);
