@@ -5,7 +5,7 @@ import { ChatComponent } from './components/especialista/chat/chat.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
-import { FormEspComponent } from './components/form-esp/form-esp.component';
+import { FormEspComponent } from './components/especialista/form-esp/form-esp.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 import { LoginComponent } from './components/login/login.component';

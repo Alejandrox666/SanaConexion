@@ -78,17 +78,19 @@
             <p>Preguntas:</p>
             <ul>
               <li *ngFor="let pregunta of cuestionario.preguntas">
-                <div *ngIf="!enEdicionPre[pregunta.IdPregunta]">
+                <div *ngIf="!enEdicionPre[pregunta.IdPregunta]" class="question-item">
                   <span>{{ pregunta.Pregunta }}</span>
-                  <div class="align-right">
-                    <button class="btn btn-warning btn-sm" (click)="editPreguntas(pregunta)">
-                      <i class="fas fa-edit"></i>
+                  <div class="dropdown">
+                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm" (click)="deletePregunta(pregunta.IdPregunta)">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><button class="dropdown-item" (click)="editPreguntas(pregunta)">Editar</button></li>
+                      <li><button class="dropdown-item text-danger" (click)="deletePregunta(pregunta.IdPregunta)">Eliminar</button></li>
+                    </ul>
                   </div>
                 </div>
+                
                 <!--Actualizar Pregunta-->
                 <div *ngIf="enEdicionPre[pregunta.IdPregunta]" class="edit-form mt-2">
                   <form [formGroup]="editPre" (ngSubmit)="saveChangePre(pregunta.IdPregunta)">
@@ -107,7 +109,7 @@
             <button class="btn btn-primary" (click)="addPregunta(cuestionario.IdCuestionario)">Agregar Pregunta</button>
             <!--Agregar Pregunta-->
             <div *ngIf="addPre[cuestionario.IdCuestionario]" class="mt-3">
-              <form [formGroup]="editPre" (ngSubmit)="savePre(cuestionario.IdCuestionario)">
+              <form [formGroup]="addsPre" (ngSubmit)="savePre(cuestionario.IdCuestionario)">
                 <input type="text" formControlName="Pregunta" class="form-control" placeholder="Escribe tu pregunta">
                 <button type="submit" class="btn btn-success btn-sm mt-2">Guardar</button>
                 <button type="button" class="btn btn-secondary btn-sm mt-2"

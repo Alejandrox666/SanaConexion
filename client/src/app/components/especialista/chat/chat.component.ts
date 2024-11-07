@@ -62,7 +62,7 @@ export class ChatComponent implements OnInit {
 
           const idsUsuarios = chat.participantes
             .map(p => p.IdUsuario)
-            .filter(id => id !== this.userLoger.IdUsuario);
+            .filter(id => id !== this.userLoger.IdUsuario);  // Excluye al usuario logueado
 
           const observables = idsUsuarios.map(id => this.chatService.getUsuariosById(id));
 
@@ -75,11 +75,38 @@ export class ChatComponent implements OnInit {
                 participante.Nombre = usuario.NombreCompleto;
               }
             });
+
+            this.clientes.forEach(cliente => {
+              const clienteChat = chat.participantes?.find(p => p.IdUsuario === cliente.IdUsuario);
+              if (clienteChat) {
+                cliente.chatActivo = chat.Estado === 'Activo';
+                cliente.mostrar = chat.mostrar || false;
+
+                if (this.userLoger.tipoUsuario === 'Especialista') {
+                  chat.msj = [];
+                  this.chatService.getMensajesPorChat(chat.IdChat).subscribe((mensajesResponse: Mensajes[]) => {
+                    chat.msj = mensajesResponse;
+    
+                    const clienteHaEnviadoMensaje = mensajesResponse.some(mensaje => mensaje.IdEmisor !== this.userLoger.IdUsuario);
+    
+                    if (!clienteHaEnviadoMensaje) {
+                      cliente.mostrar = false;
+                    } else {
+                      cliente.mostrar = true;
+                    }
+                  });
+                }
+              }
+            });
+
+            
           });
         });
       });
     });
   }
+
+
 
   getEspecialistas(): void {
     this.datosEspService.getEsp().subscribe(
@@ -97,13 +124,12 @@ export class ChatComponent implements OnInit {
     this.clienteService.getClientes().subscribe(
       (clientesResponse: Clientes[]) => {
         this.clientes = clientesResponse;
-        // Suponiendo que cada cliente tiene un IdUsuario
         const idsUsuarios = this.clientes.map(cliente => cliente.IdUsuario);
 
         if (idsUsuarios.length > 0) {
           const observables = idsUsuarios.map(id => this.chatService.getUsuariosById(id));
           forkJoin(observables).pipe(
-            map(usuariosResponse => usuariosResponse.flat()) 
+            map(usuariosResponse => usuariosResponse.flat())
           ).subscribe((usuarios: Usuarios[]) => {
             this.usuarios = usuarios;
 

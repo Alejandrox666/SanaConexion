@@ -4,10 +4,13 @@ export interface Chats {
     FechaInicio: Date | string
     Estado: string;
 
-    msj?: Mensajes[];
+    
     participantes?: Participantes[];
+    mostrar?: boolean;
+    msj?: Mensajes[];
 }
-
+  
+  
 export interface Participantes {
     IdParticipacion: number;
     IdChat: number;

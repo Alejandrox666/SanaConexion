@@ -1,42 +1,71 @@
 /* Recientes */
 .cardContainertext {
   top: 80px;
-  width: 700px;
+  width: 500px;
   height: 570px;
   position: fixed;
-  left: 0;
+  left: 100px;
   display: flex;
   flex-direction: column;
 }
 
-.scrollable-container {
-  max-height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 15px;
+.contact-list {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.card-bodytext {
-  height: 400px;
-  padding: 0.9rem;
-  
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px; /* Aseguramos un padding consistente para la altura */
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+  cursor: pointer; /* Indicamos que la tarjeta es interactiva */
+  min-height: 150px; /* Altura mínima consistente para todas las tarjetas */
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.contenedorPfl {
-  height: 200px;
-  overflow-y: auto;
-  padding: 0.3rem;
-  margin-left: 20px;
+.contact-card:hover {
+  background-color: #f1f1f1;
 }
 
-.contenedorPfl::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
+.contact-avatar {
+  width: 70px; /* Ampliamos un poco más el avatar */
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
 }
 
-.contenedorPfl::-webkit-scrollbar-thumb {
-  background: transparent; 
+.contact-info {
+  flex-grow: 1; /* Hace que el contenido ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
 }
+
+.contact-info h5 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact-info p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+
+
+
+
 
 
 /* Mensajes */

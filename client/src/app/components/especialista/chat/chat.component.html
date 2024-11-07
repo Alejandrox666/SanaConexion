@@ -3,46 +3,45 @@
 </div>
 
 <!-- Interfaz de chat -->
+
+<!-- Interfaz de chat cliente -->
 <div class="cardContainertext text-center" *ngIf="userLoger && userLoger.tipoUsuario === 'Cliente'">
     <div class="scrollable-container d-flex flex-column">
-        <div *ngFor="let especialista of especialistas" class="shadow-sm d-flex flex-row card-bodytext">
+        <div *ngFor="let especialista of especialistas" class="d-flex flex-row card-bodytext">
             <div class="contenedorPfl">
-                <h5 class="card-title">{{ especialista.NombreCompleto }}</h5>
-                <p class="card-text">
-                    <strong>Especialidad:</strong> {{ especialista.Especialidad }} <br>
-                    <strong>Años de experiencia:</strong> {{ especialista.YearsExperience }} <br>
-                </p>
-                <div class="d-flex chat-profile" (click)="seleccionarChat(especialista.IdUsuario)">
-                    <button class="btn btn-outline-success">
-                        <i class="bi bi-whatsapp"></i> Contactar
-                    </button>
+                <div class="contact-card d-flex flex-row shadow-sm" (click)="seleccionarChat(especialista.IdUsuario)">
+                    <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" class="contact-avatar">
+                    <div class="contact-info d-flex flex-column">
+                        <h5>{{ especialista.NombreCompleto }}</h5>
+                        <p><strong>Especialidad:</strong> {{ especialista.Especialidad }}</p>
+                        <p><strong>Años de experiencia:</strong> {{ especialista.YearsExperience }}</p>
+                    </div>
                 </div>
             </div>
-            <img [src]="especialista.Foto" alt="{{ especialista.Foto }}" class="img-fluid rounded-circle"
-                style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
         </div>
     </div>
 </div>
 
+<!-- Interfaz de chat especialista -->
 <div class="cardContainertext text-center" *ngIf="userLoger && userLoger.tipoUsuario === 'Especialista'">
     <div class="scrollable-container d-flex flex-column">
-        <div *ngFor="let cliente of clientes" class="shadow-sm d-flex flex-row card-bodytext">
-            <div class="contenedorPfl">
-                <h5 class="card-title">{{ cliente.Nombre }}</h5>
-                <p class="card-text">
-                    <strong>Edad:</strong> {{ cliente.Edad }} <br>
-                </p>
-                <div class="d-flex chat-profile" (click)="seleccionarChat(cliente.IdUsuario)">
-                    <button class="btn btn-outline-success">
-                        <i class="bi bi-whatsapp"></i> Contactar
-                    </button>
+        <div *ngFor="let cliente of clientes" class="d-flex flex-row card-bodytext">
+            <div *ngIf="cliente.chatActivo && cliente.mostrar">
+                <div class="contenedorPfl">
+                    <div class="contact-card d-flex flex-row shadow-sm" (click)="seleccionarChat(cliente.IdUsuario)">
+                        <img [src]="cliente.Foto" alt="{{ cliente.Nombre }}" class="contact-avatar">
+                        <div class="contact-info d-flex flex-column">
+                            <h5>{{ cliente.Nombre }}</h5>
+                            <p><strong>Edad:</strong> {{ cliente.Edad }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <img [src]="cliente.Foto" alt="{{ cliente.Foto }}" class="img-fluid rounded-circle"
-                style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
         </div>
     </div>
 </div>
+
+
 
 <!-- Textos -->
 <div class="card text-center cardContainer" *ngIf="userLoger && !mostrarChat">

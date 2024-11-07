@@ -125,11 +125,16 @@ button {
 .question-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; 
   margin-bottom: 10px;
 }
 
 .question-item span {
   margin-right: 10px;
-  flex-grow: 1;
+  flex-grow: 1; 
+}
+
+.dropdown {
+  display: flex;
+  justify-content: flex-end;
 }

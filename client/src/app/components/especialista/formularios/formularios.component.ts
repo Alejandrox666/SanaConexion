@@ -24,6 +24,7 @@ export class FormulariosComponent implements OnInit {
   form: FormGroup;
   editForm: FormGroup;
   editPre: FormGroup;
+  addsPre: FormGroup;
 
   enEdicion: { [key: number]: boolean } = {};
   enEdicionPre: { [key: number]: boolean } = {};
@@ -46,6 +47,10 @@ export class FormulariosComponent implements OnInit {
     });
 
     this.editPre = this.fb.group({
+      Pregunta: ['', Validators.required]
+    });
+
+    this.addsPre = this.fb.group({
       Pregunta: ['', Validators.required]
     });
 
@@ -253,11 +258,11 @@ export class FormulariosComponent implements OnInit {
   }
 
   savePre(IdCuestionario: number) {
-    if (this.editPre.valid) {
+    if (this.addsPre.valid) {
       const savPre: Preguntas = {
         IdPregunta: 0,
         IdCuestionario: IdCuestionario,
-        Pregunta: this.editPre.value.Pregunta
+        Pregunta: this.addsPre.value.Pregunta
       }
 
       this.formularioService.createPre(savPre).subscribe(
@@ -265,7 +270,7 @@ export class FormulariosComponent implements OnInit {
       );
       this.addPre[IdCuestionario] = false
       this.selectedPregunta = null;
-      this.editPre.reset();
+      this.addsPre.reset();
     }
   }
 
