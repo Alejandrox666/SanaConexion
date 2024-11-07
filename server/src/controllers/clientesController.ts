@@ -21,6 +21,19 @@ class ClientesController{
         }
     }
 
+    public async getOneIdUsuario(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+        try {
+            const usuarios = await pool.query('SELECT * FROM Clientes WHERE idUsuario = ?', [id]);
+            if (usuarios.length > 0) {
+                return res.json(usuarios[0]);
+            }
+            res.status(404).json({ text: "The user doesn't exist" });
+        } catch (error) {
+            res.status(500).json({ error: "Error retrieving user" });
+        }
+    }
+
     public async create(req: Request, res: Response): Promise<void> {
         try {
           const { Foto, ...datosCliente } = req.body;

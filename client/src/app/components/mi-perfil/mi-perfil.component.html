@@ -18,24 +18,73 @@
                         <h3 class="card-title text-center">Información</h3>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
-                        <strong><i class="fas fa-user mr-1"></i> Nombre:</strong>
-                        <p class="text-muted">{{ user.NombreCompleto || 'No disponible' }}</p>
-                        <hr />
-                        <strong><i class="fas fa-book mr-1"></i> Perfil:</strong>
-                        <p class="text-muted">{{ user.tipoUsuario || 'No disponible'}}</p>
-                        <hr />
-                        <strong><i class="fas fa-phone mr-1"></i> Teléfono:</strong>
-                        <p class="text-muted">{{ user.Telefono || 'No disponible' }}</p>
-                        <hr />
-                        <strong><i class="fas fa-envelope mr-1"></i> Correo:</strong>
-                        <p class="text-muted">{{ user.Email || 'No disponible' }}</p>
-                        <hr />
-                        <strong><i class="fas fa-key mr-1"></i> Contraseña:</strong>
-                        <p class="text-muted">*********</p>
-                        <hr />
-                    </div>
+                    <!-- Información del usuario -->
+<div class="card-body">
+    <strong><i class="fas fa-user mr-1"></i> Nombre:</strong>
+    <p class="text-muted">{{ user.NombreCompleto || 'No disponible' }}</p>
+    <hr />
+    <strong><i class="fas fa-book mr-1"></i> Perfil:</strong>
+    <p class="text-muted">{{ user.tipoUsuario || 'No disponible'}}</p>
+    <hr />
+    <strong><i class="fas fa-phone mr-1"></i> Teléfono:</strong>
+    <p class="text-muted">{{ user.Telefono || 'No disponible' }}</p>
+    <hr />
+    <strong><i class="fas fa-envelope mr-1"></i> Correo:</strong>
+    <p class="text-muted">{{ user.Email || 'No disponible' }}</p>
+    <hr />
+    <strong><i class="fas fa-key mr-1"></i> Contraseña:</strong>
+    <p class="text-muted">*********</p>
+    <hr />
+    <strong><i class="fas fa-calendar mr-1"></i> Fecha de registro:</strong>
+    <p class="text-muted">{{ user.FechaRegistro || 'No disponible' }}</p>
+    <hr />
+
+    <!-- Sección de Entrevista Inicial, controlada por la variable "mostrarEntrevista" -->
+    <div *ngIf="mostrarEntrevista">
+        <h3 class="card-title text-center">Entrevista Inicial</h3>
+        <hr />
+        <strong>Edad:</strong>
+        <p class="text-muted">{{ cliente.Edad || 'No disponible' }}</p>
+        <hr />
+        <strong>Sexo:</strong>
+        <p class="text-muted">{{ cliente.Sexo || 'No disponible' }}</p>
+        <hr />
+        <strong>Peso:</strong>
+        <p class="text-muted">{{ cliente.Peso || 'No disponible' }}</p>
+        <hr />
+        <strong>Estatura:</strong>
+        <p class="text-muted">{{ cliente.Estatura || 'No disponible' }}</p>
+        <hr />
+        <strong>Enfermedades Crónicas:</strong>
+        <p class="text-muted">{{ cliente.EnfCronicas || 'No disponible' }}</p>
+        <hr />
+        <strong>Alergias:</strong>
+        <p class="text-muted">{{ cliente.Alergias || 'No disponible' }}</p>
+        <hr />
+        <strong>Objetivo de Salud:</strong>
+        <p class="text-muted">{{ cliente.ObjetivoSalud || 'No disponible' }}</p>
+        <hr />
+        <strong>Medicamentos:</strong>
+        <p class="text-muted">{{ cliente.Medicamentos || 'No disponible' }}</p>
+        <hr />
+        <strong>Foto:</strong>
+        <div *ngIf="cliente.Foto">
+            <img [src]="cliente.Foto" alt="Foto del cliente" class="img-fluid" />
+        </div>
+        <p *ngIf="!cliente.Foto" class="text-muted">No disponible</p>
+        <hr />
+    </div>
+                         <!-- Botón para mostrar/ocultar la sección de entrevista inicial -->
+<div class="text-center mt-3">
+    <button class="btn btn-primary" (click)="mostrarEntrevista = !mostrarEntrevista">
+        {{ mostrarEntrevista ? 'Ocultar Entrevista Inicial' : 'Ver Entrevista Inicial' }}
+    </button>
+</div>
+</div>
+
                     <!-- /.card-body -->
+
+
                 </div>
                 <div *ngIf="!user" class="text-center">
                     <p>No se pudo cargar la información del usuario.</p>

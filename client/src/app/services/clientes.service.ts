@@ -61,4 +61,10 @@ export class ClientesService {
       })
     );
   }
+
+   
+
+    getClienteByIdUsuario(userId: number): Observable<Clientes> {
+      return this.http.get<Clientes>(`${this.API_URI}/clientes/prueba/${userId}`);
+    }
 }
