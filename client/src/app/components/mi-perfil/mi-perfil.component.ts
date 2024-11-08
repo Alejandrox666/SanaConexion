@@ -138,6 +138,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
           if (respuesta) {
             console.log('Perfil actualizado:', respuesta);
             // Aquí puedes agregar una notificación de éxito
+            alert('Su perfil ha sido actualizado');
           } else {
             console.error('La actualización del perfil falló.');
           }
@@ -158,30 +159,58 @@ export class MiPerfilComponent implements OnInit, OnChanges {
   
     
     const userId = this.user.IdUsuario
-     const clienteid = this.cliente.IdUsuario
+     
+     const tipoUser = this.user.tipoUsuario;
+     console.log(tipoUser);
     
      const clienteId = this.cliente.IdCliente;  // Asegúrate de que IdCliente es el campo correcto para el ID del cliente
      console.log("User ID:", this.user.IdUsuario);
+     console.log("Tipo user",tipoUser);
      console.log("Cliente ID:", clienteId);
      console.log("Cliente data:", this.cliente);
-    if (userId && this.cliente) { // Asegúrate de que `userId` y `user` existen
-      this.clientesService.upCliente(userId, this.cliente).subscribe(
-        (respuesta) => {
-          if (respuesta) {
-            console.log('Encuesta actualizada:', respuesta);
-            // Aquí puedes agregar una notificación de éxito
-            this.editEntrevistaMode = false;  
-          } else {
-            console.error('La actualización de la encuesta falló.');
+     if(tipoUser == 'Cliente'){
+      if (userId && this.cliente) { // Asegúrate de que `userId` y `user` existen
+        this.clientesService.upCliente(userId, this.cliente).subscribe(
+          (respuesta) => {
+            if (respuesta) {
+              console.log('Encuesta actualizada:', respuesta);
+              alert('Su entrevista ha sido actualizada');
+              this.editEntrevistaMode = false;  
+            } else {
+              console.error('La actualización de la encuesta falló.');
+            }
+          },
+          (error) => {
+            console.error('Error al actualizar la encuesta:', error); // Manejo del error
           }
-        },
-        (error) => {
-          console.error('Error al actualizar la encuesta:', error); // Manejo del error
-        }
-      );
-    } else {
-      console.error('No se pudo obtener el ID de usuario o la encuesta del usuario está incompleta.');
-    }
+        );
+      } else {
+        console.error('No se pudo obtener el ID de usuario o la encuesta del usuario está incompleta.');
+      }
+     }
+     if(tipoUser == 'Especialista'){
+      if (userId && this.especialista) { 
+        this.especialistasService.upEspecialista(userId, this.especialista).subscribe(
+          (respuesta) => {
+            if (respuesta) {
+              console.log('Encuesta actualizada:', respuesta);
+              
+              alert('Su entrevista ha sido actualizada');
+              this.editEntrevistaMode = false;  
+              this.editMode2 = false;
+            } else {
+              console.error('La actualización de la encuesta falló.');
+            }
+          },
+          (error) => {
+            console.error('Error al actualizar la encuesta:', error); 
+          }
+        );
+      } else {
+        console.error('No se pudo obtener el ID de usuario o la encuesta del usuario está incompleta.');
+      }
+     }
+    
 }
 
 // Método para alternar el modo de edición
@@ -192,18 +221,18 @@ editarPerfil2() {
 // Cancelar la edición y revertir cambios
 cancelarEdicion() {
   this.editMode = false;
-   // Recargar los datos originales del usuario
+   
 }
 
 toggleEditEntrevista() {
-  this.editEntrevistaMode = this.editEntrevistaMode;
+  this.editEntrevistaMode = !this.editEntrevistaMode;
   this.editMode2 = !this.editMode2;
 
 }
 
 cancelarEdicionEntrevista() {
   this.editEntrevistaMode = false;
-  // Opcional: recargar los datos originales del cliente si quieres revertir cambios
+  
   this.editMode2 = false;
 }
 onFileSelected(event: any) {

@@ -43,4 +43,13 @@ export class DatosEspService {
     );
   }
 
+  upEspecialista(id: string | number, update: Especialistas): Observable<Especialistas | null> {
+    return this.http.put<Especialistas>(`${this.Back_Api}/usuarioEsp/especialistas/${id}`, update).pipe(
+      catchError(error => {
+        console.error('Error al actualizar especialista:', error);
+        return of(null); // Devolver null en caso de error
+      })
+    );
+}
+
 }

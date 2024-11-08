@@ -69,7 +69,7 @@ class UsuarioEspController {
 
     public async updateEsp(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('UPDATE Especialistas set ? WHERE IdEspecialista = ?', [req.body, id]);
+        await pool.query('UPDATE Especialistas set ? WHERE IdUsuario = ?', [req.body, id]);
         res.json({ message: 'The especialista was update' })
     }
 }
