@@ -3,7 +3,7 @@
         <!-- Mostrar solo el cuestionario correspondiente al IdCuestionario -->
         <div *ngIf="cuestionarioSeleccionado" class="card-header bg-primary text-white text-center rounded-top">
             <h2 class="mb-0" style="font-size: 2rem;">{{ cuestionarioSeleccionado.NomCuestionario }}</h2>
-            <p class="mb-0" style="font-size: 1.5rem;">{{ cuestionarioSeleccionado.Descripcion }}</p>
+            <p class="mb-0" style="font-size: 1.5rem;">Descripción del cuestionario: {{ cuestionarioSeleccionado.Descripcion }}</p>
         </div>
         <div class="card-body bg-light">
             <form (ngSubmit)="onSubmit()">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-4 w-100" style="font-size: 1.5rem;">Enviar Cuestionario</button>
+                <button type="submit" class="btn btn-primary mt-4 w-100" style="font-size: 1.5rem;">Enviar respuestas</button>
             </form>
         </div>
     </div>
