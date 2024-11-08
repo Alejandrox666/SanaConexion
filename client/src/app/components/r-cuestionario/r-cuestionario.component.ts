@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EnvioForm } from 'src/app/models/chats';
 import { Clientes } from 'src/app/models/clientes';
 import { Cuestionarios, Preguntas } from 'src/app/models/formularios';
 import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatService } from 'src/app/services/chat.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { RespuestasService } from 'src/app/services/respuestas.service';
 import Swal from 'sweetalert2';
@@ -18,29 +20,53 @@ export class RCuestionarioComponent implements OnInit {
   cuestionarioSeleccionado!: Cuestionarios | undefined;
   usuariosget: Usuarios[] = [];
   preguntasget: Preguntas[] = [];
+  envios: EnvioForm[] = [];
   respuestas: { IdPregunta: number; IdCliente: number; Respuesta: string }[] = [];
   allPreguntas: Preguntas[] = [];
   IdCliente!: number;
   IdUs!: number;
   IdCuestionario!: number;
+  IdEnvio: number = 0;
+
+  user : Usuarios = {} as Usuarios;
+  userLoger : any
+
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private preguntaSrv: FormularioService,
     private respSrv: RespuestasService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private chatS: ChatService
+  ) { }
 
   ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe(
+      (user) => {
+        if (user) {
+          this.user = user;
+          this.userLoger = user;
+        } else {
+          console.error('No user is currently logged in.');
+        }
+      },
+      (error) => {
+        console.error('Failed to load user data:', error);
+      }
+    );
     this.route.paramMap.subscribe(params => {
       const idCuestionario = params.get('IdCuestionario');
+      const idEnvio = params.get('IdEnvio')
       if (idCuestionario) {
         this.IdCuestionario = +idCuestionario;
+        this.IdEnvio = idEnvio !== null ? +idEnvio : 0;
         this.loadPreguntas();
         this.loadCuestionario();
       }
     });
+
 
     this.getCurrentUser();
   }
@@ -50,7 +76,6 @@ export class RCuestionarioComponent implements OnInit {
       (res: Cuestionarios[]) => {
         this.cuestionariosget = res;
         this.cuestionarioSeleccionado = this.cuestionariosget.find(c => c.IdCuestionario === this.IdCuestionario);
-        console.log('Cuestionario seleccionado:', this.cuestionarioSeleccionado);
       },
       err => console.error(err)
     );
@@ -87,6 +112,12 @@ export class RCuestionarioComponent implements OnInit {
     );
   }
 
+  getEstatusForm() {
+    this.chatS.getEnvioForm().subscribe((cues: EnvioForm[]) => {
+      this.envios = cues;
+    })
+  }
+
   onInputChange(event: Event, idPregunta: number) {
     const inputElement = event.target as HTMLInputElement;
     const respuesta = inputElement.value;
@@ -101,16 +132,14 @@ export class RCuestionarioComponent implements OnInit {
         Respuesta: respuesta
       });
     }
-
-    console.log(this.respuestas);
   }
 
   onSubmit() {
-    // Validación para verificar que todas las preguntas tengan respuesta
-    const unansweredQuestions = this.allPreguntas.some(pregunta => 
+
+    const unansweredQuestions = this.allPreguntas.some(pregunta =>
       !this.respuestas.some(res => res.IdPregunta === pregunta.IdPregunta && res.Respuesta.trim() !== '')
     );
-  
+
     if (unansweredQuestions) {
       Swal.fire({
         title: 'Advertencia',
@@ -120,7 +149,7 @@ export class RCuestionarioComponent implements OnInit {
       });
       return; // Detener el envío si hay preguntas sin respuesta
     }
-  
+
     // Confirmación de envío
     Swal.fire({
       title: 'Confirmación',
@@ -136,7 +165,7 @@ export class RCuestionarioComponent implements OnInit {
         const respuestasObservables = this.respuestas.map((respuesta) =>
           this.respSrv.createRespuesta(respuesta).toPromise()
         );
-  
+
         Promise.all(respuestasObservables)
           .then((res) => {
             Swal.fire({
@@ -151,11 +180,10 @@ export class RCuestionarioComponent implements OnInit {
                 const inputElement = document.querySelector(`input[id='pregunta-${pregunta.IdPregunta}']`) as HTMLInputElement;
                 if (inputElement) inputElement.value = '';
               });
-  
+
               this.router.navigate(['/cuestionarios-disponibles']);
             });
-  
-            console.log('Respuestas guardadas:', res);
+
           })
           .catch((error) => {
             console.error('Error al guardar respuestas:', error);
@@ -168,6 +196,16 @@ export class RCuestionarioComponent implements OnInit {
           });
       }
     });
+
+    const envio: EnvioForm = {
+      IdEnvio: this.IdEnvio,
+      IdCuestionario: this.IdCuestionario,
+      IdUsuario: this.userLoger.IdUsuario,
+      FechaEnvio: new Date().toISOString().slice(0, 19).replace('T', ' '),
+      EstadoEnvio: 'Respondido'
+    };
+
+    this.chatS.updateEnvio(this.IdEnvio,envio).subscribe()
   }
-  
+
 }

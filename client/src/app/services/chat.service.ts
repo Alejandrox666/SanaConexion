@@ -62,7 +62,20 @@ export class ChatService {
     return this.http.get<Usuarios[]>(`${this.Back_ApiU}/${idUsuario}`);
   }
 
-  enviarFormulario(envioForm:EnvioForm): Observable<any> {
-    return this.http.post(`${this.Back_Api}/envioForm`,envioForm);
+  getEnvioForm(): Observable<any> {
+    return this.http.get<EnvioForm[]>(`${this.Back_Api}/envioForm`);
+  }
+
+  enviarFormulario(envioForm: EnvioForm): Observable<any> {
+    return this.http.post(`${this.Back_Api}/envioForm`, envioForm);
+  }
+
+  updateEnvio(id: string | number, envioForm: EnvioForm): Observable<any> {
+    return this.http.put(`${this.Back_Api}/envioForm/${id}`, envioForm).pipe(
+      catchError(error => {
+        console.error('Error al actualizar cuestionario:', error);
+        return of(null);
+      })
+    );
   }
 }

@@ -6,6 +6,7 @@ export interface Cuestionarios {
     FechaCreacion: Date | string;
 
     preguntas?: Preguntas[];
+    IdEnvio?:number;
 }
 
 export interface Preguntas {

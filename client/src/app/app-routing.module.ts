@@ -35,57 +35,57 @@ const routes: Routes = [
     path: 'mi-perfil',
     component: MiPerfilComponent
   },
-  
+
   {
-    path:'formEsp',
-    component:FormEspComponent,
+    path: 'formEsp',
+    component: FormEspComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path:'registros',
-    component:RegistrosComponent
+    path: 'registros',
+    component: RegistrosComponent
   },
   {
-    path:'registrosClientes',
-    component:RegistroClienteComponent
+    path: 'registrosClientes',
+    component: RegistroClienteComponent
   },
   {
-    path:'vistaClient',
-    component:VistaClienteComponent
+    path: 'vistaClient',
+    component: VistaClienteComponent
   },
   {
-    path:'inicioE',
-    component:EspecialistaComponent,
+    path: 'inicioE',
+    component: EspecialistaComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path:'navE',
-    component:NavbarComponent
+    path: 'navE',
+    component: NavbarComponent
   },
   {
-    path:'rCuestionario/:IdCuestionario',
+    path: 'ruta-del-nuevo-componente/:IdCuestionario/:IdEnvio',
     component: RCuestionarioComponent
   },
   {
-    path:'formE',
-    component:FormulariosComponent
+    path: 'formE',
+    component: FormulariosComponent
   },
   {
-    path:'mensajeria',
-    component:ChatComponent
+    path: 'mensajeria',
+    component: ChatComponent
   },
   {
-    path:'cuestionarios-disponibles',
+    path: 'cuestionarios-disponibles',
     component: CuestionariosDisponiblesComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path:'lista-especialistas',
+    path: 'lista-especialistas',
     component: ListaEspComponent,
     canActivate: [AuthGuardService]
   },
   {
-    path:'newPasswd',
+    path: 'newPasswd',
     component: ReposicionContrasenaComponent
   },
 ];

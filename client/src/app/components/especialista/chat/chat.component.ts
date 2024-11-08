@@ -208,8 +208,8 @@ export class ChatComponent implements OnInit {
           };
 
           this.chatService.createMsj(mensajeInicial).subscribe(() => {
-            this.getChats();
             this.mostrarChat = true;
+            this.getChats();
           });
         });
       }
