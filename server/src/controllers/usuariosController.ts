@@ -67,10 +67,20 @@ class UsuariosController{
 
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        const oldHouse = req.body;
-        await pool.query('UPDATE usuarios set ? WHERE id = ?', [req.body, id]);
-        res.json({ message: "The user was Updated" });
+        const { NombreCompleto, Telefono, Email, Password } = req.body; // Desestructura los campos específicos de req.body
+    
+        try {
+            await pool.query(
+                'UPDATE usuarios SET NombreCompleto = ?, Telefono = ?, Email = ?, Password = ? WHERE IdUsuario = ?',
+                [NombreCompleto, Telefono, Email, Password, id]
+            );
+            res.json({ message: "The user was updated successfully" });
+        } catch (error) {
+            console.error('Error updating user:', error);
+            res.status(500).json({ message: "Error updating user", error });
+        }
     }
+    
 
    
     

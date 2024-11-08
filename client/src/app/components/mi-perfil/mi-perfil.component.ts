@@ -19,6 +19,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
   @Input() datosClientes!: Clientes;
   cliente: Clientes = {} as Clientes;
   mostrarEntrevista: boolean = false;
+  editMode: boolean = false; 
 
   constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService) {}
 
@@ -89,4 +90,50 @@ export class MiPerfilComponent implements OnInit, OnChanges {
       console.error('No user ID available');
     }
   }
+
+   // Alterna la visibilidad de la sección de Entrevista Inicial
+   toggleEntrevista() {
+    this.mostrarEntrevista = !this.mostrarEntrevista;
+  }
+
+
+  editarPerfil() {
+    const userId = this.user.IdUsuario
+    console.log(userId)
+    if (userId && this.user) { // Asegúrate de que `userId` y `user` existen
+      this.userService.putProfile(userId, this.user).subscribe(
+        (respuesta) => {
+          if (respuesta) {
+            console.log('Perfil actualizado:', respuesta);
+            // Aquí puedes agregar una notificación de éxito
+          } else {
+            console.error('La actualización del perfil falló.');
+          }
+        },
+        (error) => {
+          console.error('Error al actualizar el perfil:', error); // Manejo del error
+        }
+      );
+    } else {
+      console.error('No se pudo obtener el ID de usuario o el perfil de usuario está incompleto.');
+    }
+  }
+  
+  
+
+  // Método para editar la entrevista
+  editarEntrevista() {
+  
+}
+
+// Método para alternar el modo de edición
+editarPerfil2() {
+  this.editMode = !this.editMode;
+}
+
+// Cancelar la edición y revertir cambios
+cancelarEdicion() {
+  this.editMode = false;
+   // Recargar los datos originales del usuario
+}
 }
