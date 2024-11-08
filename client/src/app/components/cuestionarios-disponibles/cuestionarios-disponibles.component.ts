@@ -20,7 +20,6 @@ export class CuestionariosDisponiblesComponent implements OnInit {
     this.preguntaSrv.getForm().subscribe(
       (res: Cuestionarios[]) => {
         this.cuestionariosget = res;
-        console.log('CUESTIONARIOS', this.cuestionariosget);
       },
       err => console.error(err)
     );
