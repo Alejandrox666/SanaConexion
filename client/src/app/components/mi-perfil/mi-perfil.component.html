@@ -15,7 +15,7 @@
             <div class="col-md-8 text-center">
                 <div *ngIf="user" class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title text-center">Información</h3>
+                        <h3 class="card-title text-center">Información del usuario</h3>
                     </div>
 
                     <!-- Información del usuario -->
@@ -51,7 +51,7 @@
                         <!-- Botones de Editar y Guardar Perfil -->
                         <div class="text-center mt-3">
                             <button *ngIf="!mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
-                                Ver Ent revista Inicial
+                                Ver Entrevista Inicial
                             </button>
                             
                             <button *ngIf="!editMode" class="btn btn-secondary me-2" (click)="editarPerfil2()">
@@ -166,17 +166,7 @@
                             <span *ngIf="!editEntrevistaMode">{{ especialista.YearsExperience || 'No disponible' }}</span>
                         </p>
                         <hr />
-                        <strong>Foto:</strong>
-                        <div *ngIf="editEntrevistaMode">
-                            <input type="file" (change)="onFileSelected($event)" class="form-control" />
-                            <div *ngIf="especialista.Foto">
-                                <img [src]="especialista.Foto" alt="Foto del especialista" class="img-fluid mt-2" />
-                            </div>
-                        </div>
-                        <div *ngIf="!editEntrevistaMode && especialista.Foto">
-                            <img [src]="especialista.Foto" alt="Foto del especialista" class="img-fluid" />
-                        </div>
-                        <p *ngIf="!editEntrevistaMode && !especialista.Foto" class="text-muted">No disponible</p>
+                       
                     </div>
                     
 
