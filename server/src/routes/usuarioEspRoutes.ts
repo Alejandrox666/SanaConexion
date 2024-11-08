@@ -12,6 +12,7 @@ class UsuarioEspRoutes {
     config(): void {
         this.router.get('/', usuarioEspController.list);
         this.router.get('/:id', usuarioEspController.getOne);
+        this.router.get('/prueba/:id', usuarioEspController.getOne2);
         this.router.post('/especialistas', usuarioEspController.createEsp)
         this.router.put('/usuarios/:id', usuarioEspController.updateUsu)
         this.router.put('/especialistas/:id', usuarioEspController.updateEsp)

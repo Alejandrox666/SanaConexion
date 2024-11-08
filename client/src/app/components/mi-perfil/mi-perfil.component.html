@@ -51,11 +51,9 @@
                         <!-- Botones de Editar y Guardar Perfil -->
                         <div class="text-center mt-3">
                             <button *ngIf="!mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
-                                Ver Entrevista Inicial
+                                Ver Ent revista Inicial
                             </button>
-                            <button *ngIf="mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
-                                Ocultar Entrevista Inicial
-                            </button>
+                            
                             <button *ngIf="!editMode" class="btn btn-secondary me-2" (click)="editarPerfil2()">
                                 Editar Perfil
                             </button>
@@ -68,88 +66,132 @@
                         </div>
                     </div>
                     <!-- /.card-body -->
-
-                    <!-- Sección de Entrevista Inicial -->
-<div *ngIf="mostrarEntrevista">
-    <h3 class="card-title text-center">Entrevista Inicial</h3>
-    <hr />
-    <strong>Edad:</strong>
-    <p class="text-muted">
-        <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Edad" class="form-control" />
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Edad || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Sexo:</strong>
-    <p class="text-muted">
-        <select *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Sexo" class="form-control">
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-            <!-- Puedes agregar más opciones si es necesario -->
-        </select>
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Sexo || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Peso:</strong>
-    <p class="text-muted">
-        <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Peso" class="form-control" />
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Peso || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Estatura:</strong>
-    <p class="text-muted">
-        <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Estatura" class="form-control" />
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Estatura || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Enfermedades Crónicas:</strong>
-    <p class="text-muted">
-        <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.EnfCronicas" class="form-control"></textarea>
-        <span *ngIf="!editEntrevistaMode">{{ cliente.EnfCronicas || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Alergias:</strong>
-    <p class="text-muted">
-        <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Alergias" class="form-control"></textarea>
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Alergias || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Objetivo de Salud:</strong>
-    <p class="text-muted">
-        <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.ObjetivoSalud" class="form-control"></textarea>
-        <span *ngIf="!editEntrevistaMode">{{ cliente.ObjetivoSalud || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Medicamentos:</strong>
-    <p class="text-muted">
-        <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Medicamentos" class="form-control"></textarea>
-        <span *ngIf="!editEntrevistaMode">{{ cliente.Medicamentos || 'No disponible' }}</span>
-    </p>
-    <hr />
-    <strong>Foto:</strong>
-    <div *ngIf="editEntrevistaMode">
-        <input type="file" (change)="onFileSelected($event)" class="form-control" />
-        <div *ngIf="cliente.Foto">
-            <img [src]="cliente.Foto" alt="Foto del cliente" class="img-fluid mt-2" />
-        </div>
-    </div>
-    <div *ngIf="!editEntrevistaMode && cliente.Foto">
-        <img [src]="cliente.Foto" alt="Foto del cliente" class="img-fluid" />
-    </div>
-    <p *ngIf="!editEntrevistaMode && !cliente.Foto" class="text-muted">No disponible</p>
-    <hr />
+                    <div *ngIf="mostrarEntrevista && modoTipoUsuario === 'Cliente'">
+                        <h3>Entrevista Inicial - Cliente</h3>
+                        <hr />
+                        <strong>Edad:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Edad" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Edad || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Sexo:</strong>
+                        <p class="text-muted">
+                            <select *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Sexo" class="form-control">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Sexo || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Peso:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Peso" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Peso || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Estatura:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="cliente.Estatura" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Estatura || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Enfermedades Crónicas:</strong>
+                        <p class="text-muted">
+                            <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.EnfCronicas" class="form-control"></textarea>
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.EnfCronicas || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Alergias:</strong>
+                        <p class="text-muted">
+                            <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Alergias" class="form-control"></textarea>
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Alergias || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Objetivo de Salud:</strong>
+                        <p class="text-muted">
+                            <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.ObjetivoSalud" class="form-control"></textarea>
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.ObjetivoSalud || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Medicamentos:</strong>
+                        <p class="text-muted">
+                            <textarea *ngIf="editEntrevistaMode" [(ngModel)]="cliente.Medicamentos" class="form-control"></textarea>
+                            <span *ngIf="!editEntrevistaMode">{{ cliente.Medicamentos || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Foto:</strong>
+                        <div *ngIf="editEntrevistaMode">
+                            <input type="file" (change)="onFileSelected($event)" class="form-control" />
+                            <div *ngIf="cliente.Foto">
+                                <img [src]="cliente.Foto" alt="Foto del cliente" class="img-fluid mt-2" />
+                            </div>
+                        </div>
+                        <div *ngIf="!editEntrevistaMode && cliente.Foto">
+                            <img [src]="cliente.Foto" alt="Foto del cliente" class="img-fluid" />
+                        </div>
+                        <p *ngIf="!editEntrevistaMode && !cliente.Foto" class="text-muted">No disponible</p>
+                    </div>
+                    
+                    <div *ngIf="mostrarEntrevista && modoTipoUsuario === 'Especialista'">
+                        <h3>Entrevista Inicial - Especialista</h3>
+                        <hr />
+                        <strong>Número de Cédula:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="text" [(ngModel)]="especialista.NumCedula" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ especialista.NumCedula || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Grado de Estudios:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="text" [(ngModel)]="especialista.GradoEstudios" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ especialista.GradoEstudios || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Especialidad:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="text" [(ngModel)]="especialista.Especialidad" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ especialista.Especialidad || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Certificaciones:</strong>
+                        <p class="text-muted">
+                            <textarea *ngIf="editEntrevistaMode" [(ngModel)]="especialista.Certificaciones" class="form-control"></textarea>
+                            <span *ngIf="!editEntrevistaMode">{{ especialista.Certificaciones || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Años de Experiencia:</strong>
+                        <p class="text-muted">
+                            <input *ngIf="editEntrevistaMode" type="number" [(ngModel)]="especialista.YearsExperience" class="form-control" />
+                            <span *ngIf="!editEntrevistaMode">{{ especialista.YearsExperience || 'No disponible' }}</span>
+                        </p>
+                        <hr />
+                        <strong>Foto:</strong>
+                        <div *ngIf="editEntrevistaMode">
+                            <input type="file" (change)="onFileSelected($event)" class="form-control" />
+                            <div *ngIf="especialista.Foto">
+                                <img [src]="especialista.Foto" alt="Foto del especialista" class="img-fluid mt-2" />
+                            </div>
+                        </div>
+                        <div *ngIf="!editEntrevistaMode && especialista.Foto">
+                            <img [src]="especialista.Foto" alt="Foto del especialista" class="img-fluid" />
+                        </div>
+                        <p *ngIf="!editEntrevistaMode && !especialista.Foto" class="text-muted">No disponible</p>
+                    </div>
+                    
 
     <!-- Botones de Ocultar Entrevista, Editar Entrevista, Guardar y Cancelar -->
     <div class="text-center mt-3">
-        <button class="btn btn-primary me-2" (click)="toggleEntrevista()">
-            Ocultar Entrevista Inicial
+        <button *ngIf="mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
+        Ocultar Entrevista Inicial
         </button>
         <button *ngIf="!editEntrevistaMode" class="btn btn-secondary me-2" (click)="toggleEditEntrevista()">
             Editar Entrevista
         </button>
-        <button *ngIf="editEntrevistaMode" class="btn btn-primary me-2" (click)="editarEntrevista()">
+        <button *ngIf="editMode2" class="btn btn-primary me-2" (click)="editarEntrevista()">
             Guardar Entrevista
         </button>
-        <button *ngIf="editEntrevistaMode" class="btn btn-secondary me-2" (click)="cancelarEdicionEntrevista()">
+        <button *ngIf="editMode2" class="btn btn-secondary me-2" (click)="cancelarEdicionEntrevista()">
             Cancelar
         </button>
     </div>
@@ -165,6 +207,6 @@
             <!-- /.col -->
         </div>
         <!-- /.row -->
-    </div>
+   
     <!-- /.container-fluid -->
 </section>
