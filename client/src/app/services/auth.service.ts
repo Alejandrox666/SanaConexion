@@ -3,28 +3,29 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Usuarios } from '../models/models';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isLoggedIn = false;
-  private currentUserSubject: BehaviorSubject<Usuarios | null> = new BehaviorSubject<Usuarios | null>(null); // Ajusta aquí
+  private currentUserSubject: BehaviorSubject<Usuarios | null> = new BehaviorSubject<Usuarios | null>(null); 
   private currentUser: Usuarios | null = null;
 
   constructor(private http: HttpClient) {
-    const storedUser = localStorage.getItem('currentUser');
+    // Usar sessionStorage para obtener la sesión del usuario actual
+    const storedUser = sessionStorage.getItem('currentUser');
     if (storedUser) {
-      this.currentUserSubject.next(JSON.parse(storedUser));
+      const parsedUser: Usuarios = JSON.parse(storedUser);
+      this.currentUserSubject.next(parsedUser);
     }
   }
 
   login(userId: string): void {
-    localStorage.setItem('userId', userId);
+    sessionStorage.setItem('userId', userId); // Usamos sessionStorage en vez de localStorage
   }
 
   getUserId(): string | null {
-    return localStorage.getItem('userId');
+    return sessionStorage.getItem('userId'); // Usamos sessionStorage en vez de localStorage
   }
 
   loginToServer(email: string, password: string): Observable<any> {
@@ -32,7 +33,7 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return this.isLoggedIn;
+    return !!this.currentUserSubject.value;
   }
 
   setLoggedInStatus(status: boolean): void {
@@ -40,19 +41,22 @@ export class AuthService {
   }
 
   logout(): void {
-    this.setLoggedInStatus(false);
     this.setCurrentUser(null);
-    localStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentUser'); // Usamos sessionStorage en vez de localStorage
   }
 
   setCurrentUser(user: Usuarios | null): void {
-    this.currentUser = user;
     if (user) {
-      localStorage.setItem('currentUser', JSON.stringify(user));
+      sessionStorage.setItem('currentUser', JSON.stringify(user)); // Usamos sessionStorage en vez de localStorage
       this.currentUserSubject.next(user);
     } else {
+      sessionStorage.removeItem('currentUser'); // Usamos sessionStorage en vez de localStorage
       this.currentUserSubject.next(null);
     }
+  }
+
+  getCurrentUserSubject() {
+    return this.currentUserSubject;
   }
 
   getCurrentUser(): Observable<Usuarios | null> {

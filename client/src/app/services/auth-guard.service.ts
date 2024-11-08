@@ -10,7 +10,7 @@ import { AuthService } from './auth.service';
 export class AuthGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(): Observable<boolean> {
     return this.authService.getCurrentUser().pipe(
       take(1),
       map((user: Usuarios | null) => {
@@ -24,7 +24,7 @@ export class AuthGuardService implements CanActivate {
           else if (user.tipoUsuario === "Cliente") {
             return true; // Permitir acceso a clientes
           } else {
-            this.router.navigate(['/']); // Redirigir a la página principal si el tipo de usuario no es válido
+            this.router.navigate(['/login']); // Redirigir a la página principal si el tipo de usuario no es válido
             return false;
           }
         } else {

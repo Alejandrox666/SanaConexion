@@ -2,50 +2,17 @@
   <!-- Sección de videos -->
   <div class="mb-5">
     <h2 class="mb-4 text-center">Videos Recomendados</h2>
-    <div class="d-flex" style="gap: 1rem; flex-wrap: nowrap;">
-      <div *ngFor="let video of videos" class="card shadow-sm" style="flex: 0 0 20%; max-width: 20%;">
+    <div class="d-flex flex-wrap justify-content-center" style="gap: 1rem;">
+      <div *ngFor="let video of videos" class="card video-card shadow-lg">
+        <div class="video-container">
+          <iframe [src]="getVideoUrl(video.id.videoId)" frameborder="0" allowfullscreen class="w-100"
+            style="height: 200px; border-radius: 8px;"></iframe>
+        </div>
         <div class="card-body">
-          <div *ngIf="video.id.videoId" class="video-container mt-3">
-            <iframe [src]="getVideoUrl(video.id.videoId)" frameborder="0" allowfullscreen class="w-100"
-              style="height: 150px;"></iframe>
-          </div>
           <h5 class="card-title">{{ video.snippet.title }}</h5>
           <p class="card-text">{{ video.snippet.description }}</p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Sección de especialistas -->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h2 class="mb-4 text-center">Nuestros Especialistas</h2>
-        <div class="d-flex flex-column gap-3">
-          <div *ngFor="let especialista of especialistas" class="card shadow-sm d-flex flex-row align-items-center">
-            <div class="card-body" style="flex-grow: 1;"> <!-- Permite que el texto ocupe el espacio restante -->
-              <h5 class="card-title">{{ especialista.NombreCompleto }}</h5>
-              <p class="card-text">
-                <strong>Especialidad:</strong> {{ especialista.Especialidad }} <br>
-                <strong>Número de Cédula:</strong> {{ especialista.NumCedula }} <br>
-                <strong>Años de experiencia:</strong> {{ especialista.YearsExperience }} <br>
-              </p>
-              <a href="javascript:void(0);" class="text-primary" style="cursor: pointer;">Leer más</a>
-              <div class="d-flex gap-2 mt-2">
-                <a href="/mensajeria">
-                  <button class="btn btn-outline-success">Contactar</button>
-                </a>
-              </div>
-            </div>
-            <!-- Imagen del especialista -->
-            <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" class="img-fluid rounded-circle"
-              style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
 </div>
