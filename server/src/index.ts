@@ -12,6 +12,7 @@ import formularioRoutes from './routes/formularioRoutes';
 import chatsRoutes from './routes/chatsRoutes'
 import respuestasRoutes from './routes/respuestasRoutes';
 import cuestionariosClientesRoutes from './routes/cuestionariosClientesRoutes';
+import envioFormRoutes from './routes/envioFormRoutes';
 
 
 
@@ -46,6 +47,7 @@ class Server {
         this.app.use('/api/chats',chatsRoutes)
         this.app.use('/api/respuestas', respuestasRoutes);
         this.app.use('/api/cuestionariosClientes', cuestionariosClientesRoutes);
+        this.app.use('/api/envioForm', envioFormRoutes);
        
     }
 

@@ -1,16 +1,14 @@
 export interface Chats {
-    
     IdChat: number
     FechaInicio: Date | string
     Estado: string;
 
-    
     participantes?: Participantes[];
     mostrar?: boolean;
     msj?: Mensajes[];
 }
-  
-  
+
+
 export interface Participantes {
     IdParticipacion: number;
     IdChat: number;
@@ -25,4 +23,13 @@ export interface Mensajes {
     IdEmisor: number;
     Texto: string;
     FechaEnvio: Date | string
+}
+
+
+export interface EnvioForm {
+    IdEnvio?: number;
+    IdCuestionario?: number;
+    IdUsuario?: number;
+    FechaEnvio?: string;
+    EstadoEnvio?: string;
 }

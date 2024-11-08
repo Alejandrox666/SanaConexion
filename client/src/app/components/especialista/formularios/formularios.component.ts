@@ -1,8 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { forkJoin, map } from 'rxjs';
+import { Chats, EnvioForm, Mensajes, Participantes } from 'src/app/models/chats';
+import { Clientes } from 'src/app/models/clientes';
 import { Cuestionarios, Preguntas } from 'src/app/models/formularios';
 import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatService } from 'src/app/services/chat.service';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 
 @Component({
@@ -15,11 +20,22 @@ export class FormulariosComponent implements OnInit {
   user: Usuarios = {} as Usuarios;
   cuestionarios: (Cuestionarios & { mostrarPreguntas: boolean })[] = [];
   preguntas: Preguntas[] = [];
+  envios: EnvioForm[] = []
+  clientes: Clientes[] = [];
+  chats: Chats[] = []
+  participantes: Participantes[] = []
+  mensajes: Mensajes[] = [];
+  usuarios: Usuarios[] = [];
+
   userLoger: any;
+  mostrarModal = false;
 
   selectedCuestionario: Cuestionarios | null = null;
   selectedPregunta: Preguntas | null = null;
   formularioEnEdicion: number | null = null;
+
+  clienteSeleccionado: number = 0;
+  formSeleccionado: number = 0;
 
   form: FormGroup;
   editForm: FormGroup;
@@ -39,7 +55,8 @@ export class FormulariosComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private formularioService: FormularioService,
-    private authService: AuthService
+    private authService: AuthService, private chatSer: ChatService, private clienteService: ClientesService,
+    private chatService: ChatService
   ) {
     this.editForm = this.fb.group({
       NomCuestionario: ['', Validators.required],
@@ -60,7 +77,9 @@ export class FormulariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getChats()
     this.getForm()
+    this.getClientes()
     this.authService.getCurrentUser().subscribe(
       (user) => {
         if (user) {
@@ -246,10 +265,17 @@ export class FormulariosComponent implements OnInit {
   }
 
   deleteForm(id: number) {
-    this.formularioService.deleteForm(id).subscribe(() => {
-      this.cuestionarios = this.cuestionarios.filter(c => c.IdCuestionario !== id);
-    });
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar este formulario?');
+    if (confirmacion) {
+      this.formularioService.deleteForm(id).subscribe(() => {
+        this.cuestionarios = this.cuestionarios.filter(c => c.IdCuestionario !== id);
+        alert('Formulario eliminado con éxito');
+      }, error => {
+        alert('Error al eliminar el formulario');
+      });
+    }
   }
+
 
   //Preguntas
 
@@ -321,15 +347,149 @@ export class FormulariosComponent implements OnInit {
   }
 
   deletePregunta(idPregunta: number) {
-    console.log(idPregunta)
-    this.formularioService.deletePre(idPregunta).subscribe(() => {
-      this.preguntas = this.preguntas.filter(c => c.IdCuestionario !== idPregunta);
-      this.getFormNoUpdate()
-    });
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta pregunta?');
+
+    if (confirmacion) {
+      this.formularioService.deletePre(idPregunta).subscribe(() => {
+        this.preguntas = this.preguntas.filter(c => c.IdCuestionario !== idPregunta);
+        this.getFormNoUpdate()
+        alert('Pregunta eliminada con éxito');
+      }, error => {
+        alert('Error al eliminar el formulario');
+      });
+    }
+
   }
 
   togglePreguntas(index: number) {
     this.cuestionarios[index].mostrarPreguntas = !this.cuestionarios[index].mostrarPreguntas;
+  }
+
+  //Envios
+  getChats() {
+    this.chatService.getChats().subscribe((chatsResponse: Chats[]) => {
+      this.chats = chatsResponse;
+
+      this.chatService.getParticipantes().subscribe((participantesResponse: Participantes[]) => {
+        this.chats.forEach(chat => {
+          chat.participantes = participantesResponse.filter(p => p.IdChat === chat.IdChat);
+
+          const idsUsuarios = chat.participantes
+            .map(p => p.IdUsuario)
+            .filter(id => id !== this.userLoger.IdUsuario);  // Excluye al usuario logueado
+
+          const observables = idsUsuarios.map(id => this.chatService.getUsuariosById(id));
+
+          forkJoin(observables).pipe(
+            map(usuariosResponse => usuariosResponse.flat())
+          ).subscribe((usuariosResponse: Usuarios[]) => {
+            chat.participantes?.forEach(participante => {
+              const usuario = usuariosResponse.find(u => u.IdUsuario === participante.IdUsuario);
+              if (usuario) {
+                participante.Nombre = usuario.NombreCompleto;
+              }
+            });
+
+            this.clientes.forEach(cliente => {
+              const clienteChat = chat.participantes?.find(p => p.IdUsuario === cliente.IdUsuario);
+              if (clienteChat) {
+                cliente.chatActivo = chat.Estado === 'Activo';
+                cliente.mostrar = chat.mostrar || false;
+
+                if (this.userLoger.tipoUsuario === 'Especialista') {
+                  chat.msj = [];
+                  this.chatService.getMensajesPorChat(chat.IdChat).subscribe((mensajesResponse: Mensajes[]) => {
+                    chat.msj = mensajesResponse;
+
+                    const clienteHaEnviadoMensaje = mensajesResponse.some(mensaje => mensaje.IdEmisor !== this.userLoger.IdUsuario);
+
+                    if (!clienteHaEnviadoMensaje) {
+                      cliente.mostrar = false;
+                    } else {
+                      cliente.mostrar = true;
+                    }
+                  });
+                }
+              }
+            });
+
+
+          });
+        });
+      });
+    });
+  }
+
+  getClientes(): void {
+    this.clienteService.getClientes().subscribe(
+      (clientesResponse: Clientes[]) => {
+        this.clientes = clientesResponse;
+        const idsUsuarios = this.clientes.map(cliente => cliente.IdUsuario);
+
+        if (idsUsuarios.length > 0) {
+          const observables = idsUsuarios.map(id => this.chatService.getUsuariosById(id));
+          forkJoin(observables).pipe(
+            map(usuariosResponse => usuariosResponse.flat())
+          ).subscribe((usuarios: Usuarios[]) => {
+            this.usuarios = usuarios;
+
+            this.clientes.forEach(cliente => {
+              const usuario = usuarios.find(u => u.IdUsuario === cliente.IdUsuario);
+              if (usuario) {
+                cliente.Nombre = usuario.NombreCompleto;
+              }
+            });
+          });
+        }
+      },
+      (error) => console.error('Error al obtener clientes:', error)
+    );
+  }
+
+  abrirModal(IdCuestionario: number) {
+    this.formSeleccionado = IdCuestionario;
+    this.mostrarModal = true;
+  }
+
+
+  cerrarModal(event: Event) {
+    event.stopPropagation();
+    this.mostrarModal = false;
+    this.clienteSeleccionado = 0;
+    this.formSeleccionado = 0;
+  }
+
+  seleccionarCliente(IdUsuario: number, event: Event) {
+    event.stopPropagation();
+    this.clienteSeleccionado = IdUsuario;
+  }
+
+
+  enviarFormulario() {
+    if (this.clienteSeleccionado !== 0) {
+      const envio: EnvioForm = {
+        IdEnvio: 0,
+        IdCuestionario: this.formSeleccionado,
+        IdUsuario: this.clienteSeleccionado,
+        FechaEnvio: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        EstadoEnvio: 'Enviado'
+      };
+
+      this.chatSer.enviarFormulario(envio)
+        .subscribe(
+          response => {
+            this.clienteSeleccionado = 0;
+            this.formSeleccionado = 0;
+            this.mostrarModal = false;
+            alert('Formulario enviado con éxito');
+          },
+          error => {
+            console.error('Error al enviar el formulario:', error);
+          }
+        );
+    } else {
+      alert('Por favor, selecciona un cliente antes de enviar el formulario.');
+    }
   }
 
 }

@@ -36,6 +36,7 @@ label {
 
 button {
   margin-top: 10px;
+  margin-right: 10px;
 }
 
 /* Botones principales */
@@ -62,6 +63,42 @@ button {
   background-color: #28a745;
   border-color: #28a745;
   color: #fff;
+}
+
+.btnsend {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  margin-top: -33px;
+}
+
+.btnsend:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  cursor: pointer;
+}
+
+.btnsend i {
+  margin-right: 2px;
+}
+
+
+.cardContainer {
+  top: 80px;
+  width: 700px;
+  height: 570px;
+  position: fixed;
+  right: 0;
+  
+  flex-direction: column;
 }
 
 /* Card de Formularios Existentes */
@@ -137,4 +174,112 @@ button {
 .dropdown {
   display: flex;
   justify-content: flex-end;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 620px;
+  max-width: 600px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.cliente-card {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.contact-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected {
+  background-color: #f0f8ff;
+  border: 2px solid #007bff;
+}
+
+
+/* Perfil */
+.contact-list {
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.contact-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px; /* Aseguramos un padding consistente para la altura */
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+  cursor: pointer; /* Indicamos que la tarjeta es interactiva */
+  min-height: 150px; /* Altura mínima consistente para todas las tarjetas */
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contact-card:hover {
+  background-color: #f1f1f1;
+}
+
+.contact-avatar {
+  width: 70px; /* Ampliamos un poco más el avatar */
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.contact-info {
+  flex-grow: 1; /* Hace que el contenido ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-info h5 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact-info p {
+  margin: 5px 0;
+  font-size: 14px;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Chats, Mensajes, Participantes } from '../models/chats';
+import { Chats, EnvioForm, Mensajes, Participantes } from '../models/chats';
 import { catchError, Observable, of } from 'rxjs';
 import { Usuarios } from '../models/models';
 
@@ -11,6 +11,7 @@ export class ChatService {
 
   private Back_ApiC = 'http://localhost:3002/api/chats';
   private Back_ApiU = 'http://localhost:3002/api/users';
+  private Back_Api = 'http://localhost:3002/api';
 
   constructor(private http: HttpClient) { }
 
@@ -59,5 +60,9 @@ export class ChatService {
 
   getUsuariosById(idUsuario: number): Observable<Usuarios[]> {
     return this.http.get<Usuarios[]>(`${this.Back_ApiU}/${idUsuario}`);
+  }
+
+  enviarFormulario(envioForm:EnvioForm): Observable<any> {
+    return this.http.post(`${this.Back_Api}/envioForm`,envioForm);
   }
 }

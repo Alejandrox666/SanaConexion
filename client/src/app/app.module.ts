@@ -47,7 +47,7 @@ import { ReposicionContrasenaComponent } from './components/reposicion-contrasen
     NavigationCComponent,
     CuestionariosDisponiblesComponent,
     ListaEspComponent,
-    ReposicionContrasenaComponent
+    ReposicionContrasenaComponent,
   ],
   imports: [
     BrowserModule,

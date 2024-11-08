@@ -81,16 +81,18 @@
                 <div *ngIf="!enEdicionPre[pregunta.IdPregunta]" class="question-item">
                   <span>{{ pregunta.Pregunta }}</span>
                   <div class="dropdown">
-                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-link" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                      aria-expanded="false">
                       <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <li><button class="dropdown-item" (click)="editPreguntas(pregunta)">Editar</button></li>
-                      <li><button class="dropdown-item text-danger" (click)="deletePregunta(pregunta.IdPregunta)">Eliminar</button></li>
+                      <li><button class="dropdown-item text-danger"
+                          (click)="deletePregunta(pregunta.IdPregunta)">Eliminar</button></li>
                     </ul>
                   </div>
                 </div>
-                
+
                 <!--Actualizar Pregunta-->
                 <div *ngIf="enEdicionPre[pregunta.IdPregunta]" class="edit-form mt-2">
                   <form [formGroup]="editPre" (ngSubmit)="saveChangePre(pregunta.IdPregunta)">
@@ -137,15 +139,52 @@
             </form>
           </div>
           <!--Botones Cuestionario-->
-          <div *ngIf="!enEdicion[cuestionario.IdCuestionario]" class="mt-2">
+          <div *ngIf="!enEdicion[cuestionario.IdCuestionario]">
             <button class="btn btn-warning" (click)="editCuestionario(cuestionario)">
               <i class="fas fa-edit"></i>
             </button>
             <button class="btn btn-danger" (click)="deleteForm(cuestionario.IdCuestionario)">
               <i class="fas fa-trash-alt"></i>
             </button>
+            <div class="d-flex justify-content-end">
+              <button class="btnsend" (click)="abrirModal(cuestionario.IdCuestionario)">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+
+
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" [ngClass]="{'show': mostrarModal}" *ngIf="mostrarModal" (click)="cerrarModal($event)">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Selecciona un Chat</h5>
+      </div>
+      <div class="scrollable-container d-flex flex-column">
+        <div *ngFor="let cliente of clientes" class="d-flex flex-row card-bodytext">
+          <div class="contenedorPfl">
+            <div class="contact-card d-flex flex-row shadow-sm" (click)="seleccionarCliente(cliente.IdUsuario, $event)"
+              [ngClass]="{'selected': clienteSeleccionado === cliente.IdUsuario}">
+              <img [src]="cliente.Foto" alt="{{ cliente.Nombre }}" class="contact-avatar">
+              <div class="contact-info d-flex flex-column">
+                <h5>{{ cliente.Nombre }}</h5>
+                <p><strong>Edad:</strong> {{ cliente.Edad }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal($event)">Cerrar</button>
+        <button type="button" class="btn btn-primary" [disabled]="!clienteSeleccionado"
+          (click)="enviarFormulario()">Enviar Formulario</button>
       </div>
     </div>
   </div>

@@ -79,11 +79,10 @@ const routes: Routes = [
     path:'lista-especialistas',
     component: ListaEspComponent
   },
-  
   {
     path:'newPasswd',
     component: ReposicionContrasenaComponent
-  }
+  },
 ];
 
 @NgModule({
