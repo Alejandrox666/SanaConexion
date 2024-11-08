@@ -15,6 +15,7 @@ import { RegistroClienteComponent } from './components/registros/registro-client
 import { RegistrosComponent } from './components/registros/registros.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -37,7 +38,8 @@ const routes: Routes = [
   
   {
     path:'formEsp',
-    component:FormEspComponent
+    component:FormEspComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'registros',
@@ -53,7 +55,8 @@ const routes: Routes = [
   },
   {
     path:'inicioE',
-    component:EspecialistaComponent
+    component:EspecialistaComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'navE',
@@ -73,11 +76,13 @@ const routes: Routes = [
   },
   {
     path:'cuestionarios-disponibles',
-    component: CuestionariosDisponiblesComponent
+    component: CuestionariosDisponiblesComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'lista-especialistas',
-    component: ListaEspComponent
+    component: ListaEspComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path:'newPasswd',

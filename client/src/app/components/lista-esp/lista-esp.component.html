@@ -5,9 +5,8 @@
         <div *ngFor="let especialista of especialistas" class="col-md-3 mb-4">
             <div class="card shadow-sm align-items-center h-100">
                 <!-- Imagen del especialista -->
-                <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" 
-                    class="img-fluid rounded-circle mt-3" 
-                    style="width: 100px; height: 100px; object-fit: cover;">
+                <img [src]="especialista.Foto" alt="{{ especialista.NombreCompleto }}" class="img-fluid rounded-circle"
+                style="width: 100px; height: 100px; object-fit: cover; margin-left: 15px;">
                 
                 <div class="card-body text-center">
                     <!-- Información del especialista -->

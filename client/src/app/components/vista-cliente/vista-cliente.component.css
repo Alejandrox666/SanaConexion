@@ -1,9 +1,48 @@
-/* Icono de Notificación */
+/* Estilos generales para los videos */
+.video-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.video-container {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Estilos de la lista de notificaciones */
 .notification-icon {
   font-size: 1.25rem;
 }
 
-/* Estilo para cada notificación */
 .list-group-item {
   background-color: #f7f7f7;
   transition: background-color 0.2s ease;
@@ -14,35 +53,33 @@
   border-radius: 8px;
 }
 
-/* Tipografía y color */
-.card-body p {
-  font-size: 1rem;
-  color: #333;
-}
-
-small.text-muted {
-  font-size: 0.85rem;
-}
-
 /* Pie de Página */
 .footer {
-width: 100%;
-text-align: center;
-padding: 15px;
-background-color: #1abc9c;
-color: #fff;
-font-size: 0.9em;
-position: fixed;
-bottom: 0;
-left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  background-color: #1abc9c;
+  color: #fff;
+  font-size: 0.9em;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #ddd;
 }
 
 .footer a {
-color: #fff;
-text-decoration: none;
-margin: 0 5px;
+  color: #fff;
+  text-decoration: none;
+  margin: 0 5px;
 }
 
 .footer a:hover {
-text-decoration: underline;
+  text-decoration: underline;
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 767px) {
+  .video-card {
+    max-width: 100%;
+  }
 }

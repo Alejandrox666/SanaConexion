@@ -25,8 +25,6 @@ export class NavigationCComponent implements OnInit {
       const url = this.router.url;
       this.isLoginPage = url === '/login';
       this.isHomePage = url === '/home';
-      this.isRegistrosPage = url === '/registros';
-      this.isDestacadosPage = url === '/destacados';
     });
 
     // Suscríbete a los cambios en el estado de autenticación

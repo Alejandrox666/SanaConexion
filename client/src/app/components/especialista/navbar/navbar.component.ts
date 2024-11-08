@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent {
   isLoginPage: boolean = false;
   isHomePage: boolean = false;
-  isDestacadosPage: boolean = false;
   isLoggedIn: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -24,7 +23,6 @@ export class NavbarComponent {
       const url = this.router.url;
       this.isLoginPage = url === '/login';
       this.isHomePage = url === '/home';
-      this.isDestacadosPage = url === '/destacados';
     });
 
     // Suscríbete a los cambios en el estado de autenticación

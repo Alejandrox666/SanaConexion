@@ -22,7 +22,7 @@ export class RCuestionarioComponent implements OnInit {
   allPreguntas: Preguntas[] = [];
   IdCliente!: number;
   IdUs!: number;
-  IdCuestionario!: number; // Variable para almacenar el IdCuestionario
+  IdCuestionario!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +49,6 @@ export class RCuestionarioComponent implements OnInit {
     this.preguntaSrv.getForm().subscribe(
       (res: Cuestionarios[]) => {
         this.cuestionariosget = res;
-        // Filtra el cuestionario que coincide con el IdCuestionario
         this.cuestionarioSeleccionado = this.cuestionariosget.find(c => c.IdCuestionario === this.IdCuestionario);
         console.log('Cuestionario seleccionado:', this.cuestionarioSeleccionado);
       },
@@ -107,7 +106,22 @@ export class RCuestionarioComponent implements OnInit {
   }
 
   onSubmit() {
-    // Mostrar el SweetAlert de confirmación
+    // Validación para verificar que todas las preguntas tengan respuesta
+    const unansweredQuestions = this.allPreguntas.some(pregunta => 
+      !this.respuestas.some(res => res.IdPregunta === pregunta.IdPregunta && res.Respuesta.trim() !== '')
+    );
+  
+    if (unansweredQuestions) {
+      Swal.fire({
+        title: 'Advertencia',
+        text: 'Por favor, responde todas las preguntas antes de enviar.',
+        icon: 'warning',
+        confirmButtonText: 'Aceptar'
+      });
+      return; // Detener el envío si hay preguntas sin respuesta
+    }
+  
+    // Confirmación de envío
     Swal.fire({
       title: 'Confirmación',
       text: "¿Estás seguro de enviar tus respuestas?",
@@ -119,35 +133,31 @@ export class RCuestionarioComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        // Si el usuario confirma, guardar las respuestas
         const respuestasObservables = this.respuestas.map((respuesta) =>
           this.respSrv.createRespuesta(respuesta).toPromise()
         );
-
+  
         Promise.all(respuestasObservables)
           .then((res) => {
-            // Mostrar SweetAlert de éxito cuando todas las respuestas se hayan guardado
             Swal.fire({
               title: 'Éxito',
               text: 'Las respuestas se enviaron correctamente.',
               icon: 'success',
               confirmButtonText: 'Aceptar'
             }).then(() => {
-              // Limpiar los campos de entrada
+              // Limpiar los campos de entrada y redirigir
               this.respuestas = [];
               this.allPreguntas.forEach(pregunta => {
                 const inputElement = document.querySelector(`input[id='pregunta-${pregunta.IdPregunta}']`) as HTMLInputElement;
                 if (inputElement) inputElement.value = '';
               });
-
-              // Redirigir al componente CuestionariosDisponibles
+  
               this.router.navigate(['/cuestionarios-disponibles']);
             });
-
+  
             console.log('Respuestas guardadas:', res);
           })
           .catch((error) => {
-            // Manejar el caso de error si alguna respuesta no se guarda
             console.error('Error al guardar respuestas:', error);
             Swal.fire({
               title: 'Error',
@@ -159,4 +169,5 @@ export class RCuestionarioComponent implements OnInit {
       }
     });
   }
+  
 }
