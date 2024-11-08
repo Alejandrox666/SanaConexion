@@ -29,6 +29,24 @@ class UsuarioEspController {
         }
     }
 
+    public async getOne2(req: Request, res: Response): Promise<any> {
+        const { id } = req.params;
+
+        try {
+            const especialistas = await pool.query(`SELECT *
+                FROM Especialistas
+                WHERE IdUsuario = ?`, [id]);
+            if (especialistas.length > 0) {
+                console.log(especialistas);
+                return res.json(especialistas[0]);
+
+            }
+            res.status(404).json({ text: "The user doesn't exist" });
+        } catch (error) {
+            res.status(500).json({ error: "Error retrieving user" });
+        }
+    }
+
     public async createEsp(req: Request, res: Response): Promise<void> {
         try {
           const { Foto, ...datosEspecialista } = req.body;

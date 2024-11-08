@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { Clientes } from 'src/app/models/clientes';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { DatosEspService } from 'src/app/services/datos-esp.service';
+import { Especialistas } from 'src/app/models/models';
+
 
 
 @Component({
@@ -18,32 +21,59 @@ export class MiPerfilComponent implements OnInit, OnChanges {
 
   @Input() datosClientes!: Clientes;
   cliente: Clientes = {} as Clientes;
+
+  @Input() datosEspecialistas!: Especialistas;
+  especialista: Especialistas = {} as Especialistas;
   mostrarEntrevista: boolean = false;
   editMode: boolean = false; 
-  editEntrevistaMode: boolean = false;
+  editMode2: boolean = false;
+  editEntrevistaMode: boolean = true;
+  modoTipoUsuario:string = '';
 
-  constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService) {}
+  constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService, private especialistasService: DatosEspService) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(
       (user) => {
         if (user) {
           this.user = user;
+          this.modoTipoUsuario  = user.tipoUsuario;
           console.log(user);
           const userId = user.IdUsuario
           console.log(userId)
-          this.clientesService.getClienteByIdUsuario(userId!).subscribe(
-            (data: Clientes) => {
-              this.cliente = data;
-            
-              // Maneja la respuesta aquí
-              console.log(data); // Ejemplo de cómo puedes usar los datos
-            },
-            (error) => {
-              // Maneja el error aquí
-              console.error(error); // Ejemplo de cómo manejar el error
-            }
-          );
+          console.log(this.modoTipoUsuario);
+          if (this.modoTipoUsuario == 'Cliente'){
+            this.clientesService.getClienteByIdUsuario(userId!).subscribe(
+              (data: Clientes) => {
+                this.cliente = data;
+              
+                
+                console.log(data); // Ejemplo de cómo puedes usar los datos
+              },
+              (error) => {
+                // Maneja el error aquí
+                console.error(error); // Ejemplo de cómo manejar el error
+              }
+            );
+          }
+          if (this.modoTipoUsuario == 'Especialista') {
+            this.especialistasService.getEspecialistaById(userId!).subscribe(
+              (data: Especialistas | null) => {
+                if (data) {
+                  this.especialista = data;
+                } else {
+                  console.warn('No se encontraron datos de especialista');
+                }
+                console.log(data); // Ejemplo de cómo puedes usar los datos
+              },
+              (error) => {
+                // Maneja el error aquí
+                console.error(error); // Ejemplo de cómo manejar el error
+              }
+            );
+          }
+          
+        
           
         } else {
           console.error('No user is currently logged in.');
@@ -95,6 +125,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
    // Alterna la visibilidad de la sección de Entrevista Inicial
    toggleEntrevista() {
     this.mostrarEntrevista = !this.mostrarEntrevista;
+    this.editEntrevistaMode = !this.editEntrevistaMode;
   }
 
 
@@ -139,7 +170,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
           if (respuesta) {
             console.log('Encuesta actualizada:', respuesta);
             // Aquí puedes agregar una notificación de éxito
-            this.editEntrevistaMode = false;
+            this.editEntrevistaMode = false;  
           } else {
             console.error('La actualización de la encuesta falló.');
           }
@@ -165,12 +196,15 @@ cancelarEdicion() {
 }
 
 toggleEditEntrevista() {
-  this.editEntrevistaMode = !this.editEntrevistaMode;
+  this.editEntrevistaMode = this.editEntrevistaMode;
+  this.editMode2 = !this.editMode2;
+
 }
 
 cancelarEdicionEntrevista() {
   this.editEntrevistaMode = false;
   // Opcional: recargar los datos originales del cliente si quieres revertir cambios
+  this.editMode2 = false;
 }
 onFileSelected(event: any) {
   const file = event.target.files[0];

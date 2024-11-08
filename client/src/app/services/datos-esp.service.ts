@@ -33,4 +33,14 @@ export class DatosEspService {
     );
   }
 
+   // Obtener un cliente por ID (opcional)
+   getEspecialistaById(id: number): Observable<Especialistas | null> {
+    return this.http.get<Especialistas>(`${this.Back_Api}/usuarioEsp/prueba/${id}`).pipe(
+      catchError(error => {
+        console.error('Error al obtener especialista por ID:', error);
+        return of(null); // Retorna null en caso de error
+      })
+    );
+  }
+
 }
