@@ -20,6 +20,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
   cliente: Clientes = {} as Clientes;
   mostrarEntrevista: boolean = false;
   editMode: boolean = false; 
+  editEntrevistaMode: boolean = false;
 
   constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService) {}
 
@@ -124,6 +125,32 @@ export class MiPerfilComponent implements OnInit, OnChanges {
   // Método para editar la entrevista
   editarEntrevista() {
   
+    
+    const userId = this.user.IdUsuario
+     const clienteid = this.cliente.IdUsuario
+    
+     const clienteId = this.cliente.IdCliente;  // Asegúrate de que IdCliente es el campo correcto para el ID del cliente
+     console.log("User ID:", this.user.IdUsuario);
+     console.log("Cliente ID:", clienteId);
+     console.log("Cliente data:", this.cliente);
+    if (userId && this.cliente) { // Asegúrate de que `userId` y `user` existen
+      this.clientesService.upCliente(userId, this.cliente).subscribe(
+        (respuesta) => {
+          if (respuesta) {
+            console.log('Encuesta actualizada:', respuesta);
+            // Aquí puedes agregar una notificación de éxito
+            this.editEntrevistaMode = false;
+          } else {
+            console.error('La actualización de la encuesta falló.');
+          }
+        },
+        (error) => {
+          console.error('Error al actualizar la encuesta:', error); // Manejo del error
+        }
+      );
+    } else {
+      console.error('No se pudo obtener el ID de usuario o la encuesta del usuario está incompleta.');
+    }
 }
 
 // Método para alternar el modo de edición
@@ -135,5 +162,25 @@ editarPerfil2() {
 cancelarEdicion() {
   this.editMode = false;
    // Recargar los datos originales del usuario
+}
+
+toggleEditEntrevista() {
+  this.editEntrevistaMode = !this.editEntrevistaMode;
+}
+
+cancelarEdicionEntrevista() {
+  this.editEntrevistaMode = false;
+  // Opcional: recargar los datos originales del cliente si quieres revertir cambios
+}
+onFileSelected(event: any) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      // Guardamos la imagen en formato base64 en el objeto cliente
+      this.cliente.Foto = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
 }
 }

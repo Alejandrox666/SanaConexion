@@ -58,7 +58,8 @@ class ClientesController{
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const oldHouse = req.body;
-        await pool.query('UPDATE Clientes set ? WHERE id = ?', [req.body, id]);
+        console.log(req.body);
+        await pool.query('UPDATE Clientes set ? WHERE IdUsuario = ?', [req.body, id]);
         res.json({ message: "The user was Updated" });
     }
 
