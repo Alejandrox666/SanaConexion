@@ -50,19 +50,19 @@
 
                         <!-- Botones de Editar y Guardar Perfil -->
                         <div class="text-center mt-3">
-                            <button *ngIf="!mostrarEntrevista" class="btn btn-primary" (click)="toggleEntrevista()">
+                            <button *ngIf="!mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
                                 Ver Entrevista Inicial
                             </button>
-                            <button *ngIf="mostrarEntrevista" class="btn btn-primary" (click)="toggleEntrevista()">
+                            <button *ngIf="mostrarEntrevista" class="btn btn-primary me-2" (click)="toggleEntrevista()">
                                 Ocultar Entrevista Inicial
                             </button>
-                            <button *ngIf="!editMode" class="btn btn-secondary" (click)="editarPerfil2()">
+                            <button *ngIf="!editMode" class="btn btn-secondary me-2" (click)="editarPerfil2()">
                                 Editar Perfil
                             </button>
-                            <button *ngIf="editMode" class="btn btn-primary" (click)="editarPerfil()">
+                            <button *ngIf="editMode" class="btn btn-primary me-2" (click)="editarPerfil()">
                                 Guardar Cambios
                             </button>
-                            <button *ngIf="editMode" class="btn btn-secondary" (click)="cancelarEdicion()">
+                            <button *ngIf="editMode" class="btn btn-secondary me-2" (click)="cancelarEdicion()">
                                 Cancelar
                             </button>
                         </div>
@@ -140,16 +140,16 @@
 
     <!-- Botones de Ocultar Entrevista, Editar Entrevista, Guardar y Cancelar -->
     <div class="text-center mt-3">
-        <button class="btn btn-primary" (click)="toggleEntrevista()">
+        <button class="btn btn-primary me-2" (click)="toggleEntrevista()">
             Ocultar Entrevista Inicial
         </button>
-        <button *ngIf="!editEntrevistaMode" class="btn btn-secondary" (click)="toggleEditEntrevista()">
+        <button *ngIf="!editEntrevistaMode" class="btn btn-secondary me-2" (click)="toggleEditEntrevista()">
             Editar Entrevista
         </button>
-        <button *ngIf="editEntrevistaMode" class="btn btn-primary" (click)="editarEntrevista()">
+        <button *ngIf="editEntrevistaMode" class="btn btn-primary me-2" (click)="editarEntrevista()">
             Guardar Entrevista
         </button>
-        <button *ngIf="editEntrevistaMode" class="btn btn-secondary" (click)="cancelarEdicionEntrevista()">
+        <button *ngIf="editEntrevistaMode" class="btn btn-secondary me-2" (click)="cancelarEdicionEntrevista()">
             Cancelar
         </button>
     </div>
