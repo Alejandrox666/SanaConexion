@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">Cuestionarios del usuario</h2>
+
+    <!-- Mostrar los cuestionarios filtrados -->
+    <div *ngIf="filteredCuestionarios.length > 0; else noCuestionarios">
+        <div class="row">
+            <div *ngFor="let cuestionario of filteredCuestionarios" class="col-md-3 mb-4">
+                <div class="card shadow-sm h-100">
+                    <!-- Encabezado de la tarjeta -->
+                    <div class="card-header bg-primary text-white text-center">
+                        <h5 class="card-title mb-0">{{ cuestionario.NomCuestionario }}</h5>
+                    </div>
+                    <!-- Cuerpo de la tarjeta -->
+                    <div class="card-body text-center">
+                        <p class="card-text">{{ cuestionario.Descripcion }}</p>
+                    </div>
+                    <!-- Botón centrado -->
+                    <div class="card-footer d-flex justify-content-center">
+                        <button class="btn btn-primary">
+                            Ver Respuestas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje en caso de no haber cuestionarios -->
+    <ng-template #noCuestionarios>
+        <p>No se encontraron cuestionarios para mostrar.</p>
+    </ng-template>
+</div>

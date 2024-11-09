@@ -1,0 +1,36 @@
+.container {
+    max-width: 1200px;
+  }
+  
+  .card {
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .text-muted {
+    font-size: 0.95rem;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .d-flex button {
+    width: 45%;
+  }

@@ -1,40 +1,42 @@
 <div class="container mt-5">
-  <!-- Título de Cuestionarios Disponibles -->
-  <h2 class="mb-4 text-center">Cuestionarios Disponibles</h2>
-  <div class="row justify-content-center">
-      <div class="col-md-8">
-          <div class="card shadow rounded-3">
-              <div class="card-body p-4">
-                  <ul class="list-group list-group-flush">
-                      <li *ngFor="let cuest of cuestionariosget" 
-                          class="list-group-item d-flex align-items-center gap-3 cuestionario-item"
-                          (click)="redirectToCuestionario(cuest.IdCuestionario, (cuest.IdEnvio ?? -1))">
-                
-                          <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
-                               style="width: 50px; height: 50px;">
-                              <i class="bi bi-journal-text fs-4"></i>
-                          </div>
-                          
-                          <div class="flex-grow-1">
-                              <h5 class="mb-1" style="color: #333;">{{ cuest.NomCuestionario }}</h5>
-                              <p class="text-muted mb-0" style="font-size: 0.9rem;">{{ cuest.Descripcion }}</p>
-                          </div>
-                          
-                          <!-- Flecha para indicar navegación -->
-                          <div class="text-secondary">
-                              <i class="bi bi-chevron-right fs-5"></i>
-                          </div>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="footer mt-5">
-      <div class="text-center">
-          <p>&copy; 2024 SanaConexión. Todos los derechos reservados.</p>
-      </div>
-  </footer>
+    <!-- Título de Cuestionarios Disponibles -->
+    <h2 class="mb-4 text-center">Cuestionarios Disponibles</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow rounded-3">
+                <div class="card-body p-4">
+                    <!-- Mensaje de ningún cuestionario disponible con ícono de información -->
+                    <div *ngIf="cuestionariosget.length === 0" class="text-center text-muted">
+                        <div class="mb-2">
+                            <i class="bi bi-info-circle fs-1"></i>
+                        </div>
+                        <h2>No te han enviado ningún cuestionario para responder</h2>
+                    </div>
+                    <!-- Lista de cuestionarios -->
+                    <ul *ngIf="cuestionariosget.length > 0" class="list-group list-group-flush">
+                        <li *ngFor="let cuest of cuestionariosget" 
+                            class="list-group-item d-flex align-items-center gap-3 cuestionario-item"
+                            (click)="redirectToCuestionario(cuest.IdCuestionario, (cuest.IdEnvio ?? -1))">
+                  
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 50px; height: 50px;">
+                                <i class="bi bi-journal-text fs-4"></i>
+                            </div>
+                            
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1" style="color: #333;">{{ cuest.NomCuestionario }}</h5>
+                                <p class="text-muted mb-0" style="font-size: 0.9rem;">{{ cuest.Descripcion }}</p>
+                            </div>
+                            
+                            <!-- Flecha para indicar navegación -->
+                            <div class="text-secondary">
+                                <i class="bi bi-chevron-right fs-5"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+  

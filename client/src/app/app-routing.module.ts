@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
 import { ChatComponent } from './components/especialista/chat/chat.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
+import { ExpedientesComponent } from './components/especialista/expedientes/expedientes.component';
+import { FormEspComponent } from './components/especialista/form-esp/form-esp.component';
 import { FormulariosComponent } from './components/especialista/formularios/formularios.component';
 import { NavbarComponent } from './components/especialista/navbar/navbar.component';
-import { FormEspComponent } from './components/especialista/form-esp/form-esp.component';
 import { HomeComponent } from './components/home/home.component';
 import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 import { LoginComponent } from './components/login/login.component';
@@ -13,9 +14,11 @@ import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { RCuestionarioComponent } from './components/r-cuestionario/r-cuestionario.component';
 import { RegistroClienteComponent } from './components/registros/registro-cliente/registro-cliente.component';
 import { RegistrosComponent } from './components/registros/registros.component';
-import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
+import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { Path } from 'leaflet';
+import { CuestionariosExpComponent } from './components/especialista/cuestionarios-exp/cuestionarios-exp.component';
 
 const routes: Routes = [
   {
@@ -88,6 +91,15 @@ const routes: Routes = [
     path: 'newPasswd',
     component: ReposicionContrasenaComponent
   },
+  {
+    path: 'expedientes',
+    component: ExpedientesComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path:'cuestionarios-exp/:IdUsuario',
+    component: CuestionariosExpComponent
+  }
 ];
 
 @NgModule({

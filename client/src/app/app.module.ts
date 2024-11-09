@@ -24,6 +24,9 @@ import { CuestionariosDisponiblesComponent } from './components/cuestionarios-di
 import { NavigationCComponent } from './components/navigation-c/navigation-c.component';
 import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
+import { ExpedientesComponent } from './components/especialista/expedientes/expedientes.component';
+import { CuestionariosExpComponent } from './components/especialista/cuestionarios-exp/cuestionarios-exp.component';
+import { VerPreguntasComponent } from './components/especialista/ver-preguntas/ver-preguntas.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +51,9 @@ import { ReposicionContrasenaComponent } from './components/reposicion-contrasen
     CuestionariosDisponiblesComponent,
     ListaEspComponent,
     ReposicionContrasenaComponent,
+    ExpedientesComponent,
+    CuestionariosExpComponent,
+    VerPreguntasComponent,
   ],
   imports: [
     BrowserModule,
