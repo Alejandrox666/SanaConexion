@@ -3,6 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,9 +15,13 @@ export class NavbarComponent {
   isHomePage: boolean = false;
   isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  usuarios: Usuarios[] = []
+
+
+  constructor(private router: Router, private authService: AuthService, private usuariosServ: UsuariosService) { }
 
   ngOnInit() {
+   
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
@@ -25,11 +30,13 @@ export class NavbarComponent {
       this.isHomePage = url === '/home';
     });
 
-    // Suscríbete a los cambios en el estado de autenticación
     this.authService.getCurrentUser().subscribe((user: Usuarios | null) => {
       this.isLoggedIn = !!user;
+      this.usuarios = user ? [user] : [];
     });
   }
+
+  
 
 
 

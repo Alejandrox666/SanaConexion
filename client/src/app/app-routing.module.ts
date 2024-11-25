@@ -17,7 +17,6 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { Path } from 'leaflet';
 import { CuestionariosExpComponent } from './components/especialista/cuestionarios-exp/cuestionarios-exp.component';
 
 const routes: Routes = [

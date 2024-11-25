@@ -16,6 +16,8 @@ export class NavigationCComponent implements OnInit {
   isDestacadosPage: boolean = false;
   isLoggedIn: boolean = false;
 
+  usuarios: Usuarios[] = []
+
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class NavigationCComponent implements OnInit {
     // Suscríbete a los cambios en el estado de autenticación
     this.authService.getCurrentUser().subscribe((user: Usuarios | null) => {
       this.isLoggedIn = !!user;
+      this.usuarios = user ? [user] : [];
     });
   }
 

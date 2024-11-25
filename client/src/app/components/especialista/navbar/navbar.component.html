@@ -11,7 +11,7 @@
           <a class="nav-link active text-white" aria-current="page" href="/inicioE">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="/mensajeria">Mensajeria</a>
+          <a class="nav-link text-white" href="/mensajeria">Mensajería</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-white" href="/formE">Formularios</a>
@@ -22,9 +22,10 @@
       </ul>
 
       <div class="ms-auto d-flex align-items-center" *ngIf="isLoggedIn">
-        <div class="dropdown">
-          <img src="assets/avatar.png" alt="User Icon" class="dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false" />
+        <div class="dropdown d-flex align-items-center" *ngFor="let usuario of usuarios">
+          <span class="me-2 text-white">{{ usuario.NombreCompleto }}</span>
+          <img src="assets/avatar.png" alt="User Icon" class="dropdown-toggle" id="userDropdown"
+            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 40px; height: 40px; border-radius: 50%;" />
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <a class="dropdown-item" routerLink="/mi-perfil">Mi perfil</a>
             <a class="dropdown-item" (click)="logout()">Cerrar sesión</a>
