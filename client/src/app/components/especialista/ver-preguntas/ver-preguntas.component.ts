@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { EnvioForm } from 'src/app/models/chats';
+import { Component, Input, OnInit } from '@angular/core';
 import { Preguntas, Respuestas } from 'src/app/models/formularios';
 import { ChatService } from 'src/app/services/chat.service';
 import { RespuestasService } from 'src/app/services/respuestas.service';
@@ -10,34 +9,35 @@ import { RespuestasService } from 'src/app/services/respuestas.service';
   styleUrls: ['./ver-preguntas.component.css']
 })
 export class VerPreguntasComponent implements OnInit {
-  respuestas: Respuestas[] = [];
-  allPreguntas: Preguntas[] = [];
-  IdCuestionario!: number;
-  enviosget: EnvioForm[] = [];
+  @Input() IdCuestionario!: number; // Recibir el ID del cuestionario seleccionado
+  @Input() respuestas: Respuestas[] = [];  // Recibir las respuestas filtradas
+  preguntasFiltradas: Preguntas[] = []; // Preguntas del cuestionario
 
-  constructor(private respSrv: RespuestasService, private chatSrv: ChatService,) {}
+  constructor(
+    private respSrv: RespuestasService,
+    private chatSrv: ChatService
+  ) { }
 
   ngOnInit(): void {
-    this.respSrv.getAnswersByIdCues(this.IdCuestionario).subscribe(
-      (res: Preguntas[]) => {
-        this.allPreguntas = res;
-      },
-      (err: any) => console.error(err)
-    );
+    // Cargar las preguntas solo si el IdCuestionario está presente
+    if (this.IdCuestionario) {
+      this.cargarPreguntas();
+    }
+  }
 
-    this.respSrv.getRespuestas().subscribe(
-      (res: Respuestas[]) => {
-        this.respuestas = res;
+  // Método para cargar las preguntas filtradas por el cuestionario
+  cargarPreguntas(): void {
+    this.respSrv.getAnswersByIdCues(this.IdCuestionario).subscribe(
+      (preguntas: Preguntas[]) => {
+        this.preguntasFiltradas = preguntas;
       },
       (err: any) => console.error(err)
-    );
-    this.chatSrv.getEnvioForm().subscribe(
-      (res: EnvioForm[]) => {
-        this.enviosget = res;
-      },
-      err => console.error(err)
     );
   }
 
-
+  // Función para obtener la respuesta asociada a una pregunta
+  obtenerRespuesta(pregunta: Preguntas): string {
+    const respuesta = this.respuestas.find(res => res.IdPregunta === pregunta.IdPregunta);
+    return respuesta ? respuesta.Respuesta : 'Respuesta no disponible';
+  }
 }

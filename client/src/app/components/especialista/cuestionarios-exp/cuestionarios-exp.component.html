@@ -1,5 +1,9 @@
 <div class="container mt-5">
-    <h2 class="mb-4 text-center">Cuestionarios del usuario</h2>
+    <br>
+    <br>
+    <h2 class="mb-4 text-center">
+        Cuestionarios del Cliente: {{ selectedUserName }}
+    </h2>
 
     <!-- Mostrar los cuestionarios filtrados -->
     <div *ngIf="filteredCuestionarios.length > 0; else noCuestionarios">
@@ -16,7 +20,7 @@
                     </div>
                     <!-- Botón centrado -->
                     <div class="card-footer d-flex justify-content-center">
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" (click)="openModal(cuestionario.IdCuestionario)">
                             Ver Respuestas
                         </button>
                     </div>

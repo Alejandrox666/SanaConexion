@@ -1,0 +1,25 @@
+<div class="container mt-5">
+    <h3 class="text-center mb-5 text-primary font-weight-bold">Preguntas y Respuestas</h3>
+
+    <!-- Mostrar preguntas -->
+    <div *ngIf="preguntasFiltradas.length > 0; else noDatos">
+        <div *ngFor="let pregunta of preguntasFiltradas" class="qa-item mb-4">
+            <div class="qa-question card shadow-sm p-4 rounded">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="fas fa-question-circle fa-2x text-primary mr-3"></i>
+                    <h5 class="font-weight-bold mb-0">{{ pregunta.Pregunta }}</h5>
+                </div>
+            </div>
+
+            <!-- Respuesta -->
+            <div class="qa-answer card shadow-sm p-4 mt-3 rounded bg-light">
+                <p class="mb-0"><strong class="text-primary">Respuesta:</strong> {{ obtenerRespuesta(pregunta) }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje en caso de no encontrar datos -->
+    <ng-template #noDatos>
+        <p class="text-center text-muted font-italic">No hay preguntas disponibles.</p>
+    </ng-template>
+</div>

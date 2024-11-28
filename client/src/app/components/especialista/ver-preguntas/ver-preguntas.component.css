@@ -1,0 +1,58 @@
+/* Estilo general para el contenedor */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+/* Estilo del título */
+h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Estilo para cada pregunta */
+.qa-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Estilo para la pregunta */
+.qa-question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.qa-question i {
+    color: #007bff;
+    margin-right: 10px;
+}
+
+/* Estilo para la respuesta */
+.qa-answer {
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Estilo para la respuesta */
+.qa-answer p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Estilo para cuando no hay preguntas disponibles */
+.text-muted {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #6c757d;
+    text-align: center;
+}

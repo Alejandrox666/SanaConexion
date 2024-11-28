@@ -21,7 +21,6 @@ export class ExpedientesComponent implements OnInit {
     this.chatSrv.getEnvioForm().subscribe(
       (res: EnvioForm[]) => {
         this.enviosget = res;
-        console.log({ text: 'envios' }, this.enviosget);
         this.filterEnviosByUsuario(); // Filtrar envíos después de obtenerlos
       },
       err => console.error(err)
@@ -35,12 +34,19 @@ export class ExpedientesComponent implements OnInit {
     );
   }
 
-  // Método para filtrar envíos que coinciden con algún idUsuario de usuariosget
+  // Método para filtrar envíos y mostrar solo una tarjeta por cliente
   filterEnviosByUsuario(): void {
     if (this.enviosget.length && this.usuariosget.length) {
-      this.filteredEnvios = this.enviosget.filter(envio =>
-        this.usuariosget.some(usuario => usuario.IdUsuario === envio.IdUsuario)
-      );
+      const uniqueEnviosMap = new Map<number, EnvioForm>();
+  
+      this.enviosget.forEach(envio => {
+        if (envio.IdUsuario !== undefined && !uniqueEnviosMap.has(envio.IdUsuario)) {
+          uniqueEnviosMap.set(envio.IdUsuario, envio);
+        }
+      });
+  
+      this.filteredEnvios = Array.from(uniqueEnviosMap.values());
     }
   }
+  
 }
