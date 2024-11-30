@@ -62,7 +62,7 @@ export class CuestionariosDisponiblesComponent implements OnInit {
           const envio = this.envios.find(envio =>
             envio.IdCuestionario === cuestionario.IdCuestionario &&
             envio.IdUsuario === this.userLoger.IdUsuario &&
-            envio.EstadoEnvio !== 'Respondido' 
+            envio.EstadoEnvio !== 'Respondido'
           );
           if (envio) {
             cuestionario.IdEnvio = envio.IdEnvio;
@@ -77,8 +77,8 @@ export class CuestionariosDisponiblesComponent implements OnInit {
   }
 
 
-  redirectToCuestionario(IdCuestionario: number, IdEnvio: number) {
-    this.router.navigate(['/ruta-del-nuevo-componente', IdCuestionario, IdEnvio]);
+  redirectToCuestionario(IdCuestionario: number, IdEspecialista: number, IdEnvio: number) {
+    this.router.navigate(['/ruta-del-nuevo-componente', IdCuestionario, IdEspecialista, IdEnvio]);
   }
 
 

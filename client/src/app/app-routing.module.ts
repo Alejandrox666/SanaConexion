@@ -65,7 +65,7 @@ const routes: Routes = [
     component: NavbarComponent
   },
   {
-    path: 'ruta-del-nuevo-componente/:IdCuestionario/:IdEnvio',
+    path: 'ruta-del-nuevo-componente/:IdCuestionario/:IdEspecialista/:IdEnvio',
     component: RCuestionarioComponent
   },
   {
@@ -96,7 +96,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
-    path:'cuestionarios-exp/:IdUsuario',
+    path: 'cuestionarios-exp/:IdUsuario',
     component: CuestionariosExpComponent
   }
 ];

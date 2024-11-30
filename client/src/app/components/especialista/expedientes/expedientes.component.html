@@ -2,7 +2,12 @@
 <br>
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Expedientes de clientes</h2>
-    <!-- Configuramos una fila para agrupar las cards en renglones de 4 elementos -->
+    <div *ngIf="filteredEnvios.length === 0" class="text-center text-muted">
+        <div class="mb-2">
+            <i class="bi bi-info-circle fs-1"></i>
+        </div>
+        <h2>No hay expedientes por revisar</h2>
+    </div>
     <div class="row">
         <div *ngFor="let envio of filteredEnvios" class="col-md-3 mb-4">
             <div class="card shadow-sm align-items-center h-100">
@@ -20,7 +25,8 @@
 
                             <!-- Botón para navegar al siguiente componente con el IdUsuario -->
                             <div class="d-flex gap-2 mt-2 justify-content-center">
-                                <button class="btn btn-primary" [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
+                                <button class="btn btn-primary"
+                                    [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
                                     Ver Expediente
                                 </button>
                             </div>

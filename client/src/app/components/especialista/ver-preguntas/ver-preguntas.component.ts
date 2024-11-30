@@ -9,9 +9,9 @@ import { RespuestasService } from 'src/app/services/respuestas.service';
   styleUrls: ['./ver-preguntas.component.css']
 })
 export class VerPreguntasComponent implements OnInit {
-  @Input() IdCuestionario!: number; // Recibir el ID del cuestionario seleccionado
-  @Input() respuestas: Respuestas[] = [];  // Recibir las respuestas filtradas
-  preguntasFiltradas: Preguntas[] = []; // Preguntas del cuestionario
+  @Input() IdCuestionario!: number;
+  @Input() respuestas: Respuestas[] = [];
+  preguntasFiltradas: Preguntas[] = [];
 
   constructor(
     private respSrv: RespuestasService,

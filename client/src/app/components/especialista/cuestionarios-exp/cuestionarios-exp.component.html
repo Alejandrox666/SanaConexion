@@ -5,8 +5,15 @@
         Cuestionarios del Cliente: {{ selectedUserName }}
     </h2>
 
+
+    <div *ngIf="filteredCuestionarios.length === 0" class="text-center text-muted">
+        <div class="mb-2">
+            <i class="bi bi-info-circle fs-1"></i>
+        </div>
+        <h2>No hay cuestionarios que revisar</h2>
+    </div>
     <!-- Mostrar los cuestionarios filtrados -->
-    <div *ngIf="filteredCuestionarios.length > 0; else noCuestionarios">
+    <div *ngIf="filteredCuestionarios.length > 0;">
         <div class="row">
             <div *ngFor="let cuestionario of filteredCuestionarios" class="col-md-3 mb-4">
                 <div class="card shadow-sm h-100">
@@ -28,9 +35,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Mensaje en caso de no haber cuestionarios -->
-    <ng-template #noCuestionarios>
-        <p>No se encontraron cuestionarios para mostrar.</p>
-    </ng-template>
 </div>

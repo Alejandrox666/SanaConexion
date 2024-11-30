@@ -29,6 +29,7 @@ export interface Mensajes {
 export interface EnvioForm {
     IdEnvio?: number;
     IdCuestionario?: number;
+    IdEspecialista?: number;
     IdUsuario?: number;
     FechaEnvio?: string;
     EstadoEnvio?: string;

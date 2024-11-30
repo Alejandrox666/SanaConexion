@@ -26,10 +26,11 @@ export class RCuestionarioComponent implements OnInit {
   IdCliente!: number;
   IdUs!: number;
   IdCuestionario!: number;
+  IdEspecialista!: number;
   IdEnvio: number = 0;
 
-  user : Usuarios = {} as Usuarios;
-  userLoger : any
+  user: Usuarios = {} as Usuarios;
+  userLoger: any
 
 
 
@@ -58,9 +59,11 @@ export class RCuestionarioComponent implements OnInit {
     );
     this.route.paramMap.subscribe(params => {
       const idCuestionario = params.get('IdCuestionario');
+      const idEspecialista = params.get('IdEspecialista');
       const idEnvio = params.get('IdEnvio')
       if (idCuestionario) {
         this.IdCuestionario = +idCuestionario;
+        this.IdEspecialista = idEspecialista !== null ? +idEspecialista : 0;
         this.IdEnvio = idEnvio !== null ? +idEnvio : 0;
         this.loadPreguntas();
         this.loadCuestionario();
@@ -200,12 +203,13 @@ export class RCuestionarioComponent implements OnInit {
     const envio: EnvioForm = {
       IdEnvio: this.IdEnvio,
       IdCuestionario: this.IdCuestionario,
+      IdEspecialista: this.IdEspecialista,
       IdUsuario: this.userLoger.IdUsuario,
       FechaEnvio: new Date().toISOString().slice(0, 19).replace('T', ' '),
       EstadoEnvio: 'Respondido'
     };
 
-    this.chatS.updateEnvio(this.IdEnvio,envio).subscribe()
+    this.chatS.updateEnvio(this.IdEnvio, envio).subscribe()
   }
 
 }
