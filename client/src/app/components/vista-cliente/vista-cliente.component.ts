@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DatosEspService } from 'src/app/services/datos-esp.service'; // Ajusta la ruta según sea necesario
+import { DatosEspService } from 'src/app/services/datos-esp.service';
 import { Usuarios, Especialistas } from 'src/app/models/models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { YoutubeService } from 'src/app/services/youtube.service';
@@ -14,10 +14,9 @@ import { FormularioService } from 'src/app/services/formulario.service';
 })
 export class VistaClienteComponent implements OnInit {
 
-  cuestionariosget: Cuestionarios [] = [];
-  
+  cuestionariosget: Cuestionarios[] = [];
   videos: any[] | undefined; // Almacena los datos de los videos
-  videoUrl: SafeResourceUrl; 
+  videoUrl: SafeResourceUrl;
   especialistas: (Usuarios & Especialistas)[] = [];
 
   // Arreglo de imágenes
@@ -29,7 +28,6 @@ export class VistaClienteComponent implements OnInit {
   notificaciones = [
     { mensaje: 'Juan David Espinoza Guzman te envió un formulario', fecha: '2024-10-27' },
     { mensaje: 'Nuevo mensaje de Juan David Espinoza Guzman', fecha: '2024-10-28' },
-    // Agrega más notificaciones aquí si lo deseas
   ];
 
   constructor(
@@ -38,22 +36,29 @@ export class VistaClienteComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private router: Router,
     private preguntaSrv: FormularioService
-  ) { 
+  ) {
     this.videoUrl = ''; // Inicializa videoUrl
   }
 
   ngOnInit(): void {
     this.getEspecialistas();
-    // Llama al servicio para obtener los videos
-    this.youtubeService.getVideos().subscribe((data: any) => {
-      this.videos = data.items;
-    });
+
+    // Llama al servicio para obtener videos relacionados con la consulta del usuario
+    const query = 'Peso pluma'; // Cambia la consulta según sea necesario
+    this.youtubeService.getVideos(query).subscribe(
+      (data: any) => {
+        this.videos = data.items;
+      },
+      (err) => console.error('Error al obtener videos:', err)
+    );
+
+    // Cargar cuestionarios
     this.preguntaSrv.getForm().subscribe(
       (res: Cuestionarios[]) => {
         this.cuestionariosget = res;
         console.log('CUESTIONARIOS', this.cuestionariosget);
       },
-      err => console.error(err)
+      (err) => console.error(err)
     );
   }
 
@@ -64,7 +69,6 @@ export class VistaClienteComponent implements OnInit {
         this.especialistas = data.map((especialista) => ({
           ...especialista,
           mostrarMas: false, // Inicializa mostrarMas en false
-          
         }));
       },
       (error: any) => console.error('Error al obtener especialistas:', error)
@@ -87,7 +91,7 @@ export class VistaClienteComponent implements OnInit {
   }
 
   // Redirige a la página del cuestionario
-  redirectToCuestionario() {
+  redirectToCuestionario(): void {
     this.router.navigate(['/rCuestionario']);
   }
 }
