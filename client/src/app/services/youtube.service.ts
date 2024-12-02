@@ -14,7 +14,8 @@ export class YoutubeService implements VideoAdapter {
 
   // Implementamos el método definido en la interfaz
   getVideos(query: string): Observable<any> {
-    const url = `${this.apiUrl}/search?key=${this.apiKey}&part=snippet&type=video&q=${query}`;
+    const url = `${this.apiUrl}/search?key=${this.apiKey}&part=snippet&type=video&q=${query}&maxResults=10`;
     return this.http.get(url);
   }
+  
 }

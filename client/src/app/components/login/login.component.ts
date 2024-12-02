@@ -5,6 +5,7 @@ import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { RegistroComponent } from './registro/registro.component';
+import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent {
   Email: string = '';
   Password: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private modal: NgbModal) {}
+  constructor(private authService: AuthService, private router: Router, private modal: NgbModal, private clienteService : ClientesService) {}
 
   // Método para encriptar la contraseña (igual al utilizado en el registro)
   async hashPassword(password: string): Promise<string> {
@@ -39,6 +40,7 @@ export class LoginComponent {
           const usuario: Usuarios = response.usuario[0];
           this.authService.setCurrentUser(usuario);
           this.datosUsuario.emit(usuario);
+          this.clienteService.setUsuarioTemporal(usuario);
           const destination = usuario.tipoUsuario === "Cliente" ? '/vistaClient' : '/inicioE';
           this.router.navigate([destination]);
         } else {

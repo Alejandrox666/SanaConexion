@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Clientes } from '../models/clientes';
+import { Usuarios } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class ClientesService {
   private baseUrl = 'http://localhost:3002/api'; // Cambia esto a la URL de tu API
   API_URI = 'http://localhost:3002/api';
 
+  private usuarioTemporal: Usuarios | null = null;
+  
   constructor(private http: HttpClient) { }
 
   // Obtener todos los clientes
@@ -66,5 +69,13 @@ export class ClientesService {
 
     getClienteByIdUsuario(userId: number): Observable<Clientes> {
       return this.http.get<Clientes>(`${this.API_URI}/clientes/prueba/${userId}`);
+    }
+
+    setUsuarioTemporal(usuario: Usuarios) {
+      this.usuarioTemporal = usuario;
+    }
+  
+    getUsuarioTemporal(): Usuarios | null {
+      return this.usuarioTemporal;
     }
 }
