@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CuestionariosDisponiblesComponent } from './components/cuestionarios-disponibles/cuestionarios-disponibles.component';
 import { ChatComponent } from './components/especialista/chat/chat.component';
+import { CuestionariosExpComponent } from './components/especialista/cuestionarios-exp/cuestionarios-exp.component';
 import { EspecialistaComponent } from './components/especialista/especialista.component';
 import { ExpedientesComponent } from './components/especialista/expedientes/expedientes.component';
 import { FormEspComponent } from './components/especialista/form-esp/form-esp.component';
@@ -17,7 +18,6 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { CuestionariosExpComponent } from './components/especialista/cuestionarios-exp/cuestionarios-exp.component';
 
 const routes: Routes = [
   {
@@ -41,7 +41,6 @@ const routes: Routes = [
   {
     path: 'formEsp',
     component: FormEspComponent,
-    canActivate: [AuthGuardService]
   },
   {
     path: 'registros',
