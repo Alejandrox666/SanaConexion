@@ -1,6 +1,9 @@
-import { Observable } from "rxjs";
+import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs';
 
-// src/app/services/respuesta-adapter.interface.ts
-export interface RespuestaAdapter {
-    obtenerRespuestas(idUsuario: number): Observable<any[]>;
+export interface IRespuestaService {
+    obtenerRespuestasFiltradasPorUsuario(idUsuario: number): Observable<any>;
 }
+
+// Define el token para la inyección
+export const RESPUESTA_SERVICE_TOKEN = new InjectionToken<IRespuestaService>('RESPUESTA_SERVICE_TOKEN');

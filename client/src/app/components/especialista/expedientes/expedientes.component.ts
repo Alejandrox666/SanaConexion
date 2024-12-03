@@ -1,13 +1,12 @@
-// src/app/components/expedientes/expedientes.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
+import { IRespuestaService, RESPUESTA_SERVICE_TOKEN } from 'src/app/adapters/respuesta-adapter.interface';
 import { EnvioForm } from 'src/app/models/chats';
 import { Cuestionarios, Preguntas } from 'src/app/models/formularios';
 import { Usuarios } from 'src/app/models/models';
 import { ChatService } from 'src/app/services/chat.service';
 import { FormularioService } from 'src/app/services/formulario.service';
-import { RespuestaAdapterService } from 'src/app/services/respuesta-adapter.service';
 import { RespuestasService } from 'src/app/services/respuestas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -17,7 +16,6 @@ declare module 'jspdf' {
     lastAutoTable: any;
   }
 }
-
 
 @Component({
   selector: 'app-expedientes',
@@ -31,19 +29,19 @@ export class ExpedientesComponent implements OnInit {
   preguntasget: Preguntas[] = [];
   filteredEnvios: EnvioForm[] = [];
 
+  // Se inyecta la interfaz en lugar del servicio concreto
   constructor(
     private chatSrv: ChatService,
     private usuariosServ: UsuariosService,
     private formularioSrv: FormularioService,
-    private respuestaAdapter: RespuestaAdapterService,
-    private respuestasSrv: RespuestasService
-  ) { }
+    private respuestasSrv: RespuestasService,
+    @Inject(RESPUESTA_SERVICE_TOKEN) private respuestaAdapter: IRespuestaService
+  ) {}
 
   ngOnInit(): void {
     this.formularioSrv.getForm().subscribe(
       (res: Cuestionarios[]) => {
         this.cuestionariosget = res;
-        console.log('Cuestionarios:', this.cuestionariosget);
       },
       err => console.error('Error al obtener cuestionarios:', err)
     );
@@ -51,7 +49,6 @@ export class ExpedientesComponent implements OnInit {
     this.formularioSrv.getPre().subscribe(
       (res: Preguntas[]) => {
         this.preguntasget = res;
-        console.log('Preguntas:', this.preguntasget);
       },
       err => console.error('Error al obtener preguntas:', err)
     );
@@ -81,47 +78,26 @@ export class ExpedientesComponent implements OnInit {
         }
       });
       this.filteredEnvios = Array.from(uniqueEnviosMap.values());
-      console.log('Filtered EnvioForm:', this.filteredEnvios);
     }
   }
 
   filterAndDownloadPDF(idUsuario: number): void {
-    const formulariosDelUsuario = this.enviosget.filter(envio => envio.IdUsuario === idUsuario);
+    // Usamos la interfaz para interactuar con el servicio
+    this.respuestaAdapter.obtenerRespuestasFiltradasPorUsuario(idUsuario).subscribe(respuestas => {
 
-    if (!formulariosDelUsuario.length) {
-      console.error('No se encontraron formularios para el usuario seleccionado.');
-      return;
-    }
-
-    const idsCuestionarios = formulariosDelUsuario.map(envio => envio.IdCuestionario);
-    const preguntasFiltradas = this.preguntasget.filter(pregunta =>
-      idsCuestionarios.includes(pregunta.IdCuestionario)
-    );
-
-    console.log('Preguntas filtradas para el usuario:', preguntasFiltradas);
-
-    // Usamos el adaptador para obtener las respuestas filtradas
-    this.respuestaAdapter.obtenerRespuestas(idUsuario).subscribe((respuestas: any[]) => {
-      console.log('Respuestas filtradas para el cliente:', respuestas);
-
-      // Buscar el cliente por su IdUsuario
       this.respuestasSrv.getIdClienteByIdUser(idUsuario).subscribe(cliente => {
         if (!cliente) {
           console.error('No se encontró un cliente asociado al usuario.');
           return;
         }
 
-        console.log('Cliente encontrado:', cliente);
-
-        // Filtrar las respuestas para el cliente
-        const respuestasFinales = respuestas.filter(
-          respuesta => respuesta.IdCliente === cliente.IdCliente
+        const formulariosDelUsuario = this.enviosget.filter(envio => envio.IdUsuario === idUsuario);
+        const idsCuestionarios = formulariosDelUsuario.map(envio => envio.IdCuestionario);
+        const preguntasFiltradas = this.preguntasget.filter(pregunta =>
+          idsCuestionarios.includes(pregunta.IdCuestionario)
         );
 
-        console.log('Respuestas finales para el cliente:', respuestasFinales);
-
-        // Generar el PDF
-        this.generatePDF(cliente, formulariosDelUsuario, preguntasFiltradas, respuestasFinales);
+        this.generatePDF(cliente, formulariosDelUsuario, preguntasFiltradas, respuestas);
       });
     });
   }
