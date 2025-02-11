@@ -1,6 +1,18 @@
 <br>
 <br>
 <div class="container mt-5">
+    <div class="breadcrumb">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/inicioE">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    Expedientes
+                </li>
+            </ol>
+        </nav>
+    </div>
     <h2 class="mb-4 text-center">Expedientes de clientes</h2>
     <!-- Configuramos una fila para agrupar las cards en renglones de 4 elementos -->
     <div class="row">
@@ -19,7 +31,8 @@
 
                             <!-- Botón para navegar al siguiente componente con el IdUsuario -->
                             <div class="d-flex gap-2 mt-2 justify-content-center">
-                                <button class="btn btn-primary" [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
+                                <button class="btn btn-primary"
+                                    [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
                                     Ver Expediente
                                 </button>
 

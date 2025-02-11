@@ -22,3 +22,7 @@
 .cuestionario-item:hover {
     background-color: #f8f9fa;
 }
+
+.breadcrumb{
+  margin-top: -25px;
+}

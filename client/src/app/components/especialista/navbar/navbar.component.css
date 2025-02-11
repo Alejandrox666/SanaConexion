@@ -33,7 +33,6 @@
 .custom-btn {
   background-color: #e74c3c;
   color: #fff;
-  border-radius: 25px;
   padding: 5px 15px;
   transition: background-color 0.3s ease;
 }
@@ -43,7 +42,6 @@
 }
 
 .navbar {
-  border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
