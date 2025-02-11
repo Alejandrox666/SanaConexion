@@ -3,10 +3,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { VideoAdapter } from 'src/app/adapters/video-adapter.interface'; // Usa la interfaz VideoAdapter
+import { VideoAdapter, VIDEO_ADAPTER_TOKEN } from 'src/app/adapters/video-adapter.token'; // Importa todo desde el archivo combinado
 import { Cuestionarios } from 'src/app/models/formularios';
 import { Clientes } from 'src/app/models/clientes';
-import { VIDEO_ADAPTER_TOKEN } from 'src/app/adapters/video-adapter.token'; // Token de inyección
+
 
 
 @Component({
@@ -48,12 +48,12 @@ export class VistaClienteComponent implements OnInit {
 
         // Usa el Adapter para obtener los videos
         const query = this.objSalud || 'Mejora tú alimentación';
-        this.videoAdapter.getVideos(query).subscribe(
+        this.videoAdapter.obtenerVideos(query).subscribe(
           (data: any) => {
             this.videos = data.items;
             console.log('Videos obtenidos:', this.videos);
           },
-          (err) => console.error('Error al obtener videos:', err)
+          (err: any) => console.error('Error al obtener videos:', err)
         );
       },
       (err) => console.error('No se encontró el cliente para el usuario.', err)
