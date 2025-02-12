@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { importProvidersFrom, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -32,6 +32,7 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { Error404Component } from './components/error404/error404.component';
+import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -68,9 +69,10 @@ import { Error404Component } from './components/error404/error404.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    RecaptchaModule
   ],
-  providers: [  { provide: VIDEO_ADAPTER_TOKEN, useClass: YoutubeAdapter }, { provide: RESPUESTA_SERVICE_TOKEN, useClass: respuestaAdapter }],
+  providers: [  { provide: VIDEO_ADAPTER_TOKEN, useClass: YoutubeAdapter }, { provide: RESPUESTA_SERVICE_TOKEN, useClass: respuestaAdapter },importProvidersFrom(RecaptchaV3Module), { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcLc9UqAAAAAEdnCqjHkMmowBLHU0JEwXGJfbcE' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

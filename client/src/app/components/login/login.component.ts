@@ -18,10 +18,11 @@ export class LoginComponent {
   @Output() datosUsuario: EventEmitter<Usuarios> = new EventEmitter<Usuarios>();
   Email: string = '';
   Password: string = '';
+  captchaToken: string | null = null;
 
-  constructor(private authService: AuthService, private router: Router, private modal: NgbModal, private clienteService : ClientesService) {}
 
-  // Método para encriptar la contraseña (igual al utilizado en el registro)
+  constructor(private authService: AuthService, private router: Router, private modal: NgbModal, private clienteService: ClientesService) { }
+
   async hashPassword(password: string): Promise<string> {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
@@ -32,10 +33,28 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
+    if (!this.Email || !this.Password) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos vacíos',
+        text: 'Por favor, completa todos los campos.',
+      });
+      return;
+    }
+  
+    if (!this.captchaToken) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Verificación requerida',
+        text: 'Por favor, resuelve el reCAPTCHA antes de iniciar sesión.',
+      });
+      return;
+    }
+  
     const encryptedPassword = await this.hashPassword(this.Password);
-
+  
     this.authService.loginToServer(this.Email, encryptedPassword).subscribe({
-      next: (response: any) => {    
+      next: (response: any) => {
         if (response && response.success) {
           this.authService.setLoggedInStatus(true);
           const usuario: Usuarios = response.usuario[0];
@@ -63,6 +82,7 @@ export class LoginComponent {
     });
   }
   
+
   openModal() {
     const modalRef = this.modal.open(RegistroComponent, {
       backdrop: 'static',
@@ -72,10 +92,10 @@ export class LoginComponent {
   }
 
   //Captcha
-  recapchaService = inject(ReCaptchaV3Service) 
+  recapchaService = inject(ReCaptchaV3Service)
 
-  captcha(){
-    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) =>{
+  captcha() {
+    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) => {
       console.log(token)
     })
   }
@@ -83,7 +103,8 @@ export class LoginComponent {
   @ViewChild(RecaptchaComponent) captchaRef!: RecaptchaComponent;
 
   captchaBox(token: string) {
-    console.log("Captcha Resuelto. Token:", token);
+    this.captchaToken = token;
   }
+
 
 }
