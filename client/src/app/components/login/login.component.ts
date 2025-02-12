@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Usuarios } from 'src/app/models/models';
@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { RegistroComponent } from './registro/registro.component';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { ReCaptchaV3Service, RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login',
@@ -69,4 +70,20 @@ export class LoginComponent {
       centered: true
     });
   }
+
+  //Captcha
+  recapchaService = inject(ReCaptchaV3Service) 
+
+  captcha(){
+    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) =>{
+      console.log(token)
+    })
+  }
+
+  @ViewChild(RecaptchaComponent) captchaRef!: RecaptchaComponent;
+
+  captchaBox(token: string) {
+    console.log("Captcha Resuelto. Token:", token);
+  }
+
 }
