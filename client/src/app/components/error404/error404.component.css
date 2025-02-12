@@ -1,0 +1,23 @@
+/* Estilo para centrar el contenido y darle un aspecto moderno */
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 120px;
+    font-weight: bold;
+    color: #dc3545; /* Color rojo de error */
+  }
+  
+  h2 {
+    color: #6c757d; /* Gris oscuro */
+  }
+  
+  .btn {
+    margin-top: 20px;
+  }
+  

@@ -31,6 +31,7 @@ import { RegistroClienteComponent } from './components/registros/registro-client
 import { RegistrosComponent } from './components/registros/registros.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
+import { Error404Component } from './components/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.
     ExpedientesComponent,
     CuestionariosExpComponent,
     VerPreguntasComponent,
-    VistaClienteComponent
+    VistaClienteComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,

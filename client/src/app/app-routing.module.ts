@@ -18,6 +18,7 @@ import { RegistrosComponent } from './components/registros/registros.component';
 import { ReposicionContrasenaComponent } from './components/reposicion-contrasena/reposicion-contrasena.component';
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { Error404Component } from './components/error404/error404.component';
 
 const routes: Routes = [
   {
@@ -97,7 +98,11 @@ const routes: Routes = [
   {
     path: 'cuestionarios-exp/:IdUsuario',
     component: CuestionariosExpComponent
-  }
+  },
+  { 
+    path: '**', component: Error404Component
+  } 
+
 ];
 
 @NgModule({
