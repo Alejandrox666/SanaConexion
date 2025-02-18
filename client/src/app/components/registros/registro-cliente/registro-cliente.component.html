@@ -59,7 +59,12 @@
                             <label for="foto" class="form-label fw-bold">Foto</label>
                             <input type="file" class="form-control form-control-lg" id="foto" name="foto" (change)="onFileSelected($event)">
                         </div>
-                        
+                        <div class="form-outline mb-4">
+                            <label class="form-label">Marca la casilla para asegurar que no eres un robot</label>
+                            <re-captcha (resolved)="captchaBox($event)" siteKey="6LcLXtUqAAAAAClyOLY_naHrBg1nyMxM_1zij305"
+                              data-size="normal" data-theme="dark">
+                            </re-captcha>
+                          </div>
                         <div class="d-grid gap-2 mt-3">
                             <button type="submit" class="btn btn-primary btn-lg" [disabled]="registroForm.invalid">Registrar</button>
                             <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>

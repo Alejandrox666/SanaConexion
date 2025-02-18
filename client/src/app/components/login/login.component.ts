@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Usuarios } from 'src/app/models/models';
@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { RegistroComponent } from './registro/registro.component';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { ReCaptchaV3Service, RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,7 @@ export class LoginComponent {
   @Output() datosUsuario: EventEmitter<Usuarios> = new EventEmitter<Usuarios>();
   Email: string = '';
   Password: string = '';
-  captchaToken: string | null = null;
+  
 
 
   constructor(private authService: AuthService, private router: Router, private modal: NgbModal, private clienteService: ClientesService) { }
@@ -38,15 +37,6 @@ export class LoginComponent {
         icon: 'warning',
         title: 'Campos vacíos',
         text: 'Por favor, completa todos los campos.',
-      });
-      return;
-    }
-  
-    if (!this.captchaToken) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Verificación requerida',
-        text: 'Por favor, resuelve el reCAPTCHA antes de iniciar sesión.',
       });
       return;
     }
@@ -90,21 +80,4 @@ export class LoginComponent {
       centered: true
     });
   }
-
-  //Captcha
-  recapchaService = inject(ReCaptchaV3Service)
-
-  captcha() {
-    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) => {
-      console.log(token)
-    })
-  }
-
-  @ViewChild(RecaptchaComponent) captchaRef!: RecaptchaComponent;
-
-  captchaBox(token: string) {
-    this.captchaToken = token;
-  }
-
-
 }

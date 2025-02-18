@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { RecaptchaComponent, ReCaptchaV3Service } from 'ng-recaptcha';
 import { Especialistas, Usuarios } from 'src/app/models/models';
 import { DatosEspService } from 'src/app/services/datos-esp.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-form-esp',
@@ -21,6 +23,8 @@ export class FormEspComponent implements OnInit {
     YearsExperience: 0,
     Foto: null as unknown as File
   }
+  
+  captchaToken: string | null = null;
 
   constructor(private router: Router, private especialistaS: DatosEspService, private usuarioService: UsuariosService) { }
 
@@ -40,6 +44,15 @@ export class FormEspComponent implements OnInit {
 
   async guardarEspe() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
+
+    if (!this.captchaToken) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Verificación requerida',
+        text: 'Por favor, resuelve el reCAPTCHA antes de finalizar el registro.',
+      });
+      return;
+    }
 
     if (usuarioTemporal) {
       usuarioTemporal.tipoUsuario = 'Especialista'
@@ -97,5 +110,18 @@ export class FormEspComponent implements OnInit {
     }
   }
   
-  
+  //Captcha
+  recapchaService = inject(ReCaptchaV3Service)
+
+  captcha() {
+    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) => {
+      console.log(token)
+    })
+  }
+
+  @ViewChild(RecaptchaComponent) captchaRef!: RecaptchaComponent;
+
+  captchaBox(token: string) {
+    this.captchaToken = token;
+  }
 }

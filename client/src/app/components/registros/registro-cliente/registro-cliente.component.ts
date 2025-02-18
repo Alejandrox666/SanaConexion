@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { Router } from '@angular/router';
+import { RecaptchaComponent, ReCaptchaV3Service } from 'ng-recaptcha';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -24,11 +26,13 @@ export class RegistroClienteComponent implements OnInit {
     Foto: null as unknown as File
   };
 
+  captchaToken: string | null = null;
+
   constructor(
     private usuarioService: UsuariosService,
     private clientesService: ClientesService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
@@ -41,13 +45,22 @@ export class RegistroClienteComponent implements OnInit {
 
   registrarAmbos() {
     const usuarioTemporal = this.usuarioService.getUsuarioTemporal();
-    
+
+    if (!this.captchaToken) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Verificación requerida',
+        text: 'Por favor, resuelve el reCAPTCHA antes de finalizar el registro.',
+      });
+      return;
+    }
+
     // Comprobar que usuarioTemporal no es null antes de guardar
     if (usuarioTemporal) {
-      usuarioTemporal.tipoUsuario='Cliente'
+      usuarioTemporal.tipoUsuario = 'Cliente'
       this.usuarioService.saveuser(usuarioTemporal).subscribe(
         resp => {
-          console.log('Respuesta del servidor:', resp); 
+          console.log('Respuesta del servidor:', resp);
           if (resp && resp.IdUsuario) {
             // Asigna el IdUsuario recibido
             this.cliente.IdUsuario = resp.IdUsuario;
@@ -72,8 +85,8 @@ export class RegistroClienteComponent implements OnInit {
       console.log('No se encontraron datos del usuario para guardar.');
     }
   }
-  goToLogin(){
-    this.router.navigate(["/login"],{replaceUrl:true})
+  goToLogin() {
+    this.router.navigate(["/login"], { replaceUrl: true })
   }
 
   onFileSelected(event: any) {
@@ -87,7 +100,20 @@ export class RegistroClienteComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  
 
-  
+  //Captcha
+  recapchaService = inject(ReCaptchaV3Service)
+
+  captcha() {
+    this.recapchaService.execute('6LejcNUqAAAAAHMOxMaO3QzPxEM8YMCRqFVY3dMe').subscribe((token) => {
+      console.log(token)
+    })
+  }
+
+  @ViewChild(RecaptchaComponent) captchaRef!: RecaptchaComponent;
+
+  captchaBox(token: string) {
+    this.captchaToken = token;
+  }
+
 }
