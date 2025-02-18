@@ -1,16 +1,18 @@
-<div class="container">
-    <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6 text-center">
-            <!-- Icono de error -->
-            <i class="bi bi-emoji-frown" style="font-size: 100px; color: #dc3545;"></i>
-            <h1 class="display-1 text-danger">404</h1>
-            <h2 class="h4">Página no encontrada</h2>
-            <p class="lead">Lo sentimos, la página que buscas no existe o ha sido movida.</p>
-            <a routerLink="/home" class="btn btn-primary btn-lg">Volver al inicio</a>
-          </div>
-        </div>
+<div class="container d-flex align-items-center justify-content-center vh-100">
+  <div class="row w-100">
+      <!-- Imagen a la izquierda -->
+      <div class="col-md-6 text-center">
+          <img src="/assets/Fat.jpg" alt="Error 404" class="img-fluid" style="max-width: 80%;">
       </div>
-</div>
 
-  
+      <!-- Contenido a la derecha -->
+      <div class="col-md-6 text-center d-flex flex-column align-items-center justify-content-center">
+          <h2 class="text-primary fw-bold">Ups!!, esta URL no es de nuestra talla</h2>
+          <i class="bi bi-emoji-frown" style="font-size: 80px; color: #dc3545;"></i>
+          <h1 class="display-1 text-danger fw-bold">404</h1>
+          <h2 class="h4 text-dark">Página no encontrada</h2>
+          <p class="lead text-secondary">Lo sentimos, la página que buscas no existe o ha sido movida.</p>
+          <a routerLink="/home" class="btn btn-primary btn-lg mt-3">Volver al inicio</a>
+      </div>
+  </div>
+</div>
