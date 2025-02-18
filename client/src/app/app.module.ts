@@ -3,6 +3,8 @@ import { importProvidersFrom, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorInterceptor } from './interceptors/error.interceptors';
 
 import { respuestaAdapter } from './adapters/respuesta-adapter';
 import { RESPUESTA_SERVICE_TOKEN } from './adapters/respuesta-adapter.interface';
@@ -66,6 +68,7 @@ import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component
     Error404Component,
     PoliticasPrivComponent,
     PiePaginaComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,7 @@ import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component
     NgbModule,
     RecaptchaModule
   ],
-  providers: [  { provide: VIDEO_ADAPTER_TOKEN, useClass: YoutubeAdapter }, { provide: RESPUESTA_SERVICE_TOKEN, useClass: respuestaAdapter },importProvidersFrom(RecaptchaV3Module), { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcLc9UqAAAAAEdnCqjHkMmowBLHU0JEwXGJfbcE' }],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, { provide: VIDEO_ADAPTER_TOKEN, useClass: YoutubeAdapter }, { provide: RESPUESTA_SERVICE_TOKEN, useClass: respuestaAdapter },importProvidersFrom(RecaptchaV3Module), { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LcLc9UqAAAAAEdnCqjHkMmowBLHU0JEwXGJfbcE' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
