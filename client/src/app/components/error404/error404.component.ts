@@ -7,20 +7,47 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./error404.component.css']
 })
 export class Error404Component {
-  errorCode: number;
-  mensajeError: string;
+  errorCode: number = 404;
+  ruta ="/assets/Fat.jpg"
+  errorMessage: string = 'Página no encontrada';
+  errorFrase:string="Ups!!, esta URL no es de nuestra talla.";
+  errorIcon: string = 'bi-emoji-frown'; // Icono por defecto
 
   constructor(private route: ActivatedRoute) {
-    this.errorCode = Number(this.route.snapshot.queryParams['code']) || 500;
-    this.mensajeError = this.obtenerMensajeError(this.errorCode);
-  }
-
-  obtenerMensajeError(code: number): string {
-    switch (code) {
-      case 404: return 'Página no encontrada';
-      case 500: return 'Error interno del servidor';
-      case 403: return 'Acceso denegado';
-      default: return 'Ocurrió un error desconocido';
-    }
+    this.route.queryParams.subscribe(params => {
+      this.errorCode = +params['code'] || 404;
+      console.log(this.errorCode);
+      console.log('Tipo de error:', typeof this.errorCode);
+      
+      switch (this.errorCode) {
+        case 400:
+          this.errorMessage = 'Solicitud incorrecta';
+          this.errorIcon = 'bi-exclamation-triangle';
+          break;
+        case 401:
+          this.errorMessage = 'No estás autenticado';
+          this.errorIcon = 'bi-lock-fill';
+          break;
+        case 403:
+          this.errorMessage = 'No tienes permisos';
+          this.errorIcon = 'bi-x-octagon';
+          break;
+        case 404:
+          this.errorFrase
+          this.errorMessage = 'Página no encontrada';
+          this.errorIcon = 'bi-emoji-frown';
+          break;
+        case 500:
+          this.ruta= "/assets/7471055.webp"
+          this.errorFrase = "Ups!! no soporto la presión el servidor."
+          this.errorMessage = 'Error interno del servidor';
+          this.errorIcon = 'bi-server';
+          break;
+        default:
+          console.log(this.errorCode)
+          this.errorMessage = 'Ocurrió un error inesperado';
+          this.errorIcon = 'bi-bug';
+      }
+    });
   }
 }
