@@ -33,6 +33,8 @@ import { ReposicionContrasenaComponent } from './components/reposicion-contrasen
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { Error404Component } from './components/error404/error404.component';
 import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from 'ng-recaptcha';
+import { PoliticasPrivComponent } from './components/politicas-priv/politicas-priv.component';
+import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { RecaptchaV3Module, RECAPTCHA_V3_SITE_KEY, RecaptchaModule } from 'ng-re
     CuestionariosExpComponent,
     VerPreguntasComponent,
     VistaClienteComponent,
-    Error404Component
+    Error404Component,
+    PoliticasPrivComponent,
+    PiePaginaComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ import { ReposicionContrasenaComponent } from './components/reposicion-contrasen
 import { VistaClienteComponent } from './components/vista-cliente/vista-cliente.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { Error404Component } from './components/error404/error404.component';
+import { PoliticasPrivComponent } from './components/politicas-priv/politicas-priv.component';
 
 const routes: Routes = [
   {
@@ -91,6 +92,9 @@ const routes: Routes = [
     component: ReposicionContrasenaComponent
   },
   {
+    path: 'aviso-Privacidad', component: PoliticasPrivComponent
+  },
+  {
     path: 'expedientes',
     component: ExpedientesComponent,
     canActivate: [AuthGuardService]
@@ -99,9 +103,10 @@ const routes: Routes = [
     path: 'cuestionarios-exp/:IdUsuario',
     component: CuestionariosExpComponent
   },
-  { 
+  {
     path: '**', component: Error404Component
-  } 
+  },
+
 
 ];
 
