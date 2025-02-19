@@ -32,3 +32,158 @@ footer {
     border-top: 1px solid #444;
     padding-top: 10px;
   }
+  .sitemap {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Contenedor principal */
+.tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Nodo padre */
+.parent {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    position: relative;
+    text-align: center;
+}
+
+/* Línea vertical desde el padre */
+.parent::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: #ccc;
+}
+
+/* Contenedor de los hijos principales */
+.children {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Línea horizontal conectando los hijos */
+.children::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ccc;
+}
+
+/* Nodos hijos */
+.child {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+/* Línea vertical conectando cada hijo con la barra horizontal */
+.child::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 2px;
+    height: 10px;
+    background-color: #ccc;
+}
+
+/* Contenedor del grupo de Formularios y sus subhijos */
+.child-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* Nodo principal "Formularios" */
+.main {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+/* Línea vertical desde "Formularios" hasta los subhijos */
+.main::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: #ccc;
+}
+
+/* Contenedor de "Tus Formularios" y "Crear Formulario" */
+.sub-children {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    position: relative;
+}
+
+/* Línea horizontal conectando "Tus Formularios" y "Crear Formulario" */
+.sub-children::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #ccc;
+}
+
+/* Nodos sub-hijos */
+.sub-child {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-align: center;
+    position: relative;
+}
+
+/* Línea vertical conectando cada sub-hijo con "Formularios" */
+.sub-child::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    width: 2px;
+    height: 10px;
+    background-color: #ccc;
+}
+/* Tamaño uniforme para todos los botones */
+.child, .main, .sub-child {
+  width: 100px;  /* Ancho fijo */
+  height: 50px;  /* Altura fija */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

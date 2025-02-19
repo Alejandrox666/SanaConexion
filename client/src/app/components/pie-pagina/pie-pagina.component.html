@@ -1,4 +1,55 @@
 <footer>
+  <!-- Botón para abrir el modal -->
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#mapaModal">
+      Mapa del sitio
+  </button>
+  <p></p>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mapaModal" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <!-- Tamaño grande -->
+      <div class="modal-content">
+        <h4>Mapa del sitio</h4>
+          <div class="modal-header bg-light">
+              <h4 class="modal-title text-dark" id="mapaModalLabel">Mapa del Sitio</h4>
+              
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <!-- Contenedor del Mapa del Sitio -->
+              <div class="sitemap">
+                  <div class="tree">
+                      <div class="parent">SanaConexión</div>
+                      <div class="children">
+                        <a href="/home" class="child">Home</a>
+
+                          <a href="/mensajeria" class="child">Mensajería</a>
+                          <div class="child-group">
+                            <a href="/formE" class="child main">Formularios</a>
+                            <div class="sub-children">
+                                <div class="sub-child">Tus Formularios</div>
+                                <div class="sub-child">Crear Formulario</div>
+                            </div>
+                        </div>
+                          <a href="/expedientes" class="child">Expedientes</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+<!--Contenido del pié de página-->
+
     <div class="footer-container">
       <div class="footer-section">
         <h4>Sobre Nosotros</h4>
