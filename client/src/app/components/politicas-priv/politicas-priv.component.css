@@ -1,0 +1,53 @@
+.mover {
+    margin-top: 55px;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #222;
+    padding: 20px;
+    text-align: left;
+}
+
+.content-container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h4,
+h5 {
+    color: #4caf50;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
+
+.volverInicio {
+    display: block;
+    margin-left: 80%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.link {
+    color: blue;
+}

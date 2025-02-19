@@ -1,84 +1,85 @@
 <footer>
   <!-- Botón para abrir el modal -->
-<div class="d-grid gap-2 col-6 mx-auto">
-  <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#mapaModal">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#mapaModal">
       Mapa del sitio
-  </button>
-  <p></p>
-</div>
+    </button>
+    <p></p>
+  </div>
 
-<!-- Modal -->
-<div class="modal fade" id="mapaModal" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header bg-light">
-        <h4 class="modal-title text-dark" id="mapaModalLabel">Mapa del Sitio</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Mapa del sitio para CLIENTES -->
-        <div *ngIf="usuarioTemporal === 'Cliente'">
-          <h4>Mapa del sitio (Cliente)</h4>
-          <div class="sitemap">
-            <div class="tree">
-              <div class="parent">SanaConexión</div>
-              <div class="children">
-                <a href="/vistaClient" class="child">Home</a>
-                <a href="/lista-especialistas" class="child">Especialistas</a>
-                
-                <a href="/cuestionarios-disponibles" class="child">Cuestionarios disponibles</a>
-                <a href="/mensajeria" class="child">Mensajeria</a>
-              </div>
-            </div>
-          </div>
+  <!-- Modal -->
+  <div class="modal fade" id="mapaModal" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-light">
+          <h4 class="modal-title text-dark" id="mapaModalLabel">Mapa del Sitio</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <!-- Mapa del sitio para CLIENTES -->
+          <div *ngIf="usuarioTemporal === 'Cliente'">
+            <h4>Mapa del sitio (Cliente)</h4>
+            <div class="sitemap">
+              <div class="tree">
+                <div class="parent">SanaConexión</div>
+                <div class="children">
+                  <a href="/vistaClient" class="child">Home</a>
+                  <a href="/lista-especialistas" class="child">Especialistas</a>
 
-        <!-- Mapa del sitio para ESPECIALISTAS -->
-        <div *ngIf="usuarioTemporal === 'Especialista'">
-          <h4>Mapa del sitio (Especialista)</h4>
-          <div class="sitemap">
-            <div class="tree">
-              <div class="parent">SanaConexión</div>
-              <div class="children">
-                <a href="/inicioE" class="child">Home</a>
-                <a href="/mensajeria" class="child">Mensajeria</a>
-                <div class="child-group">
-                  <a href="/reportes" class="child main">Formularios</a>
-                  <div class="sub-children">
-                    <div class="sub-child">Crear Formulario</div>
-                    <div class="sub-child">Tus Formularios</div>
-                  </div>
+                  <a href="/cuestionarios-disponibles" class="child">Cuestionarios disponibles</a>
+                  <a href="/mensajeria" class="child">Mensajeria</a>
                 </div>
-                <a href="/configuracion" class="child">Expedientes</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mapa del sitio para ESPECIALISTAS -->
+          <div *ngIf="usuarioTemporal === 'Especialista'">
+            <h4>Mapa del sitio (Especialista)</h4>
+            <div class="sitemap">
+              <div class="tree">
+                <div class="parent">SanaConexión</div>
+                <div class="children">
+                  <a href="/inicioE" class="child">Home</a>
+                  <a href="/mensajeria" class="child">Mensajeria</a>
+                  <div class="child-group">
+                    <a href="/formE" class="child main">Formularios</a>
+                    <div class="sub-children">
+                      <div class="sub-child">Crear Formulario</div>
+                      <div class="sub-child">Tus Formularios</div>
+                    </div>
+                  </div>
+                  <a href="/expedientes" class="child">Expedientes</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
 
 
-<!--Contenido del pié de página-->
-
+  <!--Contenido del pié de página-->
+  <!-- Cliente -->
+  <div *ngIf="usuarioTemporal === 'Cliente'">
     <div class="footer-container">
       <div class="footer-section">
         <h4>Sobre Nosotros</h4>
-        <p>Somos una aplicación que te ayudara a llevar una vida plena y sana, todo esto con ayuda de especialistas nutriólogos</p>
+        <p>Somos una aplicación que te ayudara a llevar una vida plena y sana, todo esto con ayuda de especialistas
+          nutriólogos</p>
       </div>
       <div class="footer-section">
         <h4>Enlaces Útiles</h4>
         <ul>
-          <li><a href="/inicioE">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li><a href="/vistaClient">Inicio</a></li>
+          <li><a href="/mensajeria">Mensajeria</a></li>
           <li><a href="/aviso-Privacidad">Política de Privacidad</a></li>
         </ul>
       </div>
@@ -89,6 +90,57 @@
       </div>
     </div>
     <div class="footer-bottom">
+      <a href="https://www.facebook.com/share/1GigxfLytA/">
+        <i class="fab fa-facebook facebook"> </i>
+      </a>
+
+      <a href="https://x.com/sana__conexion?t=fYufect9Iw27xiksiRk2Tw&s=09">
+        <i class="fab fa-twitter twitter"> </i>
+      </a>
+
+      <a href="https://www.instagram.com/sana._.conexion?igsh=MTFqcG1nZjdmYm9oMA==">
+        <i class="fab fa-instagram instagram"> </i>
+      </a>
       <p>&copy; 2025 Sana Conexión. Todos los derechos reservados.</p>
     </div>
-  </footer>
+  </div>
+
+  <!-- Especialista -->
+  <div *ngIf="usuarioTemporal === 'Especialista'">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Sobre Nosotros</h4>
+        <p>Somos una aplicación que te ayudara a llevar una vida plena y sana, todo esto con ayuda de especialistas
+          nutriólogos</p>
+      </div>
+      <div class="footer-section">
+        <h4>Enlaces Útiles</h4>
+        <ul>
+          <li><a href="/inicioE">Inicio</a></li>
+          <li><a href="/mensajeria">Mensajeria</a></li>
+          <li><a href="/aviso-Privacidad">Política de Privacidad</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p>Email: atencionalcliente@sanaconexion.com</p>
+        <p>Dirección: Calle Hidalgo 13, Dolores Hidalgo CIN, Guanajuato, México.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <a href="https://www.facebook.com/share/1GigxfLytA/">
+        <i class="fab fa-facebook facebook"> </i>
+      </a>
+
+      <a href="https://x.com/sana__conexion?t=fYufect9Iw27xiksiRk2Tw&s=09">
+        <i class="fab fa-twitter twitter"> </i>
+      </a>
+
+      <a href="https://www.instagram.com/sana._.conexion?igsh=MTFqcG1nZjdmYm9oMA==">
+        <i class="fab fa-instagram instagram"> </i>
+      </a>
+      <p>&copy; 2025 Sana Conexión. Todos los derechos reservados.</p>
+    </div>
+  </div>
+
+</footer>

@@ -187,3 +187,24 @@ footer {
   align-items: center;
   text-align: center;
 }
+
+.facebook {
+  background-color: #1877F2;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.twitter {
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.instagram {
+  background-color: #E4405F;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+}
