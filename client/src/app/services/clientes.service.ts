@@ -78,4 +78,27 @@ export class ClientesService {
     getUsuarioTemporal(): Usuarios | null {
       return this.usuarioTemporal;
     }
+
+
+    // Obtener usuario temporal
+  getUsuarioTemporal2() {
+    if (!this.usuarioTemporal) {
+      // Intentar recuperar desde localStorage si no está en memoria
+      const storedUser = localStorage.getItem('usuarioTemporal');
+      this.usuarioTemporal = storedUser ? JSON.parse(storedUser) : null;
+    }
+    return this.usuarioTemporal;
+  }
+
+  // Guardar usuario temporal en memoria y localStorage
+  setUsuarioTemporal2(usuario: any) {
+    this.usuarioTemporal = usuario;
+    localStorage.setItem('usuarioTemporal', JSON.stringify(usuario)); // Guardar en localStorage
+  }
+
+  // Limpiar usuario al cerrar sesión
+  clearUsuarioTemporal() {
+    this.usuarioTemporal = null;
+    localStorage.removeItem('usuarioTemporal'); // Eliminar de localStorage
+  }
 }

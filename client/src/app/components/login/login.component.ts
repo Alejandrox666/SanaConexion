@@ -51,6 +51,8 @@ export class LoginComponent {
           this.authService.setCurrentUser(usuario);
           this.datosUsuario.emit(usuario);
           this.clienteService.setUsuarioTemporal(usuario);
+          this.clienteService.setUsuarioTemporal2(usuario);
+          console.log(usuario.tipoUsuario)
           const destination = usuario.tipoUsuario === "Cliente" ? '/vistaClient' : '/inicioE';
           this.router.navigate([destination]);
         } else {

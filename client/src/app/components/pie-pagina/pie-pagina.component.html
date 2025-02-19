@@ -9,39 +9,57 @@
 
 <!-- Modal -->
 <div class="modal fade" id="mapaModal" tabindex="-1" aria-labelledby="mapaModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg"> <!-- Tamaño grande -->
-      <div class="modal-content">
-        <h4>Mapa del sitio</h4>
-          <div class="modal-header bg-light">
-              <h4 class="modal-title text-dark" id="mapaModalLabel">Mapa del Sitio</h4>
-              
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <!-- Contenedor del Mapa del Sitio -->
-              <div class="sitemap">
-                  <div class="tree">
-                      <div class="parent">SanaConexión</div>
-                      <div class="children">
-                        <a href="/home" class="child">Home</a>
-
-                          <a href="/mensajeria" class="child">Mensajería</a>
-                          <div class="child-group">
-                            <a href="/formE" class="child main">Formularios</a>
-                            <div class="sub-children">
-                                <div class="sub-child">Tus Formularios</div>
-                                <div class="sub-child">Crear Formulario</div>
-                            </div>
-                        </div>
-                          <a href="/expedientes" class="child">Expedientes</a>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h4 class="modal-title text-dark" id="mapaModalLabel">Mapa del Sitio</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+      <div class="modal-body">
+        <!-- Mapa del sitio para CLIENTES -->
+        <div *ngIf="usuarioTemporal === 'Cliente'">
+          <h4>Mapa del sitio (Cliente)</h4>
+          <div class="sitemap">
+            <div class="tree">
+              <div class="parent">SanaConexión</div>
+              <div class="children">
+                <a href="/vistaClient" class="child">Home</a>
+                <a href="/lista-especialistas" class="child">Especialistas</a>
+                
+                <a href="/cuestionarios-disponibles" class="child">Cuestionarios disponibles</a>
+                <a href="/mensajeria" class="child">Mensajeria</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mapa del sitio para ESPECIALISTAS -->
+        <div *ngIf="usuarioTemporal === 'Especialista'">
+          <h4>Mapa del sitio (Especialista)</h4>
+          <div class="sitemap">
+            <div class="tree">
+              <div class="parent">SanaConexión</div>
+              <div class="children">
+                <a href="/inicioE" class="child">Home</a>
+                <a href="/mensajeria" class="child">Mensajeria</a>
+                <div class="child-group">
+                  <a href="/reportes" class="child main">Formularios</a>
+                  <div class="sub-children">
+                    <div class="sub-child">Crear Formulario</div>
+                    <div class="sub-child">Tus Formularios</div>
+                  </div>
+                </div>
+                <a href="/configuracion" class="child">Expedientes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
 
