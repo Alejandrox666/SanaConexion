@@ -1,7 +1,7 @@
 export interface Usuarios {
     IdUsuario: number,
     NombreCompleto: string,
-    Telefono: number,
+    Telefono: string,
     Email: string,
     Password: string,
     FechaRegistro: Date | string,
@@ -15,7 +15,7 @@ export interface Especialistas{
     GradoEstudios?: string,
     Especialidad?: string,
     Certificaciones?: File,
-    YearsExperience?: number,
+    YearsExperience?: string,
     Foto?: File,
     moatrarMas? : boolean
 }

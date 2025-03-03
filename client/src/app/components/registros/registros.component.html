@@ -10,76 +10,76 @@
                         <!-- Formulario de registro -->
                         <div class="mb-3">
                             <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
-                            <input type="text" class="form-control form-control-lg" id="nombre" [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100" placeholder="Ingresa tu nombre" required>
-                            <div *ngIf="registroForm.controls['nombre']?.invalid && registroForm.controls['nombre']?.touched" class="text-danger">
+                            <input type="text" class="form-control form-control-lg" id="nombre"
+                                [(ngModel)]="registro.NombreCompleto" name="nombre" maxlength="100"
+                                placeholder="Ingresa tu nombre" required>
+                            <div *ngIf="registroForm.controls['nombre']?.invalid && registroForm.controls['nombre']?.touched"
+                                class="text-danger">
                                 El nombre es obligatorio.
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="telefono" class="form-label fw-bold">Teléfono</label>
-                            <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required>
-                            <div *ngIf="registroForm.controls['telefono']?.invalid && registroForm.controls['telefono']?.touched" class="text-danger">
+                            <input type="tel" class="form-control form-control-lg" id="telefono"
+                                [(ngModel)]="registro.Telefono" name="telefono" maxlength="10"
+                                placeholder="Ingresa tu número de teléfono" required pattern="^[0-9]{10}$"
+                                #telefono="ngModel">
+
+                            <div *ngIf="telefono.errors?.['required'] && telefono.touched" class="text-danger">
                                 El teléfono es obligatorio.
                             </div>
+
+                            <div *ngIf="telefono.errors?.['pattern'] && telefono.touched" class="text-danger">
+                                El teléfono debe tener 10 dígitos numéricos.
+                            </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="email" class="form-label fw-bold">Correo Electrónico</label>
-                            <input type="email" 
-                                   class="form-control form-control-lg" 
-                                   id="email" 
-                                   [(ngModel)]="registro.Email" 
-                                   name="email" 
-                                   maxlength="100" 
-                                   placeholder="Ingresa tu correo electrónico" 
-                                   required 
-                                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                   #emailInput="ngModel">
-                            
+                            <input type="email" class="form-control form-control-lg" id="email"
+                                [(ngModel)]="registro.Email" name="email" maxlength="100"
+                                placeholder="Ingresa tu correo electrónico" required
+                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #emailInput="ngModel">
+
                             <!-- Mensajes de error simples usando ngModel -->
                             <div *ngIf="emailInput.errors?.['required'] && emailInput.touched" class="text-danger">
-                              El correo electrónico es obligatorio.
+                                El correo electrónico es obligatorio.
                             </div>
                             <div *ngIf="emailInput.errors?.['pattern'] && emailInput.touched" class="text-danger">
-                              El correo electrónico debe tener un formato válido.
+                                El correo electrónico debe tener un formato válido.
                             </div>
-                          </div>
-                          
-                        
-                          <div class="mb-3 position-relative">
+                        </div>
+
+
+                        <div class="mb-3 position-relative">
                             <label for="password" class="form-label fw-bold">Contraseña</label>
-                            
-                            <!-- Campo de entrada de la contraseña con botón para mostrar/ocultar -->
-                            <input [type]="showPassword ? 'text' : 'password'" 
-                                   class="form-control form-control-lg" 
-                                   id="password" 
-                                   [(ngModel)]="registro.Password" 
-                                   name="password" 
-                                   placeholder="Ingresa tu contraseña" 
-                                   required>
-                          
-                            <!-- Icono para mostrar/ocultar contraseña -->
+
+                            <input [type]="showPassword ? 'text' : 'password'" class="form-control form-control-lg"
+                                id="password" [(ngModel)]="contrasenaTemporal" name="password"
+                                placeholder="Ingresa tu contraseña" required>
+
                             <i (click)="togglePasswordVisibility()"
-                               [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
-                               class="position-absolute end-0 pe-3"
-                               style="top: 50%; transform: translateY(30%); cursor: pointer; font-size: 1.2rem; line-height: 1;"></i>
-                          
-                            <!-- Mensaje de error -->
-                            <div *ngIf="registroForm.controls['password']?.invalid && registroForm.controls['password']?.touched" class="text-danger">
-                              La contraseña es obligatoria.
+                                [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                                class="position-absolute end-0 pe-3"
+                                style="top: 50%; transform: translateY(30%); cursor: pointer; font-size: 1.2rem; line-height: 1;"></i>
+
+                            <div *ngIf="registroForm.controls['password']?.invalid && registroForm.controls['password']?.touched"
+                                class="text-danger">
+                                La contraseña es obligatoria.
                             </div>
-                          </div>
-                          
+                        </div>
+
 
                         <div class="d-grid gap-2 mt-3">
-                            <button type="submit" class="btn btn-primary btn-lg" [disabled]="registroForm.invalid">Siguiente</button>
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                [disabled]="registroForm.invalid">Siguiente</button>
                             <button type="reset" class="btn btn-secondary btn-lg">Limpiar Campos</button>
                         </div>
                     </div>
 
                     <div class="card-footer text-center bg-light">
-                        <small class="text-muted">¿Ya tienes una cuenta? 
+                        <small class="text-muted">¿Ya tienes una cuenta?
                             <a (click)="goToLogin()" class="text-primary fw-bold">Inicia sesión aquí</a>
                         </small>
                     </div>
@@ -96,12 +96,14 @@
                             <p>Por favor, ingresa el código de verificación enviado a {{ registro.Email }}</p>
                             <div class="mb-3">
                                 <label for="codigo" class="form-label">Código de Verificación</label>
-                                <input type="text" class="form-control" id="codigo" [(ngModel)]="codigoVerificacion" name="codigoVerificacion" placeholder="Código de verificación" required>
+                                <input type="text" class="form-control" id="codigo" [(ngModel)]="codigoVerificacion"
+                                    name="codigoVerificacion" placeholder="Código de verificación" required>
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" (click)="verificarCodigo()">Verificar</button>
-                            <button type="button" class="btn btn-secondary" (click)="modalRef?.close()">Cancelar</button>
+                            <button type="button" class="btn btn-secondary"
+                                (click)="modalRef?.close()">Cancelar</button>
                         </div>
                     </ng-template>
 
@@ -116,8 +118,10 @@
                         <div class="modal-body">
                             <p>¿Cómo deseas registrarte?</p>
                             <div class="d-flex justify-content-around mt-3">
-                                <button type="button" class="btn btn-primary" (click)="seleccionarRol('especialista')">Especialista</button>
-                                <button type="button" class="btn btn-secondary" (click)="seleccionarRol('cliente')">Cliente</button>
+                                <button type="button" class="btn btn-primary"
+                                    (click)="seleccionarRol('especialista')">Especialista</button>
+                                <button type="button" class="btn btn-secondary"
+                                    (click)="seleccionarRol('cliente')">Cliente</button>
                             </div>
                         </div>
                     </ng-template>
