@@ -13,41 +13,69 @@
             </ol>
         </nav>
     </div>
-    <h2 class="mb-4 text-center">Expedientes de clientes</h2>
-    <!-- Configuramos una fila para agrupar las cards en renglones de 4 elementos -->
-    <div class="row">
-        <div *ngFor="let envio of filteredEnvios" class="col-md-3 mb-4">
-            <div class="card shadow-sm align-items-center h-100">
 
-                <!-- Información del Usuario -->
-                <div class="card-body text-center">
-                    <ng-container *ngFor="let usuario of usuariosget">
-                        <ng-container *ngIf="usuario.IdUsuario === envio.IdUsuario">
-                            <h5 class="card-title mt-3">{{ usuario.NombreCompleto }}</h5>
-                            <p class="text-muted">Teléfono: {{ usuario.Telefono }}</p>
-                            <p class="card-text">
-                                <strong>Correo electrónico:</strong> {{ usuario.Email }}
-                            </p>
 
-                            <!-- Botón para navegar al siguiente componente con el IdUsuario -->
-                            <div class="d-flex gap-2 mt-2 justify-content-center">
-                                <button class="btn btn-primary"
-                                    [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
-                                    Ver Expediente
-                                </button>
+    
 
-                                <!-- Botón para generar el PDF -->
-                                <button class="btn btn-success" (click)="filterAndDownloadPDF(usuario.IdUsuario)">
-                                    Descargar PDF
-                                </button>
-                            </div>
+    <div class="search-container">
+        <!-- Buscador 1 -->
+        
+    
+        <!-- Buscador 2 -->
+        <!-- Buscador 2 (Redirección con sugerencias) -->
+    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+    <datalist id="redirectOptions">
+        <option value="Expedientes"></option>
+        <option value="Mensajería"></option>
+        <option value="Mis Expedientes"></option>
+        <option value="Formularios"></option>
+        <option value="Mis Formularios"></option>
+    </datalist>
+    <button (click)="redirectToPage()" class="search-button">Ir</button>
+    </div>
+    
+
+    <div id="content" #contentContainer>
+
+        <h2 class="mb-4 text-center">Expedientes de clientes</h2>
+        <!-- Configuramos una fila para agrupar las cards en renglones de 4 elementos -->
+        <div class="row">
+            <div *ngFor="let envio of filteredEnvios" class="col-md-3 mb-4">
+                <div class="card shadow-sm align-items-center h-100">
+    
+                    <!-- Información del Usuario -->
+                    <div class="card-body text-center">
+                        <ng-container *ngFor="let usuario of usuariosget">
+                            <ng-container *ngIf="usuario.IdUsuario === envio.IdUsuario">
+                                <h5 class="card-title mt-3">{{ usuario.NombreCompleto }}</h5>
+                                <p class="text-muted">Teléfono: {{ usuario.Telefono }}</p>
+                                <p class="card-text">
+                                    <strong>Correo electrónico:</strong> {{ usuario.Email }}
+                                </p>
+    
+                                <!-- Botón para navegar al siguiente componente con el IdUsuario -->
+                                <div class="d-flex gap-2 mt-2 justify-content-center">
+                                    <button class="btn btn-primary"
+                                        [routerLink]="['/cuestionarios-exp', usuario.IdUsuario]">
+                                        Ver Expediente
+                                    </button>
+    
+                                    <!-- Botón para generar el PDF -->
+                                    <button class="btn btn-success" (click)="filterAndDownloadPDF(usuario.IdUsuario)">
+                                        Descargar PDF
+                                    </button>
+                                </div>
+                            </ng-container>
                         </ng-container>
-                    </ng-container>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    </div>
+
+   
 <footer>
     <app-pie-pagina></app-pie-pagina>
 </footer>

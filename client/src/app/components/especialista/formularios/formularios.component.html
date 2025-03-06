@@ -12,7 +12,33 @@
       </ol>
     </nav>
   </div>
-  <h2 class="mb-4">Crear Nuevo Formulario</h2>
+
+
+        <div class="search-container">
+         
+      
+          <!-- Buscador 2 -->
+          <!-- Buscador 2 (Redirección con sugerencias) -->
+    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+    <datalist id="redirectOptions">
+        <option value="Expedientes"></option>
+        <option value="Mensajería"></option>
+        <option value="Mis Expedientes"></option>
+        <option value="Formularios"></option>
+        <option value="Mis Formularios"></option>
+    </datalist>
+    <button (click)="redirectToPage()" class="search-button">Ir</button>
+      </div>
+      
+
+
+
+  
+
+        <div id="content" #contentContainer>
+
+
+          <h2 class="mb-4">Crear Nuevo Formulario</h2>
 
   <div class="form-group">
     <label for="NomCuestionario">Nombre del Cuestionario</label>
@@ -66,7 +92,9 @@
   <div class="mt-4">
     <button class="btn btn-success" (click)="saveForm()">Guardar Formulario</button>
   </div>
-</div>
+
+
+
 
 <!-- Formularios existentes -->
 <div class="container mt-4" *ngIf="userLoger">
@@ -200,6 +228,16 @@
     </div>
   </div>
 </div>
+
+
+</div>
+
+
+
+        </div>
+
+
+  
 <footer>
   <app-pie-pagina></app-pie-pagina>
 </footer>

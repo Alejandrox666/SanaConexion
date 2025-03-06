@@ -11,7 +11,22 @@
             </ol>
         </nav>
     </div>
-    <!-- Sección de especialistas -->
+
+    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+    <datalist id="redirectOptions">
+        <option value="Especialistas"></option>
+        <option value="Cuestionarios"></option>
+        <option value="Mis cuestionarios"></option>
+        <option value="Mensajeria"></option>
+        <option value="Mensajes"></option>
+        
+    </datalist>
+    <button (click)="redirectToPage()" class="search-button">Ir</button>
+
+  
+
+    <div id="content" #contentContainer>
+         <!-- Sección de especialistas -->
     <h2 class="mb-4 text-center">Nuestros Especialistas</h2>
     <div class="row">
         <div *ngFor="let especialista of especialistas" class="col-md-3 mb-4">
@@ -39,6 +54,9 @@
         </div>
     </div>
 </div>
+
+    </div>
+   
 <footer>
     <app-pie-pagina></app-pie-pagina>
   </footer>

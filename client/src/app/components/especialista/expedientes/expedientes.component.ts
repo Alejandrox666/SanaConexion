@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
 import { IRespuestaService, RESPUESTA_SERVICE_TOKEN } from 'src/app/adapters/respuesta-adapter.interface';
@@ -9,6 +9,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { FormularioService } from 'src/app/services/formulario.service';
 import { RespuestasService } from 'src/app/services/respuestas.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Router } from '@angular/router';
 
 declare module 'jspdf' {
   interface jsPDF {
@@ -22,19 +23,20 @@ declare module 'jspdf' {
   templateUrl: './expedientes.component.html',
   styleUrls: ['./expedientes.component.css']
 })
-export class ExpedientesComponent implements OnInit {
+export class ExpedientesComponent implements OnInit, AfterViewInit {
   enviosget: EnvioForm[] = [];
   usuariosget: Usuarios[] = [];
   cuestionariosget: Cuestionarios[] = [];
   preguntasget: Preguntas[] = [];
   filteredEnvios: EnvioForm[] = [];
 
-  // Se inyecta la interfaz en lugar del servicio concreto
+ 
   constructor(
     private chatSrv: ChatService,
     private usuariosServ: UsuariosService,
     private formularioSrv: FormularioService,
     private respuestasSrv: RespuestasService,
+    private router: Router,
     @Inject(RESPUESTA_SERVICE_TOKEN) private respuestaAdapter: IRespuestaService
   ) {}
 
@@ -82,7 +84,7 @@ export class ExpedientesComponent implements OnInit {
   }
 
   filterAndDownloadPDF(idUsuario: number): void {
-    // Usamos la interfaz para interactuar con el servicio
+    
     this.respuestaAdapter.obtenerRespuestasFiltradasPorUsuario(idUsuario).subscribe(respuestas => {
 
       this.respuestasSrv.getIdClienteByIdUser(idUsuario).subscribe(cliente => {
@@ -104,7 +106,7 @@ export class ExpedientesComponent implements OnInit {
 
   generatePDF(cliente: any, formularios: any[], preguntas: any[], respuestas: any[]): void {
     const doc = new jsPDF();
-    const margin = 20; // Margen superior
+    const margin = 20; 
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
     let yPosition = margin + 25; // Empieza después del título con espacio
@@ -265,5 +267,117 @@ export class ExpedientesComponent implements OnInit {
     const splitText = doc.splitTextToSize(text, maxWidth); // Divide el texto si es demasiado largo
     doc.text(splitText, x, y);
   }
+
+
+
+
+
+
+  //Buscador
+
+   searchTerm: string = ''; 
+      @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef;
+      
+      originalNodes: { element: HTMLElement, originalText: string }[] = []; 
+      matchIndexes: HTMLElement[] = [];
+      currentMatchIndex: number = -1;
+      
+      ngAfterViewInit() {
+        this.saveOriginalText();
+      }
+      
+      ngAfterViewChecked() {
+        this.saveOriginalText();
+      }
+      
+      
+      // Método que guarda los textos originales de los elementos
+      saveOriginalText() {
+        this.originalNodes = [];
+        const elements = this.contentContainer.nativeElement.querySelectorAll('*:not(script):not(style)');
+        
+        elements.forEach((element: Element) => {
+          const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3); // Solo nodos de texto
+      
+          if (textNodes.length > 0) {
+            // Guardar solo el texto limpio sin etiquetas HTML
+            this.originalNodes.push({ 
+              element: element as HTMLElement, 
+              originalText: element.textContent || ''  // Asegurarse de guardar solo el texto
+            });
+          }
+        });
+      }
+      
+      // Método que realiza la búsqueda en el texto
+      searchContent() {
+        if (!this.searchTerm.trim()) {
+          this.restoreOriginalText();
+          return;
+        }
+      
+        const regex = new RegExp(`(${this.escapeRegExp(this.searchTerm)})`, 'gi');
+        this.matchIndexes = [];
+      
+        // Reemplazar el contenido original con el texto resaltado
+        this.originalNodes.forEach(({ element, originalText }) => {
+          element.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
+        });
+      
+        setTimeout(() => {
+          // Aquí también estamos obteniendo los nuevos elementos dinámicamente
+          this.matchIndexes = Array.from(this.contentContainer.nativeElement.querySelectorAll('mark')) as HTMLElement[];
+          this.currentMatchIndex = -1;
+        });
+      }
+      
+      // Navegar entre los resultados de la búsqueda
+      navigateResults(forward: boolean) {
+        if (this.matchIndexes.length === 0) return;
+      
+        if (forward) {
+          this.currentMatchIndex = (this.currentMatchIndex + 1) % this.matchIndexes.length;
+        } else {
+          this.currentMatchIndex = (this.currentMatchIndex - 1 + this.matchIndexes.length) % this.matchIndexes.length;
+        }
+      
+        this.matchIndexes[this.currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      
+      // Restaurar el texto original cuando no haya término de búsqueda
+      restoreOriginalText() {
+        this.originalNodes.forEach(({ element, originalText }) => {
+          element.innerHTML = originalText;
+        });
+        this.matchIndexes = [];
+      }
+      
+      // Escapar caracteres especiales en el texto de búsqueda
+      escapeRegExp(text: string) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      }
+      
+
+      searchTermRedirect: string = '';
+       // 🟠 Buscador 2: Redirigir a una página
+    redirectToPage() {
+      if (!this.searchTermRedirect.trim()) return;
+
+      const term = this.searchTermRedirect.toLowerCase();
+
+      if (term === 'mensajeria') {
+        this.router.navigate(['/mensajeria']);
+      } else if (term === 'expedientes') {
+        this.router.navigate(['/expedientes']);
+      } else if (term === 'formularios') {
+        this.router.navigate(['/formE']);
+      } else {
+        alert('Página no encontrada');
+      }
+
+      this.searchTermRedirect = ''; // Limpiar después de redirigir
+    }
+    
+  
 
 }

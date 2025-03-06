@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { forkJoin, map } from 'rxjs';
 import { Chats, EnvioForm, Mensajes, Participantes } from 'src/app/models/chats';
@@ -9,13 +9,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { FormularioService } from 'src/app/services/formulario.service';
+import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-formularios',
   templateUrl: './formularios.component.html',
   styleUrls: ['./formularios.component.css']
 })
-export class FormulariosComponent implements OnInit {
+export class FormulariosComponent implements OnInit,AfterViewInit {
   @Input() datosUsuario!: Usuarios;
   user: Usuarios = {} as Usuarios;
   cuestionarios: (Cuestionarios & { mostrarPreguntas: boolean })[] = [];
@@ -56,7 +59,7 @@ export class FormulariosComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private formularioService: FormularioService,
     private authService: AuthService, private chatSer: ChatService, private clienteService: ClientesService,
-    private chatService: ChatService
+    private chatService: ChatService,private cdr: ChangeDetectorRef,private router: Router
   ) {
     this.editForm = this.fb.group({
       NomCuestionario: ['', Validators.required],
@@ -491,5 +494,110 @@ export class FormulariosComponent implements OnInit {
       alert('Por favor, selecciona un cliente antes de enviar el formulario.');
     }
   }
+
+
+
+  searchTerm: string = ''; 
+  @ViewChild('contentContainer', { static: false }) contentContainer!: ElementRef;
+  
+  originalNodes: { element: HTMLElement, originalText: string }[] = []; 
+  matchIndexes: HTMLElement[] = [];
+  currentMatchIndex: number = -1;
+  
+  ngAfterViewInit() {
+    this.saveOriginalText();
+  }
+  
+  ngAfterViewChecked() {
+    this.saveOriginalText();
+  }
+  
+  
+  // Método que guarda los textos originales de los elementos
+  saveOriginalText() {
+    this.originalNodes = [];
+    const elements = this.contentContainer.nativeElement.querySelectorAll('*:not(script):not(style)');
+    
+    elements.forEach((element: Element) => {
+      const textNodes = Array.from(element.childNodes).filter(node => node.nodeType === 3); // Solo nodos de texto
+  
+      if (textNodes.length > 0) {
+        // Guardar solo el texto limpio sin etiquetas HTML
+        this.originalNodes.push({ 
+          element: element as HTMLElement, 
+          originalText: element.textContent || ''  // Asegurarse de guardar solo el texto
+        });
+      }
+    });
+  }
+  
+  // Método que realiza la búsqueda en el texto
+  searchContent() {
+    if (!this.searchTerm.trim()) {
+      this.restoreOriginalText();
+      return;
+    }
+  
+    const regex = new RegExp(`(${this.escapeRegExp(this.searchTerm)})`, 'gi');
+    this.matchIndexes = [];
+  
+    // Reemplazar el contenido original con el texto resaltado
+    this.originalNodes.forEach(({ element, originalText }) => {
+      element.innerHTML = originalText.replace(regex, '<mark>$1</mark>');
+    });
+  
+    setTimeout(() => {
+      // Aquí también estamos obteniendo los nuevos elementos dinámicamente
+      this.matchIndexes = Array.from(this.contentContainer.nativeElement.querySelectorAll('mark')) as HTMLElement[];
+      this.currentMatchIndex = -1;
+    });
+  }
+  
+  // Navegar entre los resultados de la búsqueda
+  navigateResults(forward: boolean) {
+    if (this.matchIndexes.length === 0) return;
+  
+    if (forward) {
+      this.currentMatchIndex = (this.currentMatchIndex + 1) % this.matchIndexes.length;
+    } else {
+      this.currentMatchIndex = (this.currentMatchIndex - 1 + this.matchIndexes.length) % this.matchIndexes.length;
+    }
+  
+    this.matchIndexes[this.currentMatchIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  
+  // Restaurar el texto original cuando no haya término de búsqueda
+  restoreOriginalText() {
+    this.originalNodes.forEach(({ element, originalText }) => {
+      element.innerHTML = originalText;
+    });
+    this.matchIndexes = [];
+  }
+  
+  // Escapar caracteres especiales en el texto de búsqueda
+  escapeRegExp(text: string) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+  }
+
+  searchTermRedirect: string = '';
+   // 🟠 Buscador 2: Redirigir a una página
+   redirectToPage() {
+    if (!this.searchTermRedirect.trim()) return;
+
+    const term = this.searchTermRedirect.toLowerCase();
+
+    if (term === 'mensajeria') {
+      this.router.navigate(['/mensajeria']);
+    } else if (term === 'expedientes') {
+      this.router.navigate(['/expedientes']);
+    } else if (term === 'formularios') {
+      this.router.navigate(['/formE']);
+    } else {
+      alert('Página no encontrada');
+    }
+
+    this.searchTermRedirect = ''; // Limpiar después de redirigir
+  }
+  
 
 }

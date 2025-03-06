@@ -177,3 +177,30 @@ body {
 .footer a:hover {
   text-decoration: underline;
 }
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
+
+.active-match {
+  background-color: orange !important;
+  color: black;
+}
+
+
+mark {
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  padding: 2px;
+}
+
+

@@ -1,47 +1,46 @@
 <div class="container">
+    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+    <datalist id="redirectOptions">
+        <option value="Iniciar sesión"></option>
+        <option value="Olvide mi contraseña"></option>
+        <option value="contraseña"></option>
+        <option value="Registro"></option>
+        <option value="Registrarme"></option>
+        
+    </datalist>
+    <button (click)="redirectToPage()" class="search-button">Ir</button>
 
-  <!-- Encabezado -->
-  <header class="header">
-      <h1>Bienvenido a SanaConexión</h1>
-      <p class="slogan">Conexión directa con expertos en bienestar</p>
-  </header>
+    <!-- Contenedor con el contenido de la página -->
+    <div id="content" #contentContainer>
+        <header class="header">
+            <h1>Bienvenido a SanaConexión</h1>
+            <p class="slogan">Conexión directa con expertos en bienestar</p>
+        </header>
+        <section class="intro">
+            <h2>¿Qué es SanaConexión?</h2>
+            <p>Somos una plataforma diseñada para conectar de manera sencilla y eficiente a nutriólogos y clientes...</p>
+        </section>
+        <section class="benefits">
+            <h2>¿Por Qué Unirse a SanaConexión?</h2>
+            <div class="benefit-card">
+                <h3>Asesoría Nutricional Personalizada</h3>
+                <p>Nutriólogos calificados están listos para brindarte recomendaciones adaptadas a tus metas.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Acceso a Información Confiable</h3>
+                <p>Encuentra artículos, videos y recursos creados por profesionales.</p>
+            </div>
+            <div class="benefit-card">
+                <h3>Conexión Directa con Especialistas</h3>
+                <p>Gracias a SanaConexión, contacta rápidamente a expertos en nutrición.</p>
+            </div>
+        </section>
+    </div>
+    
+    
+    
+</div>
+<footer>
+    <app-pie-pagina></app-pie-pagina>
+  </footer>
 
-  <!-- Sección de Presentación -->
-  <section class="intro">
-      <h2>¿Qué es SanaConexión?</h2>
-      <p>Somos una plataforma diseñada para conectar de manera sencilla y eficiente a nutriólogos y clientes, creando un espacio en el que la salud y el bienestar son la prioridad. En SanaConexión, podrás registrarte como cliente o como profesional en nutrición para acceder a servicios especializados y asesorías personalizadas.</p>
-  </section>
-
-  <!-- Sección de Beneficios -->
-  <section class="benefits">
-      <h2>¿Por Qué Unirse a SanaConexión?</h2>
-      <div class="benefit-card">
-          <h3>Asesoría Nutricional Personalizada</h3>
-          <p>Nutriólogos calificados están listos para brindarte recomendaciones adaptadas a tus metas y necesidades nutricionales.</p>
-      </div>
-      <div class="benefit-card">
-          <h3>Acceso a Información Confiable</h3>
-          <p>Encuentra artículos, videos y recursos creados por profesionales para ayudarte a llevar una vida más saludable.</p>
-      </div>
-      <div class="benefit-card">
-          <h3>Conexión Directa con Especialistas</h3>
-          <p>Gracias a SanaConexión, contacta rápidamente a expertos en nutrición para recibir orientación y apoyo en tu camino hacia el bienestar.</p>
-      </div>
-  </section>
-
-  <!-- Sección de Testimonios -->
-  <section class="testimonials">
-      <h2>Testimonios de Nuestra Comunidad</h2>
-      <div class="testimonial-card">
-          <p>"A través de SanaConexión, pude contactar con un nutriólogo que entendió mis necesidades. Es una plataforma fácil de usar y siempre con información confiable."</p>
-          <p class="client-name">- Maria Rodríguez</p>
-      </div>
-      <div class="testimonial-card">
-          <p>"Es muy conveniente poder acceder a profesionales de la salud sin complicaciones. He recibido valiosos consejos para mejorar mi alimentación."</p>
-          <p class="client-name">- Juan Carlos Sánchez</p>
-      </div>
-  </section>
-
-  <!-- Pie de Página -->
-  <footer class="footer">
-  
