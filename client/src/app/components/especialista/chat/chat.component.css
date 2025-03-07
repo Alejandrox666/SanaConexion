@@ -7,7 +7,6 @@
   left: 100px;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
 }
 
 .contact-list {
@@ -20,7 +19,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 20px; /* Aseguramos un padding consistente para la altura */
   margin: 10px 0;
   background-color: #fff;
   border-radius: 10px;
@@ -62,6 +61,11 @@
   margin: 5px 0;
   font-size: 14px;
 }
+
+
+
+
+
 
 
 /* Mensajes */

@@ -15,10 +15,10 @@ export class RegistroClienteComponent implements OnInit {
   cliente = {
     IdCliente: 0,
     IdUsuario: 0,
-    Edad: '',
+    Edad: 0,
     Sexo: '',
-    Peso: '',
-    Estatura: '',
+    Peso: 0,
+    Estatura: 0,
     EnfCronicas: '',
     Alergias: '',
     ObjetivoSalud: '',
