@@ -24,7 +24,7 @@ import { VerPreguntasComponent } from './components/especialista/ver-preguntas/v
 import { HomeComponent } from './components/home/home.component';
 import { ListaEspComponent } from './components/lista-esp/lista-esp.component';
 import { LoginComponent } from './components/login/login.component';
-import { RegistroComponent } from './components/login/registro/registro.component';
+import { TipoRegistroComponent } from './components/login/tipoRegistro/tipoRegistro.component';
 import { MiPerfilComponent } from './components/mi-perfil/mi-perfil.component';
 import { NavigationCComponent } from './components/navigation-c/navigation-c.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
@@ -44,7 +44,7 @@ import { PiePaginaComponent } from './components/pie-pagina/pie-pagina.component
     NavigationComponent,
     LoginComponent,
     HomeComponent,
-    RegistroComponent,
+    TipoRegistroComponent,
     FormEspComponent,
     MiPerfilComponent,
     RegistrosComponent,

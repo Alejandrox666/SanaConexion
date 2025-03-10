@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Usuarios } from 'src/app/models/models';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
-import { RegistroComponent } from './registro/registro.component';
+import { TipoRegistroComponent } from './tipoRegistro/tipoRegistro.component'; 
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
@@ -76,7 +76,7 @@ export class LoginComponent {
   
 
   openModal() {
-    const modalRef = this.modal.open(RegistroComponent, {
+    const modalRef = this.modal.open(TipoRegistroComponent, {
       backdrop: 'static',
       size: 'lg',
       centered: true
