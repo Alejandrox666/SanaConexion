@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-tipoRegistro',
-  templateUrl: './tipoRegistro.component.html',
-  styleUrls: ['./tipoRegistro.component.css']
+  selector: 'app-registro',
+  templateUrl: './registro.component.html',
+  styleUrls: ['./registro.component.css']
 })
-export class TipoRegistroComponent {
+export class RegistroComponent {
 
   constructor(private activeModal:NgbActiveModal){}
 

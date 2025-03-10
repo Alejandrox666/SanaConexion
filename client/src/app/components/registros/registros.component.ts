@@ -15,16 +15,15 @@ export class RegistrosComponent implements OnInit {
   registro: Usuarios = {
     IdUsuario: 0,
     NombreCompleto: '',
-    Telefono: '',
+    Telefono: 0,
     Email: '',
     Password: '',
     FechaRegistro: new Date(),
     tipoUsuario: 'Cliente',
   };
-  contrasenaTemporal: string = '';
   codigoVerificacion: string = '';
   modalRef: NgbModalRef | undefined;
-
+ 
   showPassword = false;
 
   @ViewChild('verificacionCodigoModal') verificacionCodigoModal: any;
@@ -34,11 +33,9 @@ export class RegistrosComponent implements OnInit {
     private usuarioService: UsuariosService,
     private router: Router,
     private modalService: NgbModal
-  ) { }
+  ) {}
 
-
-
-  ngOnInit() { }
+  ngOnInit() {}
 
   // Método para encriptar la contraseña en SHA-256
   async hashPassword(password: string): Promise<string> {
@@ -55,7 +52,7 @@ export class RegistrosComponent implements OnInit {
     const fechaActual = new Date();
     const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
     this.registro.FechaRegistro = fechaFormatoMySQL;
-    this.registro.Password = await this.hashPassword(this.contrasenaTemporal);
+    this.registro.Password = await this.hashPassword(this.registro.Password);
 
     this.usuarioService.setUsuarioTemporal(this.registro);
 
