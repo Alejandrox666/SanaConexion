@@ -1,19 +1,24 @@
 <div class="container">
-    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
-    <datalist id="redirectOptions">
-        <option value="Iniciar sesión"></option>
-        <option value="Olvide mi contraseña"></option>
-        <option value="contraseña"></option>
-        <option value="Registro"></option>
-        <option value="Registrarme"></option>
-        
-    </datalist>
-    <button (click)="redirectToPage()" class="search-button">Ir</button>
+    
+   
 
 
     <!-- Contenedor con el contenido de la página -->
     <div id="content" #contentContainer>
+        
         <header class="header">
+            <div class="redirect-container">
+                <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+                <datalist id="redirectOptions">
+                    <option value="Iniciar sesión"></option>
+                    <option value="Olvide mi contraseña"></option>
+                    <option value="contraseña"></option>
+                    <option value="Registro"></option>
+                    <option value="Registrarme"></option>
+                    
+                </datalist>
+                <button (click)="redirectToPage()" class="search-button">Ir</button>
+            </div>
             <h1>Bienvenido a SanaConexión</h1>
             <p class="slogan">Conexión directa con expertos en bienestar</p>
         </header>

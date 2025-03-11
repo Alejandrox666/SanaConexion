@@ -84,29 +84,26 @@ export class HomeComponent implements AfterViewInit,OnInit {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
   }
 
-  searchTermRedirect: string = '';
+    searchTermRedirect: string = '';
 
- 
-  // 🟠 Buscador 2: Redirigir a una página
-  redirectToPage() {
-    if (!this.searchTermRedirect.trim()) return;
-
-    const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
-
-
-
-
-
-    if (term === 'mensajeria') {
-      this.router.navigate(['/mensajeria']);
-    } else if (term === 'especialistas') {
-      this.router.navigate(['/lista-especialistas']);
-    } else if (term === 'cuestionarios' || term === 'mis cuestionarios') {
-      this.router.navigate(['/cuestionarios-disponibles']);
-    } else {
-      alert('Página no encontrada');
-    }
-
-    this.searchTermRedirect = ''; // Limpiar después de redirigir
-  }
-}
+  
+    // 🟠 Buscador 2: Redirigir a una página
+    redirectToPage() {
+      const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
+      switch (term) {
+        case 'iniciar sesión':
+          this.router.navigate(['/login']);
+          break;
+        case 'olvide mi contraseña':
+        case 'contraseña':
+          this.router.navigate(['/newPasswd']);
+          break;
+        case 'registro':
+        case 'registrarme':
+          this.router.navigate(['/registros']);
+          break;
+       
+        default:
+          alert('Página no encontrada');
+      }
+    }}
