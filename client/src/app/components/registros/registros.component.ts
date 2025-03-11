@@ -21,6 +21,7 @@ export class RegistrosComponent implements OnInit {
     FechaRegistro: new Date(),
     tipoUsuario: 'Cliente',
   };
+  contrasenaTemporal: string = '';
   codigoVerificacion: string = '';
   modalRef: NgbModalRef | undefined;
  
@@ -55,7 +56,7 @@ export class RegistrosComponent implements OnInit {
     this.registro.FechaRegistro = fechaFormatoMySQL;
   
     // Mantener la contraseña en texto plano mientras se muestra en el formulario
-    const passwordOriginal = this.registro.Password;
+    const passwordOriginal = this.contrasenaTemporal;
   
     // Realizar la encriptación solo cuando se necesite
     this.registro.Password = await this.hashPassword(passwordOriginal);
