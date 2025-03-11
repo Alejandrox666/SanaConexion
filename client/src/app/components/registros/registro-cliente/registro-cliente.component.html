@@ -9,11 +9,24 @@
                     <div class="card-body p-4">           
                         <div class="mb-3">
                             <label for="edad" class="form-label fw-bold">Edad</label>
-                            <input type="number" class="form-control form-control-lg" id="edad" name="edad" [(ngModel)]="cliente.Edad" required>
-                            <div *ngIf="registroForm.controls['edad']?.invalid && registroForm.controls['edad']?.touched" class="text-danger">
-                                La edad es obligatoria.
+                            <input 
+                              type="number" 
+                              class="form-control form-control-lg" 
+                              id="edad" 
+                              placeholder="Ingresa tu edad" 
+                              [(ngModel)]="cliente.Edad" 
+                              name="Edad" 
+                              required
+                              min="16" 
+                              max="100"
+                            >
+                            <div *ngIf="registroForm.controls['Edad']?.invalid && registroForm.controls['Edad']?.touched" class="text-danger">
+                              <div *ngIf="registroForm.controls['Edad']?.hasError('required')">La edad es obligatoria.</div>
+                              <div *ngIf="registroForm.controls['Edad']?.hasError('min')">Debes ser mayor de 16 años.</div>
+                              <div *ngIf="registroForm.controls['Edad']?.hasError('max')">La edad no puede ser mayor de 100 años.</div>
                             </div>
-                        </div>
+                          </div>
+                          
                         <div class="mb-3">
                             <label for="sexo" class="form-label fw-bold">Sexo</label>
                             <select class="form-control form-control-lg" id="sexo" name="sexo" [(ngModel)]="cliente.Sexo" required>
@@ -27,33 +40,61 @@
                         </div>
                         <div class="mb-3">
                             <label for="peso" class="form-label fw-bold">Peso (kg)</label>
-                            <input type="number" step="0.01" class="form-control form-control-lg" id="peso" name="peso" [(ngModel)]="cliente.Peso" required>
+                            <input 
+                              type="number" 
+                              step="0.01" 
+                              class="form-control form-control-lg" 
+                              placeholder="Ingresa tu peso" 
+                              id="peso" 
+                              name="peso" 
+                              [(ngModel)]="cliente.Peso" 
+                              required
+                              min="30" 
+                              max="200"
+                            >
                             <div *ngIf="registroForm.controls['peso']?.invalid && registroForm.controls['peso']?.touched" class="text-danger">
-                                El peso es obligatorio.
+                              <div *ngIf="registroForm.controls['peso']?.hasError('required')">El peso es obligatorio.</div>
+                              <div *ngIf="registroForm.controls['peso']?.hasError('min')">El peso debe ser al menos 30 kg.</div>
+                              <div *ngIf="registroForm.controls['peso']?.hasError('max')">El peso no puede ser mayor a 200 kg.</div>
                             </div>
-                        </div>
-                        <div class="mb-3">
+                          </div>
+                          
+                          <div class="mb-3">
                             <label for="estatura" class="form-label fw-bold">Estatura (m)</label>
-                            <input type="number" step="0.01" class="form-control form-control-lg" id="estatura" name="estatura" [(ngModel)]="cliente.Estatura" required>
+                            <input 
+                              type="number" 
+                              step="0.01" 
+                              class="form-control form-control-lg" 
+                              id="estatura" 
+                              placeholder="Ingresa tu estatura" 
+                              name="estatura" 
+                              [(ngModel)]="cliente.Estatura" 
+                              required
+                              min="0.5" 
+                              max="2.5"
+                            >
                             <div *ngIf="registroForm.controls['estatura']?.invalid && registroForm.controls['estatura']?.touched" class="text-danger">
-                                La estatura es obligatoria.
+                              <div *ngIf="registroForm.controls['estatura']?.hasError('required')">La estatura es obligatoria.</div>
+                              <div *ngIf="registroForm.controls['estatura']?.hasError('min')">La estatura debe ser al menos 0.5 metros.</div>
+                              <div *ngIf="registroForm.controls['estatura']?.hasError('max')">La estatura no puede ser mayor a 2.5 metros.</div>
                             </div>
-                        </div>
+                          </div>
+                          
                         <div class="mb-3">
                             <label for="enfCronicas" class="form-label fw-bold">¿Padeces alguna enfermedades crónica?</label>
-                            <textarea class="form-control form-control-lg" id="enfCronicas" name="enfCronicas" [(ngModel)]="cliente.EnfCronicas"></textarea>
+                            <textarea class="form-control form-control-lg" id="enfCronicas" placeholder="Cuentanos si padeces alguna enfermedad cronica" name="enfCronicas" [(ngModel)]="cliente.EnfCronicas"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="alergias" class="form-label fw-bold">¿Tienes alguna alergía?</label>
-                            <textarea class="form-control form-control-lg" id="alergias" name="alergias" [(ngModel)]="cliente.Alergias"></textarea>
+                            <textarea class="form-control form-control-lg" id="alergias" placeholder="Cuentanos si tienes alguna alergía" name="alergias" [(ngModel)]="cliente.Alergias"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="objetivoSalud" class="form-label fw-bold">Cuál es tu objetivo de Salud?</label>
-                            <textarea class="form-control form-control-lg" id="objetivoSalud" name="objetivoSalud" [(ngModel)]="cliente.ObjetivoSalud"></textarea>
+                            <textarea class="form-control form-control-lg" id="objetivoSalud" placeholder="Cuentanos un poco más sobre tus objetivos de salud" name="objetivoSalud" [(ngModel)]="cliente.ObjetivoSalud"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="medicamentos" class="form-label fw-bold">¿Consumes algun medicamento?</label>
-                            <textarea class="form-control form-control-lg" id="medicamentos" name="medicamentos" [(ngModel)]="cliente.Medicamentos"></textarea>
+                            <textarea class="form-control form-control-lg" id="medicamentos" placeholder="Escribe los medicamentos que consumes actualmente" name="medicamentos" [(ngModel)]="cliente.Medicamentos"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="foto" class="form-label fw-bold">Foto</label>

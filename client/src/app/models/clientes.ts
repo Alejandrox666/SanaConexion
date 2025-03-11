@@ -1,10 +1,10 @@
 export interface Clientes {
   IdCliente: number;          // Asegúrate de que este campo sea el ID de cliente
   IdUsuario: number;          // Este campo será la llave foránea referenciando a Usuario
-  Edad: number;               // Edad del cliente
+  Edad: String;               // Edad del cliente
   Sexo: string;               // Sexo del cliente (M/F)
-  Peso: number;               // Peso en kg
-  Estatura: number;           // Estatura en m
+  Peso: String;               // Peso en kg
+  Estatura: String;           // Estatura en m
   EnfCronicas?: string;       // Enfermedades crónicas (opcional)
   Alergias?: string;          // Alergias (opcional)
   ObjetivoSalud?: string;     // Objetivo de salud (opcional)
