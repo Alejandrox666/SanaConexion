@@ -15,7 +15,7 @@ export class RegistrosComponent implements OnInit {
   registro: Usuarios = {
     IdUsuario: 0,
     NombreCompleto: '',
-    Telefono: 0,
+    Telefono: '',
     Email: '',
     Password: '',
     FechaRegistro: new Date(),

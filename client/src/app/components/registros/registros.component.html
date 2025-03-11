@@ -18,10 +18,18 @@
                         
                         <div class="mb-3">
                             <label for="telefono" class="form-label fw-bold">Teléfono</label>
-                            <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required>
-                            <div *ngIf="registroForm.controls['telefono']?.invalid && registroForm.controls['telefono']?.touched" class="text-danger">
-                                El teléfono es obligatorio.
-                            </div>
+                            <input type="tel" class="form-control form-control-lg" id="telefono" [(ngModel)]="registro.Telefono" name="telefono" maxlength="15" placeholder="Ingresa tu número de teléfono" required
+                            pattern="^\+?\d{1,4}[\s\-]?\(?\d{1,3}\)?[\s\-]?\d{1,4}[\s\-]?\d{1,4}[\s\-]?\d{1,9}$"
+                            #telefonoInput="ngModel">
+                              <!-- Mensaje de error cuando el teléfono es obligatorio -->
+                        <div *ngIf="telefonoInput.errors?.['required'] && telefonoInput.touched" class="text-danger">
+                            El teléfono es obligatorio.
+                        </div>
+
+                        <!-- Mensaje de error cuando el teléfono no tiene el formato adecuado -->
+                        <div *ngIf="telefonoInput.errors?.['pattern'] && telefonoInput.touched" class="text-danger">
+                            El teléfono debe tener un formato válido.
+                        </div>
                         </div>
                         
                         <div class="mb-3">
@@ -35,7 +43,8 @@
                                    placeholder="Ingresa tu correo electrónico" 
                                    required 
                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-                                   #emailInput="ngModel">
+                                   #emailInput="ngModel"
+                                   autocomplete="off">
                             
                             <!-- Mensajes de error simples usando ngModel -->
                             <div *ngIf="emailInput.errors?.['required'] && emailInput.touched" class="text-danger">
@@ -50,27 +59,39 @@
                           <div class="mb-3 position-relative">
                             <label for="password" class="form-label fw-bold">Contraseña</label>
                             
-                            <!-- Campo de entrada de la contraseña con botón para mostrar/ocultar -->
-                            <input [type]="showPassword ? 'text' : 'password'" 
-                                   class="form-control form-control-lg" 
-                                   id="password" 
-                                   [(ngModel)]="registro.Password" 
-                                   name="password" 
-                                   placeholder="Ingresa tu contraseña" 
-                                   required>
-                          
-                            <!-- Icono para mostrar/ocultar contraseña -->
-                            <i (click)="togglePasswordVisibility()"
-                               [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
-                               class="position-absolute end-0 pe-3"
-                               style="top: 50%; transform: translateY(30%); cursor: pointer; font-size: 1.2rem; line-height: 1;"></i>
-                          
-                            <!-- Mensaje de error -->
-                            <div *ngIf="registroForm.controls['password']?.invalid && registroForm.controls['password']?.touched" class="text-danger">
-                              La contraseña es obligatoria.
+                            <!-- Contenedor del input de la contraseña -->
+                            <div class="position-relative">
+                                <input [type]="showPassword ? 'text' : 'password'" 
+                                       class="form-control form-control-lg" 
+                                       id="password" 
+                                       [(ngModel)]="registro.Password" 
+                                       name="password" 
+                                       placeholder="Ingresa tu contraseña" 
+                                       required
+                                       minlength="8"
+                                       pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                                       #passwordInput="ngModel"
+                                       autocomplete="new-password">
+                        
+                                <!-- Icono para mostrar/ocultar contraseña -->
+                                <i (click)="togglePasswordVisibility()"
+                                   [ngClass]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+                                   class="position-absolute end-0 pe-3"
+                                   style="top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2rem; line-height: 1; z-index: 1;"></i>
                             </div>
-                          </div>
-                          
+                        
+                            <!-- Mensajes de error debajo del campo -->
+                            <div *ngIf="passwordInput.errors?.['required'] && passwordInput.touched" class="text-danger">
+                                La contraseña es obligatoria.
+                            </div>
+                            <div *ngIf="passwordInput.errors?.['minlength'] && passwordInput.touched" class="text-danger">
+                                La contraseña debe tener al menos 8 caracteres.
+                            </div>
+                            <div *ngIf="passwordInput.errors?.['pattern'] && passwordInput.touched" class="text-danger">
+                                La contraseña debe contener al menos una mayúscula, una minúscula, un número y un carácter especial (@$!%*?&).
+                            </div>
+                        </div>
+                        
 
                         <div class="d-grid gap-2 mt-3">
                             <button type="submit" class="btn btn-primary btn-lg" [disabled]="registroForm.invalid">Siguiente</button>

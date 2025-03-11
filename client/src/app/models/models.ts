@@ -1,7 +1,7 @@
 export interface Usuarios {
     IdUsuario: number,
     NombreCompleto: string,
-    Telefono: number,
+    Telefono: string,
     Email: string,
     Password: string,
     FechaRegistro: Date | string,
