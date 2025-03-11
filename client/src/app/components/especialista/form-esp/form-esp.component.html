@@ -6,9 +6,19 @@
     <form #registroForm="ngForm" (ngSubmit)="guardarEspe()">
         <div class="form-group">
             <label for="cedulaEsp">Número de cédula</label>
-            <input type="number" id="cedulaEsp" [(ngModel)]="especialista.NumCedula" name="NumCedula" placeholder="Número de cédula" required>
+            <input type="text" id="cedulaEsp" 
+                   [(ngModel)]="especialista.NumCedula" 
+                   name="NumCedula" 
+                   placeholder="Número de cédula"
+                   pattern="^[a-zA-Z0-9]{7,8}$"
+                   required>
             <div *ngIf="registroForm.controls['NumCedula']?.invalid && registroForm.controls['NumCedula']?.touched" class="text-danger">
-                El número de cédula es obligatorio.
+                <div *ngIf="registroForm.controls['NumCedula']?.errors?.['required']">
+                    El número de cédula es obligatorio.
+                </div>
+                <div *ngIf="registroForm.controls['NumCedula']?.errors?.['pattern']">
+                    El número de cédula debe tener entre 7 y 8 caracteres alfanuméricos.
+                </div>
             </div>
         </div>
 
@@ -35,9 +45,15 @@
 
         <div class="form-group">
             <label for="experienciaEsp">Años de experiencia</label>
-            <input type="number" id="experienciaEsp" [(ngModel)]="especialista.YearsExperience" name="YearsExperience" placeholder="Años de experiencia" required>
+            <input type="text"
+                   id="experienciaEsp"
+                   [(ngModel)]="especialista.YearsExperience"
+                   name="YearsExperience"
+                   placeholder="Años de experiencia"
+                   required
+                   pattern="^[0-9]+$">
             <div *ngIf="registroForm.controls['YearsExperience']?.invalid && registroForm.controls['YearsExperience']?.touched" class="text-danger">
-                Los años de experiencia son obligatorios.
+                Los años de experiencia son obligatorios y deben ser un número.
             </div>
         </div>
 

@@ -51,11 +51,18 @@ export class RegistrosComponent implements OnInit {
   async guardarDatos() {
     const fechaActual = new Date();
     const fechaFormatoMySQL = fechaActual.toISOString().slice(0, 19).replace('T', ' ');
+  
     this.registro.FechaRegistro = fechaFormatoMySQL;
-    this.registro.Password = await this.hashPassword(this.registro.Password);
-
+  
+    // Mantener la contraseña en texto plano mientras se muestra en el formulario
+    const passwordOriginal = this.registro.Password;
+  
+    // Realizar la encriptación solo cuando se necesite
+    this.registro.Password = await this.hashPassword(passwordOriginal);
+        
+  
     this.usuarioService.setUsuarioTemporal(this.registro);
-
+  
     try {
       await this.usuarioService.enviarCodigo(this.registro.Email).toPromise();
       // Abre el modal para ingresar el código de verificación
@@ -68,6 +75,7 @@ export class RegistrosComponent implements OnInit {
       console.error('Error al enviar el código de verificación:', error);
     }
   }
+  
 
   // Verificar el código ingresado por el usuario
   async verificarCodigo() {

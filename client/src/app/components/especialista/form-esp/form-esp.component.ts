@@ -20,7 +20,7 @@ export class FormEspComponent implements OnInit {
     GradoEstudios: '',
     Especialidad: '',
     Certificaciones: null as unknown as File,
-    YearsExperience: 0,
+    YearsExperience: "",
     Foto: null as unknown as File
   }
   
