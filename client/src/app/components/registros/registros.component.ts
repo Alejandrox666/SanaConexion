@@ -59,7 +59,8 @@ export class RegistrosComponent implements OnInit {
   
     // Realizar la encriptación solo cuando se necesite
     this.registro.Password = await this.hashPassword(passwordOriginal);
-        
+    this.registro.Password = passwordOriginal
+    
   
     this.usuarioService.setUsuarioTemporal(this.registro);
   

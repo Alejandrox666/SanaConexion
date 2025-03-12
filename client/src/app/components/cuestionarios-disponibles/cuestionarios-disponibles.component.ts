@@ -169,28 +169,28 @@ export class CuestionariosDisponiblesComponent implements OnInit, AfterViewInit 
 
       searchTermRedirect: string = '';
 
- 
-      // 🟠 Buscador 2: Redirigir a una página
-      redirectToPage() {
-        if (!this.searchTermRedirect.trim()) return;
-    
-        const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
+ // 🟠 Buscador 2: Redirigir a una página
+redirectToPage() {
+  const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
   
-  
-  
-  
-    
-        if (term === 'mensajeria'  || term === 'mensajes') {
-          this.router.navigate(['/mensajeria']);
-        } else if (term === 'especialistas') {
-          this.router.navigate(['/lista-especialistas']);
-        } else if (term === 'cuestionarios' || term === 'mis cuestionarios') {
-          this.router.navigate(['/cuestionarios-disponibles']);
-        } else {
-          alert('Página no encontrada');
-        }
-    
-        this.searchTermRedirect = ''; // Limpiar después de redirigir
-      }
+  switch (term) {
+    case 'especialistas':
+    case 'mis especialistas':
+      this.router.navigate(['/lista-especialistas']);
+      break;
+    case 'mensajeria':
+    case 'mensajes':
+      this.router.navigate(['/mensajeria']);
+      break;
+    case 'home':
+      this.router.navigate(['/vistaClient']);
+      break;
+    default:
+      alert('Página no encontrada');
+  }
+
+  this.searchTermRedirect = ''; // Limpiar después de redirigir
+}
+
 
 }
