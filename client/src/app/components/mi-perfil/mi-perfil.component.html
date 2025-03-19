@@ -1,6 +1,17 @@
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
+            <div class="redirect-container">
+                <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+                <datalist id="redirectOptions">
+                    <option value="Expedientes"></option>
+                    <option value="Mensajería"></option>
+                    <option value="Mis Expedientes"></option>
+                    <option value="Cuestionarios"></option>
+                    <option value="Mis cuestionarios"></option>
+                </datalist>
+                <button (click)="redirectToPage()" class="search-button">Ir</button>
+              </div>
             <div class="col-sm-12 text-center">
                 <h1 class="text-center">Perfil de usuario</h1>
             </div>

@@ -146,22 +146,28 @@ searchTermRedirect: string = '';
  
 // 🟠 Buscador 2: Redirigir a una página
 redirectToPage() {
-  if (!this.searchTermRedirect.trim()) return;
-
-  const term = this.searchTermRedirect.toLowerCase();
-
-  if (term === 'mensajeria') {
-    this.router.navigate(['/mensajeria']);
-  } else if (term === 'expedientes') {
-    this.router.navigate(['/expedientes']);
-  } else if (term === 'formularios') {
-    this.router.navigate(['/formE']);
-  } else {
-    alert('Página no encontrada');
+  const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
+  
+  switch (term) {
+    case 'mensajería':
+    case 'mensajes':
+      this.router.navigate(['/mensajeria']);
+      break;
+    case 'expedientes':
+    case 'mis expedientes':
+      this.router.navigate(['/expedientes']);
+      break;
+    case 'cuestionarios':
+    case 'mis cuestionarios':
+      this.router.navigate(['/cuestionarios-disponibles']);
+      break;
+    default:
+      alert('Página no encontrada');
   }
 
   this.searchTermRedirect = ''; // Limpiar después de redirigir
 }
+
 
 
 

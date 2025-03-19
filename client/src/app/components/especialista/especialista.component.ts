@@ -118,29 +118,33 @@ export class EspecialistaComponent implements OnInit, AfterViewInit {
     }
 
 
+    searchTermRedirect: string = '';
 
-      // 🌍 Buscador 2 (Redirigir)
-  searchTermRedirect: string = '';
-
- 
-  // 🟠 Buscador 2: Redirigir a una página
-  redirectToPage() {
-    if (!this.searchTermRedirect.trim()) return;
-
-    const term = this.searchTermRedirect.toLowerCase();
-
-    if (term === 'mensajeria') {
-      this.router.navigate(['/mensajeria']);
-    } else if (term === 'expedientes') {
-      this.router.navigate(['/expedientes']);
-    } else if (term === 'formularios') {
-      this.router.navigate(['/formE']);
-    } else {
-      alert('Página no encontrada');
-    }
-
-    this.searchTermRedirect = ''; // Limpiar después de redirigir
-  }
+    // 🟠 Buscador 2: Redirigir a una página
+   redirectToPage() {
+     const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
+     
+     switch (term) {
+       case 'expedientes':
+       case 'mis expedientes':
+         this.router.navigate(['/expedientes']);
+         break;
+       case 'mensajería':
+       case 'mis mensajes':
+         this.router.navigate(['/mensajeria']);
+         break;
+       case 'formularios':
+        case 'mis formularios':
+         this.router.navigate(['/formE']);
+         break;
+       default:
+         alert('Página no encontrada');
+     }
+   
+     this.searchTermRedirect = ''; // Limpiar después de redirigir
+   }
+   
+   
 
   
 }

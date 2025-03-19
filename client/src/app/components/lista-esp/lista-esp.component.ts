@@ -119,26 +119,27 @@ export class ListaEspComponent implements OnInit,AfterViewInit{
  
     // 🟠 Buscador 2: Redirigir a una página
     redirectToPage() {
-      if (!this.searchTermRedirect.trim()) return;
-  
       const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
-
-
-
-
-  
-      if (term === 'mensajeria') {
-        this.router.navigate(['/mensajeria']);
-      } else if (term === 'especialistas') {
-        this.router.navigate(['/lista-especialistas']);
-      } else if (term === 'cuestionarios' || term === 'mis cuestionarios') {
-        this.router.navigate(['/cuestionarios-disponibles']);
-      } else {
-        alert('Página no encontrada');
+      
+      switch (term) {
+        case 'mensajeria':
+        case 'mensajes':
+          this.router.navigate(['/mensajeria']);
+          break;
+        case 'home':
+          this.router.navigate(['/vistaClient']);
+          break;
+        case 'cuestionarios':
+        case 'mis cuestionarios':
+          this.router.navigate(['/cuestionarios-disponibles']);
+          break;
+        default:
+          alert('Página no encontrada');
       }
-  
+    
       this.searchTermRedirect = ''; // Limpiar después de redirigir
     }
+    
   
     
   
