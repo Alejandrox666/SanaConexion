@@ -16,20 +16,29 @@
 
         <div class="search-container">
          
+  
+          <div class="redirect-container">
+            <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+            <datalist id="redirectOptions">
+                <option value="Expedientes"></option>
+                <option value="Mis Expedientes"></option>
+                <option value="Mensajería"></option>
+                <option value="Mis mensajes"></option>
+                
+                <option value="Home"></option>
+                
+            </datalist>
+            <button (click)="redirectToPage()" class="search-button">Ir</button>
+            
+          </div>
+          
+
       
           <!-- Buscador 2 -->
           <!-- Buscador 2 (Redirección con sugerencias) -->
-    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
-    <datalist id="redirectOptions">
-        <option value="Expedientes"></option>
-        <option value="Mensajería"></option>
-        <option value="Mis Expedientes"></option>
-        <option value="Formularios"></option>
-        <option value="Mis Formularios"></option>
-    </datalist>
-    <button (click)="redirectToPage()" class="search-button">Ir</button>
+ 
       </div>
-      
+      <div style="height: 30px;"></div>
 
 
 

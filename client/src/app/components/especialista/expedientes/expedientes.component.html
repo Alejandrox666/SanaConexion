@@ -21,17 +21,20 @@
         <!-- Buscador 1 -->
         
     
-        <!-- Buscador 2 -->
-        <!-- Buscador 2 (Redirección con sugerencias) -->
-    <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
+        <div class="redirect-container">
+            <input list="redirectOptions" [(ngModel)]="searchTermRedirect" placeholder="Ir a..." class="search-input">
     <datalist id="redirectOptions">
-        <option value="Expedientes"></option>
+        <option value="Home"></option>
         <option value="Mensajería"></option>
-        <option value="Mis Expedientes"></option>
+        <option value="Mis mensajes"></option>
         <option value="Formularios"></option>
         <option value="Mis Formularios"></option>
     </datalist>
     <button (click)="redirectToPage()" class="search-button">Ir</button>
+        </div>
+        <!-- Buscador 2 -->
+        <!-- Buscador 2 (Redirección con sugerencias) -->
+    
     </div>
     
 

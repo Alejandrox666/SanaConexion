@@ -6,6 +6,7 @@ import { Clientes } from 'src/app/models/clientes';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { DatosEspService } from 'src/app/services/datos-esp.service';
 import { Especialistas } from 'src/app/models/models';
+import { Router } from '@angular/router';
 
 
 
@@ -30,7 +31,7 @@ export class MiPerfilComponent implements OnInit, OnChanges {
   editEntrevistaMode: boolean = true;
   modoTipoUsuario:string = '';
 
-  constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService, private especialistasService: DatosEspService) {}
+  constructor(private userService: UserService, private authService: AuthService, private clientesService:ClientesService, private especialistasService: DatosEspService, private router :Router) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(
@@ -246,4 +247,32 @@ onFileSelected(event: any) {
     reader.readAsDataURL(file);
   }
 }
+
+
+searchTermRedirect: string = '';
+
+// 🟠 Buscador 2: Redirigir a una página
+redirectToPage() {
+  const term = this.searchTermRedirect.toLowerCase().trim(); // Normaliza el texto
+  
+  switch (term) {
+    case 'mensajería':
+    case 'mensajes':
+      this.router.navigate(['/mensajeria']);
+      break;
+    case 'expedientes':
+    case 'mis expedientes':
+      this.router.navigate(['/expedientes']);
+      break;
+    case 'cuestionarios':
+    case 'mis cuestionarios':
+      this.router.navigate(['/cuestionarios-disponibles']);
+      break;
+    default:
+      alert('Página no encontrada');
+  }
+
+  this.searchTermRedirect = ''; // Limpiar después de redirigir
+}
+
 }
