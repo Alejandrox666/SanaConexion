@@ -2,7 +2,7 @@
 plan = "node"
 
 [phases.setup]
-cmds = ["cd server && npm install"]
+cmds = ["corepack enable", "cd server && npm install"]
 
 [start]
 cmd = "cd server && node index.js"
