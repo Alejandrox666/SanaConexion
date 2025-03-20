@@ -1,8 +1,6 @@
-[build]
-plan = "node"
-
 [phases.setup]
-cmds = ["corepack enable", "cd server && npm install"]
+nixPkgs = ["nodejs_18"]
+cmds = ["cd server && npm install"]
 
 [start]
 cmd = "cd server && node index.js"
