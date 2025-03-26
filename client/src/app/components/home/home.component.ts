@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements AfterViewInit,OnInit {
   isLoggedIn: boolean = false;
+  isButtonVisible: boolean = false;
  
   constructor(
     private modal: NgbModal,
@@ -106,4 +107,32 @@ export class HomeComponent implements AfterViewInit,OnInit {
         default:
           alert('Página no encontrada');
       }
-    }}
+    }
+  
+
+
+
+   
+
+    @HostListener('window:scroll', [])
+    onScroll(): void {
+      const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+      this.isButtonVisible = scrollPosition > window.innerHeight / 2; // Aparece cuando pasas la mitad de la página
+  
+      const button = document.getElementById('backToTop');
+      if (button) {
+        if (this.isButtonVisible) {
+          button.classList.add('show');
+        } else {
+          button.classList.remove('show');
+        }
+      }
+    }
+  
+    scrollToTop(): void {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+
+  
+  }

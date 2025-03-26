@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Usuarios } from 'src/app/models/models';
 import { ElementRef } from '@angular/core';
@@ -147,4 +147,24 @@ export class EspecialistaComponent implements OnInit, AfterViewInit {
    
 
   
+   isButtonVisible: boolean = false;
+
+   @HostListener('window:scroll', [])
+   onScroll(): void {
+     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+     this.isButtonVisible = scrollPosition > window.innerHeight / 2; // Aparece cuando pasas la mitad de la página
+ 
+     const button = document.getElementById('backToTop');
+     if (button) {
+       if (this.isButtonVisible) {
+         button.classList.add('show');
+       } else {
+         button.classList.remove('show');
+       }
+     }
+   }
+ 
+   scrollToTop(): void {
+     window.scrollTo({ top: 0, behavior: 'smooth' });
+   }
 }

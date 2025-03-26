@@ -1,4 +1,4 @@
-import { Component, OnInit , Inject, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit , Inject, AfterViewInit, ViewChild, ElementRef, HostListener} from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { FormularioService } from 'src/app/services/formulario.service';
@@ -170,5 +170,26 @@ redirectToPage() {
 
 
 
+
+isButtonVisible: boolean = false;
+
+@HostListener('window:scroll', [])
+onScroll(): void {
+  const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  this.isButtonVisible = scrollPosition > window.innerHeight / 2; // Aparece cuando pasas la mitad de la página
+
+  const button = document.getElementById('backToTop');
+  if (button) {
+    if (this.isButtonVisible) {
+      button.classList.add('show');
+    } else {
+      button.classList.remove('show');
+    }
+  }
+}
+
+scrollToTop(): void {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
 }
