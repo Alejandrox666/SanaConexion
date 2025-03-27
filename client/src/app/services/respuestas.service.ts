@@ -8,8 +8,8 @@ import { Preguntas, Respuestas } from '../models/formularios';
   providedIn: 'root'
 })
 export class RespuestasService {
-  private Back_Api = 'http://localhost:3002/api/respuestas';
-  private Back_Api2 = 'http://localhost:3002/api/cuestionariosClientes';
+  private Back_Api = 'https://sanaconexion-1.onrender.com/api/respuestas';
+  private Back_Api2 = 'https://sanaconexion-1.onrender.com/api/cuestionariosClientes';
 
   constructor(private http: HttpClient) {}
 
