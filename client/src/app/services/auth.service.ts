@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URI = 'https://tu-backend-en-render.onrender.com/api';
+  private readonly API_URI = 'https://sanaconexion-1.onrender.com/api';
   
   private isLoggedIn = false;
   private currentUserSubject: BehaviorSubject<Usuarios | null> = new BehaviorSubject<Usuarios | null>(null); 
