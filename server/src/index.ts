@@ -29,7 +29,7 @@ class Server {
 
 
     config():void{
-        this.app.set('port',process.env.PORT || 3002);
+        this.app.set('port',process.env.PORT || 10000);
         this.app.use(morgan('dev'));
         this.app.use(cors());
         this.app.use(bodyParser.json({ limit: '10mb' }));

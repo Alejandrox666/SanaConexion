@@ -5,7 +5,7 @@ import pool from "../database";
 class EnvioFormController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const envioForm = await pool.query('SELECT * FROM enviosformularios');
+        const envioForm = await pool.query('SELECT * FROM enviosFfrmularios');
         res.json(envioForm);
     }
 
