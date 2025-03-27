@@ -8,7 +8,8 @@ import { environment } from 'src/environments/environment.prod';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  private API_URI = `${environment.apiUrl}/api`;
+  
   private isLoggedIn = false;
   private currentUserSubject: BehaviorSubject<Usuarios | null> = new BehaviorSubject<Usuarios | null>(null); 
   private currentUser: Usuarios | null = null;
@@ -30,8 +31,13 @@ export class AuthService {
     return sessionStorage.getItem('userId'); // Usamos sessionStorage en vez de localStorage
   }
 
+  // Todos tus métodos existentes, pero usando API_URI:
   loginToServer(email: string, password: string): Observable<any> {
-    return this.http.post<any>('${this.apiUrl}/login/login', { email, password });
+    return this.http.post<any>(`${this.API_URI}/login`, { email, password });
+  }
+
+  getEspecialistaByIdUsuario(idUsuario: number): Observable<any> {
+    return this.http.get<any>(`${this.API_URI}/usuarioEsp/${idUsuario}`);
   }
 
   isAuthenticated(): boolean {
@@ -65,7 +71,5 @@ export class AuthService {
     return this.currentUserSubject.asObservable();
   }
 
-  getEspecialistaByIdUsuario(idUsuario: number): Observable<any> {
-    return this.http.get<any>(`http://localhost:3002/api/usuarioEsp/${idUsuario}`);
-  }
+ 
 }
