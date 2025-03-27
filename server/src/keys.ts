@@ -4,7 +4,7 @@ export default {
         host: 'localhost',
         user: 'root',
         password:'1492',
-        database: 'sistema_nutricio'
+        database: 'sistema_nutricion'
     }
 
 }
