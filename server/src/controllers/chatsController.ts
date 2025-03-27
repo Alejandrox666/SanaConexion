@@ -10,7 +10,7 @@ class ChatsController {
     }
 
     public async partList(req: Request, res: Response): Promise<void> {
-        const msj = await pool.query(`Select * FROM participantesChat`)
+        const msj = await pool.query(`Select * FROM participanteschat`)
         res.json(msj)
     }
 
@@ -50,7 +50,7 @@ class ChatsController {
 
     public async createPart(req: Request, res: Response): Promise<void> {
         try {
-            const result = await pool.query('INSERT INTO participantesChat set ?', [req.body]);
+            const result = await pool.query('INSERT INTO participanteschat set ?', [req.body]);
 
             const chatId = result.insertId
 
