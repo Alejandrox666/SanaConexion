@@ -4,7 +4,7 @@ import pool from "../database";
 
 class UsuarioEspController {
     public async list(req: Request, res: Response): Promise<void> {
-        const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.IdUsuario,Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
+        const usuarios = await pool.query(`SELECT usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.IdUsuario,Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
    FROM Usuarios
    INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`)
         res.json(usuarios)

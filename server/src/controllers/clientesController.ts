@@ -4,14 +4,14 @@ import pool from '../database';
 
 class ClientesController{
     public async list(req: Request, res: Response): Promise<void> {
-        const usuarios = await pool.query('SELECT * FROM Clientes');
+        const usuarios = await pool.query('SELECT * FROM clientes');
         res.json(usuarios);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         try {
-            const usuarios = await pool.query('SELECT * FROM Clientes WHERE id = ?', [id]);
+            const usuarios = await pool.query('SELECT * FROM clientes WHERE id = ?', [id]);
             if (usuarios.length > 0) {
                 return res.json(usuarios[0]);
             }
@@ -24,7 +24,7 @@ class ClientesController{
     public async getOneIdUsuario(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         try {
-            const usuarios = await pool.query('SELECT * FROM Clientes WHERE idUsuario = ?', [id]);
+            const usuarios = await pool.query('SELECT * FROM clientes WHERE idUsuario = ?', [id]);
             if (usuarios.length > 0) {
                 return res.json(usuarios[0]);
             }
@@ -51,7 +51,7 @@ class ClientesController{
 
     public  async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('DELETE FROM Clientes WHERE id = ?', [id]);
+        await pool.query('DELETE FROM clientes WHERE id = ?', [id]);
         res.json({ message: "The user was deleted" });
     }
 
@@ -59,7 +59,7 @@ class ClientesController{
         const { id } = req.params;
         const oldHouse = req.body;
         console.log(req.body);
-        await pool.query('UPDATE Clientes set ? WHERE IdUsuario = ?', [req.body, id]);
+        await pool.query('UPDATE clientes set ? WHERE IdUsuario = ?', [req.body, id]);
         res.json({ message: "The user was Updated" });
     }
 

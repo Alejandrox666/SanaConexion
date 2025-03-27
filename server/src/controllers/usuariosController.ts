@@ -27,7 +27,7 @@ class UsuariosController{
     public async create(req: Request, res: Response): Promise<void> {
         try {
             // Realiza la inserción y almacena el resultado
-            const result = await pool.query('INSERT INTO Usuarios set ?', [req.body]);
+            const result = await pool.query('INSERT INTO usuarios set ?', [req.body]);
             
             // Obtiene el ID del usuario recién creado
             const userId = result.insertId; // Asegúrate de que el método de consulta devuelve insertId
