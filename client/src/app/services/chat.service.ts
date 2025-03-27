@@ -10,7 +10,7 @@ import { Usuarios } from '../models/models';
 export class ChatService {
 
   private Back_ApiC = 'https://sanaconexion-1.onrender.com/api/chats';
-  private Back_ApiU = 'https://sanaconexion-1.onrender.comapi/users';
+  private Back_ApiU = 'https://sanaconexion-1.onrender.com/api/users';
   private Back_Api = 'https://sanaconexion-1.onrender.com/api';
 
   constructor(private http: HttpClient) { }
