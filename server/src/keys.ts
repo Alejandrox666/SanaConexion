@@ -9,7 +9,7 @@ export default {
         database: process.env.MYSQL_ADDON_DB || 'byxkfgn533c0gq7wr3zp',
         port: Number(process.env.MYSQL_ADDON_PORT) || 3306,
         ssl: {
-            rejectUnauthorized: true // Obligatorio para Clever Cloud
+            rejectUnauthorized: false // Obligatorio para Clever Cloud
         },
         waitForConnections: true,
         connectionLimit: 10,

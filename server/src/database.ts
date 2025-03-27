@@ -5,7 +5,7 @@ import keys from './keys';
 const pool = mysql.createPool({
   ...keys.database,
   ssl: {
-    rejectUnauthorized: true // Obligatorio para Clever Cloud
+    rejectUnauthorized: false // Obligatorio para Clever Cloud
   },
   connectionLimit: 10,
   connectTimeout: 10000 // 10 segundos de timeout
