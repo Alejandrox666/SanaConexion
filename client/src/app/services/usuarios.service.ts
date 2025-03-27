@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Usuarios } from '../models/models';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -11,9 +12,9 @@ export class UsuariosService {
 
   private usuarioTemporal: Usuarios | null = null;
 
-  private baseUrl = 'http://localhost:3002/api';
-  API_URI='http://localhost:3002/api';
-  API_URI2='http://localhost:3002/api';
+  private baseUrl = `${environment.apiUrl}/api`; // Modificado
+  API_URI = `${environment.apiUrl}/api`; // Modificado
+  API_URI2 = `${environment.apiUrl}/api`; // Modificado
   constructor(private http: HttpClient) { }
 
   getuser(){

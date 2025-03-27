@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { Clientes } from '../models/clientes';
 import { Usuarios } from '../models/models';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientesService {
-  private baseUrl = 'http://localhost:3002/api'; // Cambia esto a la URL de tu API
-  API_URI = 'http://localhost:3002/api';
-
+  private baseUrl = `${environment.apiUrl}/api`; // Modificado
+  API_URI = `${environment.apiUrl}/api`;
+  
   private usuarioTemporal: Usuarios | null = null;
   
   constructor(private http: HttpClient) { }

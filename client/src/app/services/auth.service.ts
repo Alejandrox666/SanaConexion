@@ -2,11 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Usuarios } from '../models/models';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private apiUrl = environment.apiUrl;
   private isLoggedIn = false;
   private currentUserSubject: BehaviorSubject<Usuarios | null> = new BehaviorSubject<Usuarios | null>(null); 
   private currentUser: Usuarios | null = null;
@@ -29,7 +31,7 @@ export class AuthService {
   }
 
   loginToServer(email: string, password: string): Observable<any> {
-    return this.http.post<any>('http://localhost:3002/api/login', { email, password });
+    return this.http.post<any>('${this.apiUrl}/login/login', { email, password });
   }
 
   isAuthenticated(): boolean {
