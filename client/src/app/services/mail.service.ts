@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MailService {
-  private apiUrl = 'http://localhost:3002/api/usuarios'; // Cambia esto a tu URL real
+  private apiUrl = 'https://sanaconexion-1.onrender.com/api/usuarios'; // Cambia esto a tu URL real
 
   constructor(private http: HttpClient) { }
 

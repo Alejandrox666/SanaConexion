@@ -4,9 +4,9 @@ import pool from "../database";
 
 class UsuarioEspController {
     public async list(req: Request, res: Response): Promise<void> {
-        const usuarios = await pool.query(`SELECT usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.IdUsuario,Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
-   FROM Usuarios
-   INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario`)
+        const usuarios = await pool.query(`SELECT usuarios.NombreCompleto, usuarios.Telefono, usuarios.Email, especialistas.IdUsuario,especialistas.NumCedula, especialistas.GradoEstudios, especialistas.Especialidad, especialistas.Certificaciones, especialistas.YearsExperience, especialistas.Foto
+   FROM usuarios
+   INNER JOIN especialistas ON usuarios.IdUsuario = especialistas.IdUsuario`)
         res.json(usuarios)
     }
 
@@ -16,10 +16,10 @@ class UsuarioEspController {
         const { id } = req.params;
 
         try {
-            const usuarios = await pool.query(`SELECT Usuarios.NombreCompleto, Usuarios.Telefono, Usuarios.Email, Especialistas.IdEspecialista, Especialistas.NumCedula, Especialistas.GradoEstudios, Especialistas.Especialidad, Especialistas.Certificaciones, Especialistas.YearsExperience, Especialistas.Foto
-                FROM Usuarios
-                INNER JOIN Especialistas ON Usuarios.IdUsuario = Especialistas.IdUsuario
-                WHERE Usuarios.IdUsuario = ?`, [id]);
+            const usuarios = await pool.query(`SELECT usuarios.NombreCompleto, usuarios.Telefono, usuarios.Email, especialistas.IdEspecialista, especialistas.NumCedula, especialistas.GradoEstudios, especialistas.Especialidad, especialistas.Certificaciones, especialistas.YearsExperience, especialistas.Foto
+                FROM usuarios
+                INNER JOIN especialistas ON usuarios.IdUsuario = especialistas.IdUsuario
+                WHERE usuarios.IdUsuario = ?`, [id]);
             if (usuarios.length > 0) {
                 return res.json(usuarios[0]);
             }
@@ -34,7 +34,7 @@ class UsuarioEspController {
 
         try {
             const especialistas = await pool.query(`SELECT *
-                FROM Especialistas
+                FROM especialistas
                 WHERE IdUsuario = ?`, [id]);
             if (especialistas.length > 0) {
                 console.log(especialistas);
@@ -63,13 +63,13 @@ class UsuarioEspController {
 
     public async updateUsu(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('UPDATE Usuarios set ? WHERE IdUsuario = ?', [req.body, id]);
+        await pool.query('UPDATE usuarios set ? WHERE IdUsuario = ?', [req.body, id]);
         res.json({ message: 'The usuario was update' })
     }
 
     public async updateEsp(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('UPDATE Especialistas set ? WHERE IdUsuario = ?', [req.body, id]);
+        await pool.query('UPDATE especialistas set ? WHERE IdUsuario = ?', [req.body, id]);
         res.json({ message: 'The especialista was update' })
     }
 }

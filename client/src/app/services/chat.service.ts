@@ -9,9 +9,9 @@ import { Usuarios } from '../models/models';
 })
 export class ChatService {
 
-  private Back_ApiC = 'http://localhost:3002/api/chats';
-  private Back_ApiU = 'http://localhost:3002/api/users';
-  private Back_Api = 'http://localhost:3002/api';
+  private Back_ApiC = 'https://sanaconexion-1.onrender.com/api/chats';
+  private Back_ApiU = 'https://sanaconexion-1.onrender.comapi/users';
+  private Back_Api = 'https://sanaconexion-1.onrender.com/api';
 
   constructor(private http: HttpClient) { }
 

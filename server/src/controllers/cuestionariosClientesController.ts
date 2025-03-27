@@ -4,7 +4,7 @@ import pool from '../database';
 class CuestionariosClientesController {
     // Listar todas las asignaciones de cuestionarios a clientes
     public async list(req: Request, res: Response): Promise<void> {
-        const cuestionariosClientes = await pool.query('SELECT * FROM CuestionariosClientes');
+        const cuestionariosClientes = await pool.query('SELECT * FROM cuestionariosClientes');
         res.json(cuestionariosClientes);
     }
 
@@ -12,7 +12,7 @@ class CuestionariosClientesController {
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         try {
-            const cuestionarioCliente = await pool.query('SELECT * FROM CuestionariosClientes WHERE IdCuestionarioCliente = ?', [id]);
+            const cuestionarioCliente = await pool.query('SELECT * FROM cuestionariosClientes WHERE IdCuestionarioCliente = ?', [id]);
             if (cuestionarioCliente.length > 0) {
                 return res.json(cuestionarioCliente[0]);
             }
@@ -24,21 +24,21 @@ class CuestionariosClientesController {
 
     // Crear una nueva asignación de cuestionario a cliente
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await pool.query('INSERT INTO CuestionariosClientes SET ?', [req.body]);
+        const result = await pool.query('INSERT INTO cuestionariosClientes SET ?', [req.body]);
         res.json({ message: 'Assignment saved' });
     }
 
     // Eliminar una asignación de cuestionario a cliente por ID
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('DELETE FROM CuestionariosClientes WHERE IdCuestionarioCliente = ?', [id]);
+        await pool.query('DELETE FROM cuestionariosClientes WHERE IdCuestionarioCliente = ?', [id]);
         res.json({ message: "Assignment deleted" });
     }
 
     // Actualizar una asignación de cuestionario a cliente
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await pool.query('UPDATE CuestionariosClientes SET ? WHERE IdCuestionarioCliente = ?', [req.body, id]);
+        await pool.query('UPDATE cuestionariosClientes SET ? WHERE IdCuestionarioCliente = ?', [req.body, id]);
         res.json({ message: "Assignment updated" });
     }
 
@@ -47,10 +47,10 @@ class CuestionariosClientesController {
         const { IdCliente } = req.params;
         try {
             const cuestionarios = await pool.query(
-                'SELECT CuestionariosClientes.IdCuestionarioCliente, Cuestionarios.NomCuestionario, CuestionariosClientes.Estado ' +
-                'FROM CuestionariosClientes ' +
-                'JOIN Cuestionarios ON CuestionariosClientes.IdCuestionario = Cuestionarios.IdCuestionario ' +
-                'WHERE CuestionariosClientes.IdCliente = ?',
+                'SELECT cuestionariosClientes.IdCuestionarioCliente, cuestionarios.NomCuestionario, cuestionariosClientes.Estado ' +
+                'FROM cuestionariosClientes ' +
+                'JOIN cuestionarios ON cuestionariosClientes.IdCuestionario = cuestionarios.IdCuestionario ' +
+                'WHERE cuestionariosClientes.IdCliente = ?',
                 [IdCliente]
             );
             

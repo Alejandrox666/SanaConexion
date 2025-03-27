@@ -7,7 +7,7 @@ import { catchError, Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class DatosEspService {
-  private Back_Api = 'http://localhost:3002/api';
+  private Back_Api = 'https://sanaconexion-1.onrender.com/api';
 
   constructor(private http:HttpClient) { }
 

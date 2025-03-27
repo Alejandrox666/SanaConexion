@@ -5,24 +5,24 @@ import pool from "../database";
 class ChatsController {
 
     public async chatList(req: Request, res: Response): Promise<void> {
-        const chat = await pool.query(`Select * FROM Chats`)
+        const chat = await pool.query(`Select * FROM chats`)
         res.json(chat)
     }
 
     public async partList(req: Request, res: Response): Promise<void> {
-        const msj = await pool.query(`Select * FROM ParticipantesChat`)
+        const msj = await pool.query(`Select * FROM participantesChat`)
         res.json(msj)
     }
 
     public async msjList(req: Request, res: Response): Promise<void> {
-        const msj = await pool.query(`Select * FROM Mensajes`)
+        const msj = await pool.query(`Select * FROM mensajes`)
         res.json(msj)
     }
 
     public async getOneMsj(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         try {
-            const msj = await pool.query(`Select * FROM Mensajes
+            const msj = await pool.query(`Select * FROM mensajes
     WHERE IdChat = ?`, [id])
             if (msj.length > 0) {
                 return res.json(msj);
@@ -38,7 +38,7 @@ class ChatsController {
 
     public async createChat(req: Request, res: Response): Promise<void> {
         try {
-            const result = await pool.query('INSERT INTO Chats set ?', [req.body]);
+            const result = await pool.query('INSERT INTO chats set ?', [req.body]);
 
             const chatId = result.insertId
 
@@ -50,7 +50,7 @@ class ChatsController {
 
     public async createPart(req: Request, res: Response): Promise<void> {
         try {
-            const result = await pool.query('INSERT INTO ParticipantesChat set ?', [req.body]);
+            const result = await pool.query('INSERT INTO participantesChat set ?', [req.body]);
 
             const chatId = result.insertId
 
@@ -61,7 +61,7 @@ class ChatsController {
     }
 
     public async createMsj(req: Request, res: Response): Promise<void> {
-        await pool.query('INSERT INTO Mensajes set ?', [req.body]);
+        await pool.query('INSERT INTO mensajes set ?', [req.body]);
         res.json({ message: 'MSJ save' })
     }
 }

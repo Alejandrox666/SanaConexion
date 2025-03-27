@@ -43,7 +43,7 @@ class RespuestasController{
         const { IdCuestionario } = req.params;
         try {
             const respuestas = await pool.query(
-                'SELECT Preguntas.IdPregunta, Preguntas.Pregunta FROM Preguntas WHERE Preguntas.IdCuestionario = ?;',
+                'SELECT preguntas.IdPregunta, preguntas.Pregunta FROM preguntas WHERE preguntas.IdCuestionario = ?;',
                 [IdCuestionario]
             );
             

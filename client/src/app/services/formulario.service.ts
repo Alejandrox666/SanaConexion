@@ -8,7 +8,7 @@ import { catchError, Observable, of } from 'rxjs';
 })
 export class FormularioService {
 
-  private Back_Api = 'http://localhost:3002/api/formularios';
+  private Back_Api = 'https://sanaconexion-1.onrender.com/api/formularios';
 
   constructor(private http: HttpClient) { }
 
